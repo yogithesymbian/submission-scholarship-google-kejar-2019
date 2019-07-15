@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<resources
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <color name="colorPrimary">#1976d2</color>
+    <color name="colorPrimaryDark">#004ba0</color>
+    <color name="colorAccent">#1976d2</color>
+    <color name="colorAccentSecondary" tools:keep="@color/colorAccentSecondary">#801976d2</color>
+
+    <!--for movie detail following https://www.themoviedb.org -->
+
+    <color name="colorMovieLight">#1976d2</color>
+    <color name="colorMovieDark">#004ba0</color>
+    <color name="colorBarTabGreen">#01875f</color>
+    <color name="colorBarTabPink">#ff4081</color>
+    <color name="colorBarTabPurple">#6f74dd</color>
+
+
+    <!--for colorPrimary White-->
+    <!-- 69% opacity for Large Text-->
+    <color
+
+            name="textColorPrimaryWhiteLarge"
+            tools:keep="@color/textColorPrimaryWhiteLarge">#B0FFFFFF
+    </color>
+    <color
+            name="textColorPrimaryWhiteSmall"
+            tools:keep="@color/textColorPrimaryWhiteSmall">#FAFFFFFF
+    </color> <!-- 98% opacity for Small Text-->
+
+    <!--for colorPrimary Black-->
+    <color
+            name="textColorPrimaryBlackLarge"
+            tools:keep="@color/textColorPrimaryBlackLarge">#93000000
+    </color> <!-- 62% opacity for Large Text-->
+    <color
+            name="textColorPrimaryBlackSmall"
+            tools:keep="@color/textColorPrimaryBlackSmall">#FA000000
+    </color> <!-- 98% opacity for Small Text-->
+
+    <!--=======================================-->
+
+    <!--for colorPrimaryLight Black-->
+    <color
+            name="textColorPrimaryLightBlackLarge"
+            tools:keep="@color/textColorPrimaryLightBlackLarge">#7A000000
+    </color> <!-- 48% opacity for Large Text-->
+    <color
+            name="textColorPrimaryLightBlackSmall"
+            tools:keep="@color/textColorPrimaryLightBlackSmall">#A6000000
+    </color> <!-- 65% opacity for Small Text-->
+
+    <!--=======================================-->
+
+    <!--for colorPrimaryDark Black-->
+    <color
+            name="textColorPrimaryDarkBlackLarge"
+            tools:keep="@color/textColorPrimaryDarkBlackLarge">#78000000
+    </color> <!-- 47% opacity for Large Text-->
+    <color
+            name="textColorPrimaryDarkBlackSmall"
+            tools:keep="@color/textColorPrimaryDarkBlackSmall">#A8000000
+    </color> <!-- 66% opacity for Small Text-->
+
+    <!--
+    ==============
+      name   %
+      color_opacity
+    ==============
+    -->
+    <color name="white80" tools:keep="@color/white80">#CCffffff</color>
+    <color name="white70" tools:keep="@color/white70">#B3FFFFFF</color>
+    <color name="white" tools:keep="@color/white">#FFFFFF</color>
+    <color name="black80" tools:keep="@color/black80">#CC000000</color>
+    <color name="black70" tools:keep="@color/black70">#B3000000</color>
+    <color name="black" tools:keep="@color/black">#000000</color>
+    <color name="gray90" tools:keep="@color/gray90">#EEEEEE</color>
+    <color name="gray100" tools:keep="@color/gray100">#F5F5F5</color>
+
+    <color name="black_overlay" tools:keep="@color/black_overlay">#66000000</color>
+    <color name="colorMovieGreenLight">#58D17A</color>
+    <color name="colorTransparent">#00FFFFFF</color>
+
+</resources>

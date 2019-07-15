@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ imageGlide" />
+    </entry_points>
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.PresenterUnitTestingCalculateTest" method="calculateVolume" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="getContext" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="getHeroes" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.MainListActivityJ" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.PresenterUnitTestingCalculateTest" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.ModelUnitTestingCalculate" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="setContext" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.PresenterUnitTestingCalculateTest" method="setUp" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.ModelUnitTestingCalculate" method="setVolume" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.PresenterUnitTestingCalculateTest" method="volume" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ.DelayAsync" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ.DelayAsync" method="doInBackground" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="getCount" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="getItemId" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="getView" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ" method="HeroAdapterJ" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.ModelUnitTestingCalculate" method="ModelUnitTestingCalculate" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ.DelayAsync" method="onCancelled" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ" method="onClick" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.MainListActivityJ" method="onClick" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ" method="onCreate" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.MainListActivityJ" method="onCreate" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onCreate" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ" method="onDestroy" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onDestroy" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onPause" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise07BugHunting.MainBugHuntingActivityJ.DelayAsync" method="onPostExecute" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onRestart" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onResume" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onSaveInstanceState" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onStart" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="onStop" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise08MyUnitTesting.MainUnitTestingActivity" method="showVolume" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ.ViewHolder" />
+    <pattern value="com.scodeid.scholarshipexpertscodeidev2019.exercise06ListView.HeroAdapterJ.ViewHolder" method="ViewHolder" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

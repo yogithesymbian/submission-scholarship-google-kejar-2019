@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <item
+            android:id="@+id/option_search"
+            android:title="@string/option_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            app:showAsAction="collapseActionView|always"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <!--need set icon then replace with image on layout -->
+    <!--i can't use tools cause will show the text-->
+    <item
+        android:id="@+id/option_drawer"
+        android:title="@string/option_movies_option_menu"
+        android:icon="@drawable/ic_profile_transparent_24dp"
+        app:showAsAction="ifRoom"
+        />
+
+    <!--<group-->
+            <!--android:menuCategory="container"-->
+            <!--&gt;-->
+
+        <!--<item-->
+                <!--android:id="@+id/menu_sort"-->
+                <!--android:title="@string/option_movies_sort_movies"/>-->
+        <!--<item-->
+                <!--android:id="@+id/menu_web"-->
+                <!--android:title="@string/option_movies_yomovie_web"/>-->
+
+
+    <!--</group>-->
+</menu>

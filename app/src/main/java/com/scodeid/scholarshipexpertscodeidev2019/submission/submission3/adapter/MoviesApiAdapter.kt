@@ -1,0 +1,178 @@
+/*
+ * Copyright (c) 2019. SCODEID
+ */
+
+package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter
+
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.submission.ItemClickRecyclerSupport
+import com.scodeid.scholarshipexpertscodeidev2019.submission.MovieCatalogueDetailActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
+import kotlinx.android.synthetic.main.fragment_movie_dialog.*
+import kotlinx.android.synthetic.main.fragment_movies_home_recycler.view.*
+import kotlinx.android.synthetic.main.item_movies.view.*
+
+
+
+/**
+ * @author
+ * Created by scode on 13,July,2019
+ * Yogi Arif Widodo
+ * www.dicoding.com/users/297307
+ * www.github.com/yogithesymbian
+ * SCODEID company,
+ * Indonesia, East Borneo.
+ * ==============================================================
+ * Android Studio 3.3.2
+ * Build # AI-182.5107.16.33.5314842, built on February 15, 2019
+ * JRE: 1.8.0_152-release-1248-b01 amd64
+ * JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+ * Linux 4.19.0-kali5-amd64
+ * ==============================================================
+ *              _               _         _               _____
+ *   ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   |___ /
+ * / __| | | | '_ \| '_ ` _ \| / __/ __| |/ _ \| '_ \    |_ \
+ * \__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | |  ___) |
+ * |___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |____/
+ *
+ *
+ */
+
+class MoviesApiAdapter (private val context : Context, private val arrayListMovies : ArrayList<MoviesApiData>) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
+
+    companion object{
+        //limited recycler view item @later's will use pagination
+        @JvmStatic
+        val LIMIT = 10
+        @JvmStatic
+        val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
+    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemMovies = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false))
+        /**
+         * Listener Click ItemMovies with SupportClicker
+         */
+        ItemClickRecyclerSupport
+            .addTo(parent.recycler_view_home)
+            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener{
+
+                override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
+                    openingDetailMovie(arrayListMovies[position])
+                    Log.d(TAG_LOG,"Try opening something about the detail movies")
+                }
+
+            })
+        ItemClickRecyclerSupport
+            .addTo(parent.recycler_view_home)
+            .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener{
+
+                override fun onItemLongClicked(recyclerView: RecyclerView, position: Int, v: View): Boolean {
+                    Log.d(TAG_LOG,"Try onLongClick itemMovies")
+                    Toast.makeText(context,arrayListMovies[position].title, Toast.LENGTH_SHORT)
+                        .show()
+                    return true
+                }
+
+            })
+
+        /**
+         * END OF Listener Click ItemMovies with SupportClicker
+         */
+        return itemMovies
+    }
+
+    private fun openingDetailMovie(moviesApiData: MoviesApiData) {
+        val intent = Intent(context, MovieCatalogueDetailActivity::class.java)
+        intent.putExtra(MovieCatalogueDetailActivity.EXTRA_MOVIE_DATA, moviesApiData)
+        context.startActivity(intent)
+    }
+
+    override fun getItemCount(): Int {
+        return if (arrayListMovies.size > LIMIT) {
+            LIMIT
+        } else {
+            arrayListMovies.size
+        }
+    }
+
+    @SuppressLint("PrivateResource")
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
+        holder.itemView.text_overview.text = arrayListMovies[position].overview
+        holder.itemView.text_tv_movie_name.text = arrayListMovies[position].title
+//        https://api.themoviedb.org/3/genre/movie/list?api_key=10494fa60da45dee76b53c177ada8d19&language=en-US
+//        val genre =  arrayListMovies[position].genreIds.toString().replace("[[","").replace("]]","")
+//        if (genre == "{addParam},{addParam},{addParam}")
+//        {
+//
+//        }
+//        if (genre == "28,12,878")
+//        {
+//            Log.d("com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter.Companion.TAG_LOG","Action, Adventure, Science Fiction")
+//        }
+//            .load(profile.imageUrl)
+//            .signature(new StringSignature(profile.imageLastUpdate))
+//            .apply(RequestOptions().override(125, 125))
+        val imagePoster = arrayListMovies[position].posterPath
+        context.let {
+            Glide.with(it)
+                .asBitmap()
+                .load(POSTER_IMAGE+"w185"+ imagePoster)
+                .error(R.color.error_color_material_light)
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(holder.itemView.image_movie)
+        }
+
+        holder
+            .itemView.image_movie.setOnClickListener {
+            Log.d(TAG_LOG + "Bind", "image ${holder.itemView.image_movie} got clicked and Try opening dialog view")
+
+            /**
+             * DIALOG view movie catalogue
+             */
+            holder.movieDialog.setContentView(R.layout.fragment_movie_dialog)
+            // bind onClick on there layout movie dialogUe
+
+            holder.movieDialog.button_close.setOnClickListener {
+                holder.movieDialog.dismiss()
+            }
+            //set image dialog movie
+            // using imageResourceId
+//                arrayListMovies[position].moviePicture.toInt()
+//                .let { it1 -> holder.movieDialog.image_dialog_home.setImageResource(it1) }
+            Glide.with(it)
+                .asBitmap()
+                .load(POSTER_IMAGE+"w342"+imagePoster)
+                .error(R.color.error_color_material_light)
+                .format(DecodeFormat.PREFER_ARGB_8888)
+                .into(holder.movieDialog.image_dialog_home)
+
+            holder.movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
+            holder.movieDialog.show()
+            // end of dialog view
+        }
+        // end of image clicked
+
+
+    }
+
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+        var movieDialog = Dialog(context)
+    }
+}

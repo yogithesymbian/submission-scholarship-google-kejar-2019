@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<lint>
+    <issue id="IconLauncherShape">
+        <ignore path="src/main/res/mipmap-hdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-hdpi/ic_launcher_foreground_movie.png" />
+        <ignore path="src/main/res/mipmap-mdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-mdpi/ic_launcher_foreground_movie.png" />
+        <ignore path="src/main/res/mipmap-xhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xhdpi/ic_launcher_foreground_movie.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xxhdpi/ic_launcher_foreground_movie.png" />
+        <ignore path="src/main/res/mipmap-xxxhdpi/ic_launcher_background_movie.png" />
+        <ignore path="src/main/res/mipmap-xxxhdpi/ic_launcher_foreground_movie.png" />
+    </issue>
+</lint>

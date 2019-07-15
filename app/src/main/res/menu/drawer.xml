@@ -1,0 +1,58 @@
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.scodeid.scholarshipexpertscodeidev2019.submission.drawerNavigation.DrawerActivity"
+      tools:keep="@menu/drawer">
+
+    <group android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/drawer_home" />
+        <item
+                android:icon="@drawable/ic_photo_camera_black_24dp"
+                android:title="@string/drawer_camera_photo" />
+        <item
+                android:id="@+id/nav_gallery"
+                android:icon="@drawable/ic_album_black_24dp"
+                android:title="@string/drawer_gallery" />
+        <item
+                android:icon="@drawable/ic_slideshow_black_24dp"
+                android:title="@string/drawer_play_slideshow" />
+        <item
+                android:icon="@drawable/ic_album_black_24dp"
+                android:title="@string/drawer_configuration" />
+        <item
+                android:icon="@drawable/ic_album_black_24dp"
+                android:title="@string/drawer_cart" />
+    </group>
+
+    <item android:title="@string/drawer_communicate">
+        <menu>
+            <item
+                    android:icon="@drawable/ic_album_black_24dp"
+                    android:title="@string/drawer_share" />
+            <item
+                    android:icon="@drawable/ic_album_black_24dp"
+                    android:title="@string/drawer_send_message" />
+        </menu>
+    </item>
+
+    <item android:title="@string/drawer_map">
+        <menu>
+            <item
+                    android:icon="@drawable/ic_album_black_24dp"
+                    android:title="@string/drawer_map" />
+            <item
+                    android:icon="@drawable/ic_album_black_24dp"
+                    android:title="@string/drawer_hotel" />
+            <item
+                    android:icon="@drawable/ic_directions_subway_white_24dp"
+                    android:title="@string/drawer_subway" />
+        </menu>
+    </item>
+
+</menu>

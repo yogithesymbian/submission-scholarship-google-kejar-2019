@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!--MyCustomize-->
+
+    <dimen name="card_all_radius_16dp">16dp</dimen>
+
+    <!-- Per the design guidelines, navigation_bottom_movie drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <!--<dimen name="navigation_drawer_width_240dp">240dp</dimen>-->
+    <dimen name="padding_all_text_note_16dp">16dp</dimen>
+    <dimen name="text_smallMov_small_11sp">11sp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width" tools:keep="@dimen/navigation_drawer_width">240dp</dimen>
+
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:showIn="@layout/activity_movie_catalogue_main_bar"
+        tools:context=".submission.MovieCatalogueMainActivity"
+        >
+
+    <!-- LIST VIEW SUBMISSION 1 VISIBLE GONE NOT USE AT THIS TIME-->
+    <ListView
+            android:id="@+id/lv_list_movie_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:smoothScrollbar="true"
+            android:visibility="gone">
+    </ListView>
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager_container_home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:nestedScrollingEnabled="true"
+            android:visibility="visible"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:ignore="UnusedAttribute"/>
+
+    <androidx.appcompat.widget.ContentFrameLayout
+            android:id="@+id/frame_container_tv_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:nestedScrollingEnabled="true"
+            android:visibility="gone"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:ignore="UnusedAttribute">
+
+    </androidx.appcompat.widget.ContentFrameLayout>
+
+    <!--likeViewPager-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
