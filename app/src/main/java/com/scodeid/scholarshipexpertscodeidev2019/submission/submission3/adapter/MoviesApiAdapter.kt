@@ -73,7 +73,6 @@ class MoviesApiAdapter internal constructor(
     {
         arrayListMovies.clear()
         arrayListMovies.addAll(itemsMovie)
-        notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemMovies = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false))

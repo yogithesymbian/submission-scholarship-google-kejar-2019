@@ -82,7 +82,7 @@ class MoviesTvShowRecyclerAdapter internal constructor(private val context: Cont
 ////                override fun run() {
 ////                    this.finish()
 ////                    frame_progress_tv_show.visibility = View.GONE //for other background process timing set image on adapter
-////                    Log.d(tagLog,"Loading ... for get and load data in background")
+////                    Log.d(TAG_LOG,"Loading ... for get and load data in background")
 ////                    card_tv_show.visibility = View.VISIBLE
 ////
 ////                }

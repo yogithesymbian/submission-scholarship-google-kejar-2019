@@ -29,11 +29,11 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission1
  * so i use my code like these on my main movie catalogue
  */
 //class DelayAsync : AsyncTask<Void, Void, Void>() {
-//    private val tagLog = "MainBugHuntingActivityJ"
+//    private val TAG_LOG = "MainBugHuntingActivityJ"
 //
 //    override fun doInBackground(vararg voids: Void): Void? {
 //        try {
-//            Log.d(tagLog, "DelayAysnc doInBackground for Movie Home and Detail's")
+//            Log.d(TAG_LOG, "DelayAysnc doInBackground for Movie Home and Detail's")
 //
 //            val movies = MovieCatalogueMainActivity()
 //
@@ -50,12 +50,12 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission1
 //
 //    override fun onPostExecute(aVoid: Void) {
 //        super.onPostExecute(aVoid)
-//        Log.d(tagLog, "DelayAysnc Done")
+//        Log.d(TAG_LOG, "DelayAysnc Done")
 //    }
 //
 //    override fun onCancelled() {
 //        super.onCancelled()
-//        Log.d(tagLog, "DelayAsync Cancelled")
+//        Log.d(TAG_LOG, "DelayAsync Cancelled")
 //    }
 //
 //}

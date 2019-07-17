@@ -355,8 +355,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
 Testing
                         val moviePictures= resources.getStringArray(R.array.data_movie_name)
                         val moviePict= resources.obtainTypedArray(R.array.data_movie_image)
-                        Log.d(tagLog,"movies name "+ (moviePictures[0]) + "and "+ (moviePictures[2]) )
-                        Log.d(tagLog,"image : "+moviePict.getResourceId(0, -1) +" and " +moviePict.getResourceId(1, -1 ))
+                        Log.d(TAG_LOG,"movies name "+ (moviePictures[0]) + "and "+ (moviePictures[2]) )
+                        Log.d(TAG_LOG,"image : "+moviePict.getResourceId(0, -1) +" and " +moviePict.getResourceId(1, -1 ))
 */
                         /**
                          * animation change color bar layout
@@ -452,11 +452,11 @@ Testing
 //            override fun run() {
 //                frame_progress.visibility = View.VISIBLE
 //                this.finish()
-////                Log.d(tagLog,"DONE ... for get and load data in background")
+////                Log.d(TAG_LOG,"DONE ... for get and load data in background")
 //            }
 //
 //            private fun finish() {
-////                Log.d(tagLog,"Loading ... for get and load data in background")
+////                Log.d(TAG_LOG,"Loading ... for get and load data in background")
 //                frame_progress.visibility = View.GONE
 //                //do here
 //            }
@@ -659,7 +659,7 @@ Testing
 
 /*
 private fun homeMovie() {
-    Log.d(tagLog, "Home Movie Loading .... for set adapter ListView")
+    Log.d(TAG_LOG, "Home Movie Loading .... for set adapter ListView")
 //        lv_list_movie_home_favorite.adapter = adapterMovie
 //        delayAsync = DelayAsync()
 //        delayAsync.execute()
@@ -671,11 +671,11 @@ private fun homeMovie() {
         override fun run() {
 //                frame_progress.visibility = View.VISIBLE
             this.finish()
-            Log.d(tagLog, "DONE ... for get and load data in background")
+            Log.d(TAG_LOG, "DONE ... for get and load data in background")
         }
 
         private fun finish() {
-            Log.d(tagLog, "Loading ... for get and load data in background")
+            Log.d(TAG_LOG, "Loading ... for get and load data in background")
             lv_list_movie_home.adapter = adapterMovie
 
             loadDataMovie()
@@ -698,7 +698,7 @@ fun bindMovieHome() {
         val imagePosterRel3 = dataModelMovies[position].moviePictureRelated3
         val movieName = dataModelMovies[position].movieName
 
-        Log.d(tagLog, "List View movie :  $movieName got clicked")
+        Log.d(TAG_LOG, "List View movie :  $movieName got clicked")
 
         // get PoJo data from onClickListener
         val dataModelMovie = MovieDataModels(
@@ -736,7 +736,7 @@ fun bindMovieHome() {
 
 fun loadDataMovie() {
 
-    Log.d(tagLog, "Load Data Movie from get string with array")
+    Log.d(TAG_LOG, "Load Data Movie from get string with array")
 
 //        moviePicture = resources.obtainTypedArray(R.array.data_movie_image)
 //        moviePictureBackground = resources.obtainTypedArray(R.array.data_movie_image_background)
@@ -767,13 +767,13 @@ fun loadDataMovie() {
 //        movieScore = resources.getStringArray(R.array.data_movie_score)
 //        movieViewers = resources.getStringArray(R.array.data_movie_viewer)
 
-    Log.d(tagLog, "Load Data Movie have done ")
+    Log.d(TAG_LOG, "Load Data Movie have done ")
 
 }
 
 fun setMovieAdd() {
 
-    Log.d(tagLog, "Set data string")
+    Log.d(TAG_LOG, "Set data string")
     dataModelMovies = ArrayList()
     for (i in movieName.indices) {
 
@@ -828,7 +828,7 @@ fun setMovieAdd() {
     }
     // for in adapter arguments
     adapterMovie?.dataModelMovies = dataModelMovies
-    Log.d(tagLog, "Movie Adapter Has been set UP ")
+    Log.d(TAG_LOG, "Movie Adapter Has been set UP ")
 }
 
 /**

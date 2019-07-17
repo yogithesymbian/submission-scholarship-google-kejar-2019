@@ -245,14 +245,14 @@ class MovieCatalogueDetailActivity : Activity() {
             override fun run() {
 
                 this.finish()
-                Log.d(tagLog,"DONE ... for get and load data in background")
+                Log.d(TAG_LOG,"DONE ... for get and load data in background")
 
             }
 
             private fun finish()
             {
 
-                Log.d(tagLog,"Loading ... for get and load data in background")
+                Log.d(TAG_LOG,"Loading ... for get and load data in background")
                 movieDataParcel.moviePicture.let { image_poster.setImageResource(it) }
                 movieDataParcel.moviePictureBackground.let { image_backdrop.setImageResource(it) }
                 movieDataParcel.moviePictureRelated1.let { image_related1.setImageResource(it) }

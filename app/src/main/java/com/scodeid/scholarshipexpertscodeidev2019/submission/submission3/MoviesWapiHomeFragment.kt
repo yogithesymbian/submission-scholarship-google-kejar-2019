@@ -67,13 +67,11 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             return fragment
         }
 
-//        var arrayList = ArrayList<MoviesApiData>()
-
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(TAG_LOG,"onAttachFragment")
+        Log.d(TAG_LOG,"onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,6 +87,11 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_movies_home_recycler, container, false)
         Log.d(TAG_LOG,"onCreateView")
+        swipe_refresh_recycler_home?.setOnRefreshListener {
+            movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+
+            swipe_refresh_recycler_home?.isRefreshing = false
+        }
 
         return view
     }
@@ -96,7 +99,9 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         Observer<ArrayList<MoviesApiData>> { movieItems ->
             if (movieItems != null) {
                 adapter.setData(movieItems)
+                adapter.notifyDataSetChanged()
                 frame_progress.visibility = View.GONE
+                swipe_refresh_recycler_home?.isRefreshing = false
 //                showLoading(false)
             }
         }

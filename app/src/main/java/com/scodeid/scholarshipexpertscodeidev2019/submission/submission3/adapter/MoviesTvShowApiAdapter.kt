@@ -7,19 +7,25 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapte
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.submission.ItemClickRecyclerSupport
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeDetailFragment
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesTvShowApiData
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
+import kotlinx.android.synthetic.main.fragment_movies_tv_show.view.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
+
 
 /**
  * @author
@@ -45,7 +51,9 @@ Linux 4.19.0-kali5-amd64
  *
  */
 
-class MoviesTvShowApiAdapter (private val context : Context, private val arrayListMoviesTvShow : ArrayList<MoviesTvShowApiData>) : RecyclerView.Adapter<MoviesTvShowApiAdapter.ViewHolder>() {
+class MoviesTvShowApiAdapter (
+    private val arrayListMoviesTvShow : ArrayList<MoviesTvShowApiData>
+) : RecyclerView.Adapter<MoviesTvShowApiAdapter.ViewHolder>() {
 
     companion object{
         //limited recycler view item @later's will use pagination
@@ -54,10 +62,54 @@ class MoviesTvShowApiAdapter (private val context : Context, private val arrayLi
         @JvmStatic
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
+    fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>)
+    {
+        arrayListMoviesTvShow.clear()
+        arrayListMoviesTvShow.addAll(itemsMovie)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows, parent, false))
+        val view =  ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows, parent, false))
+        val context = parent.context
+        ItemClickRecyclerSupport
+            .addTo(parent.recycler_view_tv_show)
+            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener{
+
+                override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
+                    openingTvShowDetail(arrayListMoviesTvShow[position], context)
+                    Log.d(TAG_LOG,"Try opening something about the detail tv show" +arrayListMoviesTvShow[position].name)
+                }
+
+            })
+        return view
     }
+
+    private fun openingTvShowDetail(moviesTvShowApiData: MoviesTvShowApiData, context: Context) {
+
+        // instance DetailCategoryFragment
+        val mMoviesTvShowDetailFragment = MoviesTvWapiHomeDetailFragment()
+
+        // tx tx data between the fragment using Bundle
+        val mBundle = Bundle()
+
+        mBundle.putParcelable(MoviesTvWapiHomeDetailFragment.extraTvDetails, moviesTvShowApiData)
+        mMoviesTvShowDetailFragment.arguments = mBundle
+
+        //manage the fragment manager in this fragment
+        val mFragmentManager = (context as AppCompatActivity).supportFragmentManager
+
+        //check for replace and go
+        // use FragTransaction
+        val mFragmentTransaction = mFragmentManager.beginTransaction()
+        // replace the container frameLayout
+        mFragmentTransaction.replace(R.id.frame_container_tv_show, mMoviesTvShowDetailFragment,  MoviesTvWapiHomeDetailFragment::class.java.simpleName)
+        // set back stack null to get on back pressed !exit
+        mFragmentTransaction.addToBackStack(null)
+        // commit the fragment
+        mFragmentTransaction.commit()
+        Log.d(TAG_LOG,"Fragment has commit")
+    }
+
 
     override fun getItemCount(): Int {
         return if (arrayListMoviesTvShow.size > LIMIT) {
@@ -72,6 +124,9 @@ class MoviesTvShowApiAdapter (private val context : Context, private val arrayLi
 
         holder.itemView.text_tv_movie_name.text = arrayListMoviesTvShow[position].name
         holder.itemView.text_tv_rate.text = arrayListMoviesTvShow[position].voteAverage.toString() //score /rate
+
+        val context = holder.itemView.context
+        val movieDialog = Dialog(context)
 
         val imagePoster = arrayListMoviesTvShow[position].posterPath
         context.let {
@@ -91,33 +146,27 @@ class MoviesTvShowApiAdapter (private val context : Context, private val arrayLi
             /**
              * DIALOG view movie catalogue
              */
-            holder.movieDialog.setContentView(R.layout.fragment_movie_dialog)
+            movieDialog.setContentView(R.layout.fragment_movie_dialog)
             // bind onClick on there layout movie dialogUe
 
-            holder.movieDialog.button_close.setOnClickListener {
-                holder.movieDialog.dismiss()
+            movieDialog.button_close.setOnClickListener {
+                movieDialog.dismiss()
             }
-            //set image dialog movie
-            // using imageResourceId
-//                arrayListMovies[position].moviePicture.toInt()
-//                .let { it1 -> holder.movieDialog.image_dialog_home.setImageResource(it1) }
+
             Glide.with(it)
                 .asBitmap()
                 .load(POSTER_IMAGE+"w342"+imagePoster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .into(holder.movieDialog.image_dialog_home)
+                .into(movieDialog.image_dialog_home)
 
-            holder.movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
-            holder.movieDialog.show()
+            movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
+            movieDialog.show()
             // end of dialog view
         }
         // end of image clicked
-
-
     }
 
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        var movieDialog = Dialog(context)
-    }
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view)
+
 }
