@@ -96,6 +96,10 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
                     text_status_label_data.text = "-"+ "\n"
                     text_network_label_data.text = "-" + "\n"
 
+                    text_original_name.text = data?.originalName + "\n"
+
+                    text_original_country.text = data?.originCountry.toString().replace("[[","").replace("]]","").replace("","") + "\n"
+
                     when (data?.originalLanguage) {
                         "en" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language) +"\n"
                         "ja" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language_ja) +"\n"

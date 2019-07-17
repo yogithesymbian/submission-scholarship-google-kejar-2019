@@ -471,6 +471,23 @@
                                 android:textAllCaps="false"
                                 android:textStyle="bold"
                                 android:textSize="16sp"
+                                android:text="@string/activity_movie_catalogue_detail_original_name"
+                                />
+                        <TextView
+                                android:id="@+id/text_original_name"
+                                style="@style/TextAppearance.MaterialComponents.Body1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="@string/activity_movie_catalogue_det_indonesia"
+                                />
+                        <androidx.appcompat.widget.AppCompatTextView
+                                style="@style/TextAppearance.MaterialComponents.Headline6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:textAllCaps="false"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
                                 android:text="@string/activity_movie_catalogue_det_original_language"
                                 />
                         <TextView

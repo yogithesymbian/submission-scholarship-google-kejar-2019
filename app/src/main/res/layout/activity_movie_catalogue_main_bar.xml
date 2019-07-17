@@ -14,146 +14,181 @@
         >
 
 
-            <com.google.android.material.appbar.AppBarLayout
-                    android:id="@+id/app_bar_for_drawer"
-                    android:layout_width="match_parent"
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_for_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:focusable="true"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+        <!--toolbar-->
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarManual"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="8dp"
+                android:background="@android:color/white"
+                android:elevation="12dp"
+                android:fitsSystemWindows="true"
+                android:outlineAmbientShadowColor="@color/black80"
+                android:outlineSpotShadowColor="@color/black70"
+                android:tint="@color/colorAccent"
+                android:visibility="visible"
+                app:collapseIcon="@drawable/ic_arrow_back_black_24dp"
+                app:logo="@drawable/ic_airplay_blue_24dp"
+                app:subtitleTextColor="@color/black70"
+                app:title="yoMovie"
+                app:titleTextColor="@color/black70"
+                app:titleMarginStart="24dp"
+                app:popupTheme="@style/AppTheme"
+                app:theme="@style/ToolbarColoredBackArrow"
+                app:layout_collapseMode="pin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                tools:ignore="UnusedAttribute"/>
+        <!--tab Layout-->
+
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                style="@style/Widget.MaterialComponents.TabLayout.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:scrollbarStyle="outsideOverlay"
+                android:visibility="visible"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:tabMode="fixed"
+                app:tabGravity="fill"
+                app:tabPaddingStart="10dp"
+                tools:ignore="UnusedAttribute">
+
+            <com.google.android.material.tabs.TabItem
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:focusable="true"
-                    android:fitsSystemWindows="true"
-                    android:theme="@style/AppTheme.AppBarOverlay"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0">
+                    android:layout_width="wrap_content"
+                    android:text="@string/activity_movie_catalogue_main_content_home"
+                    />
 
-                <!--toolbar-->
-                <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/toolbarManual"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:layout_margin="8dp"
-                        android:background="@android:color/white"
-                        android:elevation="12dp"
-                        android:fitsSystemWindows="true"
-                        android:outlineAmbientShadowColor="@color/black80"
-                        android:outlineSpotShadowColor="@color/black70"
-                        android:tint="@color/colorAccent"
-                        android:visibility="visible"
-                        app:collapseIcon="@drawable/ic_arrow_back_black_24dp"
-                        app:logo="@drawable/ic_airplay_blue_24dp"
-                        app:subtitleTextColor="@color/black70"
-                        app:title="yoMovie"
-                        app:titleTextColor="@color/black70"
-                        app:titleMarginStart="24dp"
-                        app:popupTheme="@style/AppTheme"
-                        app:theme="@style/ToolbarColoredBackArrow"
-                        app:layout_collapseMode="pin"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                        tools:ignore="UnusedAttribute"/>
-                <!--tab Layout-->
+            <com.google.android.material.tabs.TabItem
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/activity_movie_catalogue_main_content_popular"/>
 
+            <com.google.android.material.tabs.TabItem
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/activity_movie_catalogue_main_content_trailer"/>
 
-                <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabs"
-                        style="@style/Widget.MaterialComponents.TabLayout.Colored"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:focusable="true"
-                        android:scrollbarStyle="outsideOverlay"
-                        android:visibility="visible"
-                        app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                        app:tabMode="fixed"
-                        app:tabGravity="fill"
-                        app:tabPaddingStart="10dp"
-                        tools:ignore="UnusedAttribute">
+            <com.google.android.material.tabs.TabItem
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/activity_movie_catalogue_main_content_saved"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_movie_catalogue_main_content_home"
-                            />
+        </com.google.android.material.tabs.TabLayout>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_movie_catalogue_main_content_popular"/>
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabsS"
+                style="@style/Widget.MaterialComponents.TabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                android:elevation="12dp"
+                android:fitsSystemWindows="true"
+                android:scrollbarStyle="insideOverlay"
+                android:visibility="visible"
+                app:tabPaddingBottom="2dp"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                app:tabIndicatorColor="@color/white"
+                app:tabMode="scrollable"
+                app:tabGravity="fill"
+                app:tabPaddingStart="20dp"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                tools:ignore="UnusedAttribute">
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_movie_catalogue_main_content_trailer"/>
+            <com.google.android.material.tabs.TabItem
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/activity_movie_catalogue_main_content_for_you"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    />
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_movie_catalogue_main_content_saved"
-                            android:clickable="true"
-                            android:focusable="true"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_soon"/>
 
-                <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabsS"
-                        style="@style/Widget.MaterialComponents.TabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:elevation="12dp"
-                        android:fitsSystemWindows="true"
-                        android:scrollbarStyle="insideOverlay"
-                        android:visibility="visible"
-                        app:tabIndicatorColor="@color/white"
-                        app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                        app:tabMode="scrollable"
-                        app:tabGravity="fill"
-                        app:tabPaddingStart="20dp"
-                        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                        tools:ignore="UnusedAttribute">
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_movie_catalogue_main_content_for_you"
-                            android:icon="@drawable/ic_golf_course_black_24dp"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_soon"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:icon="@drawable/ic_golf_course_black_24dp"
-                            android:text="@string/activity_movie_catalogue_main_content_coming"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:icon="@drawable/ic_golf_course_black_24dp"
-                            android:text="@string/activity_movie_catalogue_main_content_soon"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:icon="@drawable/ic_golf_course_black_24dp"
-                            android:text="@string/activity_movie_catalogue_main_content_coming"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:icon="@drawable/ic_golf_course_black_24dp"
-                            android:text="@string/activity_movie_catalogue_main_content_soon"/>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:icon="@drawable/ic_golf_course_black_24dp"
-                            android:text="@string/activity_movie_catalogue_main_content_coming"/>
-                </com.google.android.material.tabs.TabLayout>
+            <com.google.android.material.tabs.TabItem
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
+        </com.google.android.material.tabs.TabLayout>
 
-            </com.google.android.material.appbar.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!--app:hideOnScroll="true"-->
     <!--app:layout_collapseMode="parallax"-->
@@ -210,25 +245,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <!--content-->
-                <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/navigation"
-                        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <!--content-->
+            <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/navigation"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                    <include
-                            android:id="@+id/content_main"
-                            layout="@layout/activity_movie_catalogue_main_content"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                <include
+                        android:id="@+id/content_main"
+                        layout="@layout/activity_movie_catalogue_main_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
 
-                            />
-                </FrameLayout>
-
+                        />
+            </FrameLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

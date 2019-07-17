@@ -6,6 +6,7 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -88,9 +89,18 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_movies_home_recycler, container, false)
         Log.d(TAG_LOG,"onCreateView")
         swipe_refresh_recycler_home?.setOnRefreshListener {
-            movieViewModel.setMovie(resources.getString(R.string.app_language), context)
 
-            swipe_refresh_recycler_home?.isRefreshing = false
+            Handler().postDelayed(object : Runnable{
+                override fun run() {
+                    swipe_refresh_recycler_home?.isRefreshing = true
+                    this.finish()
+                }
+                private fun finish(){
+                    movieDataHandle()
+                    swipe_refresh_recycler_home?.isRefreshing = false
+                }
+            }, 500)
+
         }
 
         return view
@@ -100,9 +110,8 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             if (movieItems != null) {
                 adapter.setData(movieItems)
                 adapter.notifyDataSetChanged()
+
                 frame_progress.visibility = View.GONE
-                swipe_refresh_recycler_home?.isRefreshing = false
-//                showLoading(false)
             }
         }
 
@@ -111,17 +120,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG_LOG,"onActivityCreated")
 
-
-        adapter.notifyDataSetChanged()
-
-        recycler_view_home.setHasFixedSize(true)
-        recycler_view_home.layoutManager = LinearLayoutManager(context)
-        recycler_view_home.adapter = adapter
-
-        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
-        movieViewModel.getMovies().observe(this, getMovie)
-
-        movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+        movieDataHandle()
 
         /*
 //        frame_progress.visibility = View.VISIBLE
@@ -195,6 +194,20 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 */
     }
 
+    private fun movieDataHandle() {
+
+//        adapter.notifyDataSetChanged()
+
+        recycler_view_home.setHasFixedSize(true)
+        recycler_view_home.layoutManager = LinearLayoutManager(context)
+        recycler_view_home.adapter = adapter
+
+        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        movieViewModel.getMovies().observe(this, getMovie)
+
+        movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -225,13 +238,10 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d(tag,"onResume Tabs")
-
 //        adapter?.notifyDataSetChanged()
 //        recycler_view_home.setHasFixedSize(true)
 //        recycler_view_home.layoutManager = LinearLayoutManager(context)
 //        recycler_view_home.adapter = adapter
-
-
 
     }
     override fun onPause() {

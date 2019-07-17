@@ -108,6 +108,9 @@ class MovieCatalogueDetailActivity : Activity() {
         text_score_label_percent.text =  movieDataParcel.voteAverage.toString()+" "+resources.getString(R.string.activity_movie_catalogue_detail_score)
         text_overview_desc.text = movieDataParcel.overview
 
+        text_original_name.text = movieDataParcel.originalTitle + "\n"
+
+
         text_rank_last_today_label_data.text = "-" + "\n"
         text_rank_last_week_label_data.text = "-" + "\n"
 

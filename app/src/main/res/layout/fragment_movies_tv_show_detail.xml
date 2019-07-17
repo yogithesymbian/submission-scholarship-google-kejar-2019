@@ -473,6 +473,7 @@
                                 tools:text="9 %"/>
 
                         <LinearLayout
+                                android:id="@+id/linearLayout2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="24dp"
@@ -484,10 +485,45 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintTop_toBottomOf="@+id/text_screen_label"
+                                app:layout_constraintTop_toBottomOf="@+id/text_screen_label">
 
-                                android:id="@+id/linearLayout2">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:textAllCaps="false"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:text="@string/fragment_movies_tv_show_detail_origin_name"
+                                    />
 
+                            <TextView
+                                    android:id="@+id/text_original_name"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Scripted"
+                                    />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/black"
+                                    android:textAllCaps="false"
+                                    android:textStyle="bold"
+                                    android:textSize="16sp"
+                                    android:text="@string/fragment_movies_tv_show_detail_origin_country"
+                                    />
+
+                            <TextView
+                                    android:id="@+id/text_original_country"
+                                    style="@style/TextAppearance.MaterialComponents.Body1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    tools:text="Scripted"
+                                    />
                             <androidx.appcompat.widget.AppCompatTextView
                                     style="@style/TextAppearance.MaterialComponents.Headline6"
                                     android:layout_width="wrap_content"

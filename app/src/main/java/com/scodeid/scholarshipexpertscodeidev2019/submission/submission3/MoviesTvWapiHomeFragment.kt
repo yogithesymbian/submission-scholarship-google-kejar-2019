@@ -50,9 +50,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
         return inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
-
     }
 
 
@@ -65,45 +63,13 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
 
                 frame_progress_tv_show.visibility = View.GONE
                 card_tv_show.visibility = View.VISIBLE
-//                showLoading(false)
             }
         }
 
 
-    fun openingTvShowDetail(moviesTvShowApiData: MoviesTvShowApiData) {
-        // instance DetailCategoryFragment
-        val mMoviesTvShowDetailFragment = MoviesTvWapiHomeDetailFragment()
-
-        // tx tx data between the fragment using Bundle
-        val mBundle = Bundle()
-
-        mBundle.putParcelable(MoviesTvWapiHomeDetailFragment.extraTvDetails, moviesTvShowApiData)
-        mMoviesTvShowDetailFragment.arguments = mBundle
-
-        //manage the fragment manager in this fragment
-        val mFragmentManager = fragmentManager
-
-        //check for replace and go
-        if (mFragmentManager != null)
-        {
-            // use FragTransaction
-            val mFragmentTransaction = mFragmentManager.beginTransaction()
-            // replace the container frameLayout
-            mFragmentTransaction.replace(R.id.frame_container_tv_show, mMoviesTvShowDetailFragment,  MoviesTvWapiHomeDetailFragment::class.java.simpleName)
-            // set back stack null to get on back pressed !exit
-            mFragmentTransaction.addToBackStack(null)
-            // commit the fragment
-            mFragmentTransaction.commit()
-            Log.d(TAG_LOG,"Fragment has commit")
-        }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG_LOG, "onActivityCreated")
-
-
-        adapter.notifyDataSetChanged()
 
         recycler_view_tv_show.setHasFixedSize(true)
         recycler_view_tv_show.layoutManager = LinearLayoutManager(context)

@@ -428,6 +428,10 @@ Testing
                 .override(36, 36))
             .into(image_option_drawer)
 
+        image_option_drawer.setOnClickListener{
+            drawer_layout.openDrawer(GravityCompat.START)
+        }
+
         /**
          * End Of TabLayout Programmatically
          */
