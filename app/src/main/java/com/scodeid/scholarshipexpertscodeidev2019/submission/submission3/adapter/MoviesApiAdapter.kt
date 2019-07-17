@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.item_movies.view.*
 
 
 
+
+
 /**
  * @author
  * Created by scode on 13,July,2019
@@ -37,11 +39,11 @@ import kotlinx.android.synthetic.main.item_movies.view.*
  * SCODEID company,
  * Indonesia, East Borneo.
  * ==============================================================
- * Android Studio 3.3.2
- * Build # AI-182.5107.16.33.5314842, built on February 15, 2019
- * JRE: 1.8.0_152-release-1248-b01 amd64
- * JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
- * Linux 4.19.0-kali5-amd64
+Android Studio 3.4.2
+Build #AI-183.6156.11.34.5692245, built on June 27, 2019
+JRE: 1.8.0_152-release-1343-b16-5323222 amd64
+JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+Linux 4.19.0-kali5-amd64
  * ==============================================================
  *              _               _         _               _____
  *   ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   |___ /
@@ -52,8 +54,13 @@ import kotlinx.android.synthetic.main.item_movies.view.*
  *
  */
 
-class MoviesApiAdapter (private val context : Context, private val arrayListMovies : ArrayList<MoviesApiData>) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
-
+class MoviesApiAdapter internal constructor(
+    private val arrayListMovies : ArrayList<MoviesApiData>
+) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
+//before i have internal constructor context: Context but when i in the fragment is needed passing an ArrayList
+    // then the variable is global so i can't pass the context cause null then the array can't retrive properly cause context are null on fragment global variable
+    //so in here i re use the ViewGroup (parent.context)
+    // and i have explore in 1 day and found this logic val context = holder.itemView.context :'(
     companion object{
         //limited recycler view item @later's will use pagination
         @JvmStatic
@@ -61,8 +68,16 @@ class MoviesApiAdapter (private val context : Context, private val arrayListMovi
         @JvmStatic
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
+
+    fun setData(itemsMovie: ArrayList<MoviesApiData>)
+    {
+        arrayListMovies.clear()
+        arrayListMovies.addAll(itemsMovie)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemMovies = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false))
+        val context = parent.context
         /**
          * Listener Click ItemMovies with SupportClicker
          */
@@ -71,7 +86,8 @@ class MoviesApiAdapter (private val context : Context, private val arrayListMovi
             .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener{
 
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
-                    openingDetailMovie(arrayListMovies[position])
+
+                    openingDetailMovie(arrayListMovies[position], context)
                     Log.d(TAG_LOG,"Try opening something about the detail movies")
                 }
 
@@ -95,7 +111,11 @@ class MoviesApiAdapter (private val context : Context, private val arrayListMovi
         return itemMovies
     }
 
-    private fun openingDetailMovie(moviesApiData: MoviesApiData) {
+    private fun openingDetailMovie(
+        moviesApiData: MoviesApiData,
+        context: Context
+    ) {
+
         val intent = Intent(context, MovieCatalogueDetailActivity::class.java)
         intent.putExtra(MovieCatalogueDetailActivity.EXTRA_MOVIE_DATA, moviesApiData)
         context.startActivity(intent)
@@ -115,19 +135,26 @@ class MoviesApiAdapter (private val context : Context, private val arrayListMovi
         holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
         holder.itemView.text_overview.text = arrayListMovies[position].overview
         holder.itemView.text_tv_movie_name.text = arrayListMovies[position].title
-//        https://api.themoviedb.org/3/genre/movie/list?api_key=10494fa60da45dee76b53c177ada8d19&language=en-US
-//        val genre =  arrayListMovies[position].genreIds.toString().replace("[[","").replace("]]","")
-//        if (genre == "{addParam},{addParam},{addParam}")
-//        {
-//
-//        }
-//        if (genre == "28,12,878")
-//        {
-//            Log.d("com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter.Companion.TAG_LOG","Action, Adventure, Science Fiction")
-//        }
-//            .load(profile.imageUrl)
-//            .signature(new StringSignature(profile.imageLastUpdate))
-//            .apply(RequestOptions().override(125, 125))
+        val context = holder.itemView.context
+        val movieDialog = Dialog(context)
+        /**
+         * GENRE ID into NAME  https://api.themoviedb.org/3/genre/movie/list?api_key=10494fa60da45dee76b53c177ada8d19&language=en-US
+         * later's
+         */
+
+/*      val genre =  arrayListMovies[position].genreIds.toString().replace("[[","").replace("]]","")
+        if (genre == "{addParam},{addParam},{addParam}")
+        {
+
+        }
+        if (genre == "28,12,878")
+        {
+            Log.d("com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter.Companion.TAG_LOG","Action, Adventure, Science Fiction")
+        }
+            .load(profile.imageUrl)
+            .signature(new StringSignature(profile.imageLastUpdate))
+            .apply(RequestOptions().override(125, 125))*/
+
         val imagePoster = arrayListMovies[position].posterPath
         context.let {
             Glide.with(it)
@@ -146,33 +173,26 @@ class MoviesApiAdapter (private val context : Context, private val arrayListMovi
             /**
              * DIALOG view movie catalogue
              */
-            holder.movieDialog.setContentView(R.layout.fragment_movie_dialog)
+            movieDialog.setContentView(R.layout.fragment_movie_dialog)
             // bind onClick on there layout movie dialogUe
 
-            holder.movieDialog.button_close.setOnClickListener {
-                holder.movieDialog.dismiss()
+            movieDialog.button_close.setOnClickListener {
+                movieDialog.dismiss()
             }
-            //set image dialog movie
-            // using imageResourceId
-//                arrayListMovies[position].moviePicture.toInt()
-//                .let { it1 -> holder.movieDialog.image_dialog_home.setImageResource(it1) }
             Glide.with(it)
                 .asBitmap()
                 .load(POSTER_IMAGE+"w342"+imagePoster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .into(holder.movieDialog.image_dialog_home)
+                .into(movieDialog.image_dialog_home)
 
-            holder.movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
-            holder.movieDialog.show()
-            // end of dialog view
+            movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
+            movieDialog.show()
+//             end of dialog view
         }
         // end of image clicked
 
 
     }
-
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
-        var movieDialog = Dialog(context)
-    }
+    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view)
 }

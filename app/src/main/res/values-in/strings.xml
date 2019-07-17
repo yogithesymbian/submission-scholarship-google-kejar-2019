@@ -213,6 +213,11 @@
     <string name="activity_movie_catalogue_detail_adult_desc">Bukan Konten Dewasa</string>
     <string name="activity_movie_catalogue_detail_language">Ingris</string>
     <string name="activity_movie_catalogue_detail_language_ja">Jepang</string>
+    <string name="activity_movie_catalogue_detail_adult_desc_1">Konten dewasa, khusus +18</string>
+    <string name="activity_no_internet_conn_body1">Cek kuota/WI-FI atau Dapatkan Pemberitahuan ketika sudah terkoneksi internet</string>
+    <string name="activity_no_internet_conn_head1">Tidak ada koneksi Internet</string>
+    <string name="activity_no_internet_conn_get_notification">BERI TAHU SAYA</string>
+    <string name="activity_no_internet_conn_try_again">COBA LAGI</string>
 
 
 </resources>

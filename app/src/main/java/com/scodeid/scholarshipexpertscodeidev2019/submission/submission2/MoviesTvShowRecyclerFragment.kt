@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.ItemClickRecyclerSupport
-import com.scodeid.scholarshipexpertscodeidev2019.submission.MovieCatalogueDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModelsRecyclerTv
 import kotlinx.android.synthetic.main.fragment_movies_tv_show.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show.view.*

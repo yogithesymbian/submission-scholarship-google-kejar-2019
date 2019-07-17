@@ -24,12 +24,7 @@ import java.util.*
 // adapter have complex
 @Suppress("NAME_SHADOWING")
 class MovieAdapter internal constructor(var context: Context?) : BaseAdapter() {
-    var dataModelMovies: ArrayList<MovieDataModels>
-        internal set
-
-    init {
-        dataModelMovies = ArrayList()
-    }
+     private var dataModelMovies: ArrayList<MovieDataModels> = ArrayList()
 
     private val tagLog = "MovieAdapter"
 

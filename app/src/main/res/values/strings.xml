@@ -125,7 +125,7 @@
         -->
     <string name="title_activity_movie_catalogue_detail">MovieCatalogueDetailActivity</string>
 
-    <string name="activity_movie_catalogue_detail_movie_name">Yogi Go Google i/o \\u002719</string>
+    <string name="activity_movie_catalogue_detail_movie_name">Yogi Go Google i/o 2019</string>
     <string name="activity_movie_catalogue_detail_user_score" tools:keep="@string/activity_movie_catalogue_detail_user_score">Like</string>
     <string name="activity_movie_catalogue_detail_99">99</string>
     <string name="activity_movie_catalogue_detail_play">Play</string>
@@ -177,7 +177,7 @@
 
     <string name="option_search">Search</string>
     <string name="option_hint">Search Movie</string>
-    <string name="google" tools:keep="@string/google">Google Io \\u002719</string>
+    <string name="google" tools:keep="@string/google">Google Io 2019</string>
     <string name="notification_warning_1">Sorry this feature still have maintenance</string>
     <string name="activity_movie_catalogue_detail_adult">Adult</string>
     <string name="activity_movie_catalogue_detail_popularity">Popularity</string>
@@ -186,9 +186,10 @@
     <string name="activity_movie_catalogue_detail_adult_desc_1">This content is adult , only +18</string>
     <string name="activity_movie_catalogue_detail_language">English</string>
     <string name="activity_movie_catalogue_detail_language_ja">Japan</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="activity_no_internet_conn_body1">Check quota/WI-FI or get notification while you have conneection to internet</string>
+    <string name="activity_no_internet_conn_head1">No Internet Connection</string>
+    <string name="activity_no_internet_conn_get_notification">GET NOTIFICATION</string>
+    <string name="activity_no_internet_conn_try_again">TRY AGAIN</string>
 
 
 </resources>

@@ -14,7 +14,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".submission.notification.NoInternetConnActivity">
+        </activity>
         <!--
                 _               _         _               ____
      ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   |___ \
@@ -29,26 +30,21 @@
     |                         (C) 2019 SCODEID               |
     |=========================================================
         -->
-
         <!-- android:label="@string/title_activity_movie_catalogue_main" -->
         <activity
                 android:name=".submission.MovieCatalogueMainActivity"
-                android:label="@string/app_name_submission_1"
-                android:configChanges="orientation|keyboardHidden|screenSize|keyboard">
+                android:configChanges="orientation|keyboardHidden|screenSize|keyboard"
+                android:label="@string/app_name_submission_1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN"/>
-
-
-             <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
-
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
-                android:name="com.scodeid.scholarshipexpertscodeidev2019.submission.notification.ComingSoonActivity"
+                android:name=".submission.notification.ComingSoonActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize|keyboard">
-        </activity>
-        <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
+        </activity> <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
         <activity
                 android:name=".submission.MovieCatalogueDetailActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize|keyboard"

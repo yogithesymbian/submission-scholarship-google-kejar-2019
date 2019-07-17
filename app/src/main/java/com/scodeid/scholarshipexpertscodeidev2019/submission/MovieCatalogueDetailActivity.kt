@@ -22,9 +22,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModelsRecycler
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
 import kotlinx.android.synthetic.main.activity_movie_catalogue_detail.*

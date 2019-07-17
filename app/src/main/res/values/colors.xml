@@ -83,6 +83,6 @@
 
     <color name="black_overlay" tools:keep="@color/black_overlay">#66000000</color>
     <color name="colorMovieGreenLight">#58D17A</color>
-    <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorTransparent" tools:keep="@color/colorTransparent">#00FFFFFF</color>
 
 </resources>

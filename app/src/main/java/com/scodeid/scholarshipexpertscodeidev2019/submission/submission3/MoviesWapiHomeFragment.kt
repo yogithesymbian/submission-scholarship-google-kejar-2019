@@ -6,25 +6,21 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.view.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
-import org.json.JSONObject
+
 
 /**
  * @author
@@ -35,11 +31,11 @@ import org.json.JSONObject
  * SCODEID company,
  * Indonesia, East Borneo.
  * ==============================================================
- * Android Studio 3.3.2
- * Build # AI-182.5107.16.33.5314842, built on February 15, 2019
- * JRE: 1.8.0_152-release-1248-b01 amd64
- * JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
- * Linux 4.19.0-kali5-amd64
+Android Studio 3.4.2
+Build #AI-183.6156.11.34.5692245, built on June 27, 2019
+JRE: 1.8.0_152-release-1343-b16-5323222 amd64
+JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
+Linux 4.19.0-kali5-amd64
  * ==============================================================
  *              _               _         _               _____
  *   ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   |___ /
@@ -51,6 +47,12 @@ import org.json.JSONObject
  */
 
 class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
+
+
+    private var movieViewModel  = MovieViewModel()
+
+    val adapter = MoviesApiAdapter(ArrayList())
+
     companion object{
         @JvmStatic
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
@@ -65,7 +67,8 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             return fragment
         }
 
-        var arrayList = ArrayList<MoviesApiData>()
+//        var arrayList = ArrayList<MoviesApiData>()
+
     }
 
     override fun onAttach(context: Context) {
@@ -76,6 +79,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG_LOG,"onCreate")
+
     }
 
     override fun onCreateView(
@@ -88,11 +92,34 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         return view
     }
+    private val getMovie =
+        Observer<ArrayList<MoviesApiData>> { movieItems ->
+            if (movieItems != null) {
+                adapter.setData(movieItems)
+                frame_progress.visibility = View.GONE
+//                showLoading(false)
+            }
+        }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG_LOG,"onActivityCreated")
-        frame_progress.visibility = View.VISIBLE
+
+
+        adapter.notifyDataSetChanged()
+
+        recycler_view_home.setHasFixedSize(true)
+        recycler_view_home.layoutManager = LinearLayoutManager(context)
+        recycler_view_home.adapter = adapter
+
+        movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        movieViewModel.getMovies().observe(this, getMovie)
+
+        movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+
+        /*
+//        frame_progress.visibility = View.VISIBLE
 
         /**
          * GET . READ API MOVIES
@@ -110,70 +137,57 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             private fun finish() {
                 Log.d(TAG_LOG, "Loading ... for get and load data in background")
 
-                AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
+
+
+                // end of get api
+                // later's i dunno object map in Function still learning
+                /*
+                Rx2AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
                     .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
                     .addPathParameter("LANGUAGE", resources.getString(R.string.app_language))
-                    .setPriority(Priority.LOW)
                     .build()
-                    .getAsJSONObject(object : JSONObjectRequestListener {
-                        override fun onResponse(response: JSONObject) {
-                            arrayList.clear() // for clear while , for !duplicate
-                            val jsonArray = response.optJSONArray("results")
-
-                            if (jsonArray?.length() == 0)
-                            {
-                                Toast.makeText(context,"result data is empty, Add the data first", Toast.LENGTH_LONG).show()
-                            }
-                            /**
-                             * for closing progress dialog ini
-                             * looping for jsonArray to save data in , then checking has it ? with if statements
-                             */
-                            for (i in 0 until jsonArray.length())
-                            {
-                                val jsonObject = jsonArray.optJSONObject(i)
-
-                                arrayList.add(
-                                    MoviesApiData(
-                                        jsonObject.getInt("vote_count"),
-                                        jsonObject.getInt("id"),
-                                        jsonObject.getBoolean("video"),
-                                        jsonObject.getInt("vote_average"),
-                                        jsonObject.getString("title"),
-                                        jsonObject.getInt("popularity"),
-                                        jsonObject.getString("poster_path"),
-                                        jsonObject.getString("original_language"),
-                                        jsonObject.getString("original_title"),
-                                        arrayListOf(jsonObject.getString("genre_ids")),
-                                        jsonObject.getString("backdrop_path"),
-                                        jsonObject.getBoolean("adult"),
-                                        jsonObject.getString("overview"),
-                                        jsonObject.getString("release_date")
-                                    )
-                                )
-
-                                if (jsonArray.length() - 1 == i)
-                                {
-                                    val adapter = context?.let { MoviesApiAdapter(it, arrayList) }
-                                    adapter?.notifyDataSetChanged()
-                                    recycler_view_home?.adapter = adapter
-                                    frame_progress.visibility = View.GONE
-                                }
-                            }
-                        }
-
-                        override fun onError(anError: ANError?) {
-                            Log.d("ON_ERROR",anError?.errorDetail.toString())
-                            Toast.makeText(context,"Connection Failure", Toast.LENGTH_LONG).show()
+                    .getObjectObservable(MoviesApiData::class.java)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(object : Function<MoviesApiData, MoviesApiData>() {
+                        @Throws(Exception::class)
+                        fun apply(apiMovie: MoviesApiData): MoviesApiData {
+                            // here we get ApiUser from server
+                            // then by converting, we are returning user
+                            return apiMovie
                         }
                     })
+                    .subscribe(object : Observer<MoviesApiData> {
+                        override fun onChanged(t: MoviesApiData?) {
+
+                        }
+
+                        fun onSubscribe(d: Disposable) {
+
+                        }
+
+                        fun onNext(moviesApiData: MoviesApiData) {
+
+                        }
+
+                        fun onError(e: Throwable) {
+
+                        }
+
+                        fun onComplete() {
+
+                        }
+                    })
+                */
+
             }
         }, doInBackGroundMovie.toLong())
 
         /**
-         * END OF GET . READ API MOVIES
+         * END OF GET . READ API MOVIES PROCESS
          */
 
-
+*/
     }
 
 
@@ -206,8 +220,11 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d(tag,"onResume Tabs")
-        recycler_view_home.setHasFixedSize(true)
-        recycler_view_home.layoutManager = LinearLayoutManager(context)
+
+//        adapter?.notifyDataSetChanged()
+//        recycler_view_home.setHasFixedSize(true)
+//        recycler_view_home.layoutManager = LinearLayoutManager(context)
+//        recycler_view_home.adapter = adapter
 
 
 
@@ -235,8 +252,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     override fun onDetach() {
         super.onDetach()
         Log.d(TAG_LOG,"onDetach")
-
-        arrayList.clear()  //clear when out
+//        arrayList.clear()  //clear when out
     }
 
 

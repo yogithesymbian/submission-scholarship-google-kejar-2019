@@ -19,6 +19,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
@@ -31,7 +32,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -47,7 +47,6 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewe
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_content.*
-import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 import kotlinx.android.synthetic.main.nav_header_home_movies.*
 
 
@@ -144,40 +143,41 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
      * Variable for Submission 1 this
      */
 
-//    private lateinit var moviePicture: TypedArray
-//    private lateinit var moviePictureBackground: TypedArray
-//    private lateinit var moviePictureRel1: TypedArray
-//    private lateinit var moviePictureRel2: TypedArray
-//    private lateinit var moviePictureRel3: TypedArray
-//
-//    private lateinit var movieName: Array<String>
-//    private var movieRelease: Array<String>? = null
-//    private var movieOverview: Array<String>? = null
-//
-//    private var movieRankLastToday: Array<String>? = null
-//    private var movieRankLastWeek: Array<String>? = null
-//
-//    private var movieDirector1: Array<String>? = null
-//    private var movieDirector2: Array<String>? = null
-//
-//    private var movieOrigLang: Array<String>? = null
-//    private var movieRunTime: Array<String>? = null
-//    private var movieBudget: Array<String>? = null
-//    private var movieRevenue: Array<String>? = null
-//
-//    private var movieScreenPlay1: Array<String>? = null
-//    private var movieScreenPlay2: Array<String>? = null
-//
-//    private var movieGenres: Array<String>? = null
-//    private var movieKeywords: Array<String>? = null
-//
-//    private var movieScore: Array<String>? = null
-//    private var movieViewers: Array<String>? = null
-//
-//    private var adapterMovie: MovieAdapter? = null
-//
-//    private lateinit var dataModelMovies: ArrayList<MovieDataModels>
+    /*
+    private lateinit var moviePicture: TypedArray
+    private lateinit var moviePictureBackground: TypedArray
+    private lateinit var moviePictureRel1: TypedArray
+    private lateinit var moviePictureRel2: TypedArray
+    private lateinit var moviePictureRel3: TypedArray
 
+    private lateinit var movieName: Array<String>
+    private var movieRelease: Array<String>? = null
+    private var movieOverview: Array<String>? = null
+
+    private var movieRankLastToday: Array<String>? = null
+    private var movieRankLastWeek: Array<String>? = null
+
+    private var movieDirector1: Array<String>? = null
+    private var movieDirector2: Array<String>? = null
+
+    private var movieOrigLang: Array<String>? = null
+    private var movieRunTime: Array<String>? = null
+    private var movieBudget: Array<String>? = null
+    private var movieRevenue: Array<String>? = null
+
+    private var movieScreenPlay1: Array<String>? = null
+    private var movieScreenPlay2: Array<String>? = null
+
+    private var movieGenres: Array<String>? = null
+    private var movieKeywords: Array<String>? = null
+
+    private var movieScore: Array<String>? = null
+    private var movieViewers: Array<String>? = null
+
+    private var adapterMovie: MovieAdapter? = null
+
+    private lateinit var dataModelMovies: ArrayList<MovieDataModels>
+    */
 
     /**
      * Listener BottomNavigationView
@@ -192,7 +192,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                 Log.d(tagLog, "Try opening home movie activity")
                 hideHomeTvShow()
                 // already by default tabs homeActivity
-                // homeMovie()//this function for Submission 1 Func 1
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tv_show -> {
@@ -211,22 +210,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         false
     }
 
-//    private fun handleFragmentTvShow() {
-//        // instance fragmentManager
-//        val mFragmentManager = supportFragmentManager
-//        // fragment transaction to operate add(), replace(), commit() , etc
-//        val mFragmentTransaction = mFragmentManager.beginTransaction()
-//        // create object fragment
-//        val mTvHome = MoviesTvShowRecyclerFragment()
-//
-//        val fragment = mFragmentManager.findFragmentByTag(MoviesTvShowRecyclerFragment::class.java.simpleName)
-//        if (fragment !is MoviesTvShowRecyclerFragment) {
-//            // add()
-//            mFragmentTransaction.add(R.id.frame_container_tv_show, mTvHome, MoviesTvShowRecyclerFragment::class.java.simpleName)
-//            //commit()
-//            mFragmentTransaction.commit()
-//        }
-//    }
 
     private fun handleFragmentApiTvShow() {
         // instance fragmentManager
@@ -244,6 +227,29 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
             mFragmentTransaction.commit()
         }
     }
+
+
+    /**
+     * submission 2
+     */
+/*
+    private fun handleFragmentTvShow() {
+        // instance fragmentManager
+        val mFragmentManager = supportFragmentManager
+        // fragment transaction to operate add(), replace(), commit() , etc
+        val mFragmentTransaction = mFragmentManager.beginTransaction()
+        // create object fragment
+        val mTvHome = MoviesTvShowRecyclerFragment()
+
+        val fragment = mFragmentManager.findFragmentByTag(MoviesTvShowRecyclerFragment::class.java.simpleName)
+        if (fragment !is MoviesTvShowRecyclerFragment) {
+            // add()
+            mFragmentTransaction.add(R.id.frame_container_tv_show, mTvHome, MoviesTvShowRecyclerFragment::class.java.simpleName)
+            //commit()
+            mFragmentTransaction.commit()
+        }
+    }
+    */
 
     /**
      * Listener Drawer Nav
@@ -281,6 +287,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
 //        val moviesHomeBotNavAdapter = MoviesHomeBotNavAdapter(this@MovieCatalogueMainActivity)
 //        navigation.setOnNavigationItemSelectedListener(moviesHomeBotNavAdapter.mOnNavigationItemSelectedListener)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
         // make implement work
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
@@ -326,8 +333,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                     home -> {
                         Log.d(tagLog,"Home Tab Got Clicked")
 
-                        app_bar_layout_out.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
-                        app_bar_layout_out.invalidate()
                         app_bar_for_drawer.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
                         app_bar_for_drawer.invalidate()
                         tabs.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
@@ -424,34 +429,6 @@ Testing
             .into(image_option_drawer)
 
         /**
-         * README PLEASE ... Dunno why this code doesn't work i have set properly the xml layout like android
-         * but in androidX arch i dunno why cant hide , then i was explore all documentation
-         * only bottomAppBar has work , in this case i still exploring ,
-         * coordinator with constraint is hard
-         * in android library i was solved and work like a charm ( only with xml , not use programmatically to hide toolbar / tabLayout like Google Play Store
-         * but in androidX i use xml not work
-         * in androidX i use programmatically code to hide like these code (addOnScrollListener) doesn't work too
-         */
-        recycler_view_home?.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy > 0 || dy<0)
-                {
-                    navigationView.visibility = View.GONE
-                }
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    navigationView.visibility = View.VISIBLE
-                }
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
-
-
-
-        /**
          * End Of TabLayout Programmatically
          */
 
@@ -489,27 +466,10 @@ Testing
         //for my child
 
 
-        /**
-         * Listener Click RecyclerView MoviesList
-         */
 
-//        ItemClickRecyclerSupport.addTo(recycler_view_home).setOnItemClickListener(
-//            object : ItemClickRecyclerSupport.OnItemClickListener{
-//                override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
-//                    onClickMoviesRecycler(arrayDataModelMoviesRecycler[position])
-//                }
-//            })
-
-        /**
-         * END OF listener
-         */
 
     }
 
-//    private fun onClickMoviesRecycler(movieDataModelsRecycler: MovieDataModelsRecycler) {
-//        Toast.makeText(this,"Try opening "+movieDataModelsRecycler.movieName, Toast.LENGTH_SHORT)
-//            .show()
-//    }a
 
     /**
      * End Of OnCreate
@@ -523,20 +483,27 @@ Testing
 
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
         colorAnimation.duration = 500 // milliseconds
-        colorAnimation.addUpdateListener { animator ->
-            tabs?.setBackgroundColor(animator.animatedValue as Int)
-            tabs?.invalidate()// avoid NPE
-            app_bar_layout_out?.setBackgroundColor(animator.animatedValue as Int)
-            app_bar_layout_out?.invalidate()// avoid NPE
-            app_bar_for_drawer?.setBackgroundColor(animator.animatedValue as Int)
-            app_bar_for_drawer?.invalidate()// avoid NPE
-            window?.statusBarColor = (animator.animatedValue as Int)
-            linear_nav_header?.setBackgroundColor(animator.animatedValue as Int)
-            linear_nav_header?.invalidate() // avoid NPE
-            image_option_drawer?.borderColor = (animator.animatedValue as Int)
-            image_option_drawer?.invalidate()// avoid NPE
-        }
-        colorAnimation.start()
+
+        Handler().postDelayed(object : Runnable{
+            override fun run() {
+                this.finish()
+            }
+            private fun finish()
+            {
+                colorAnimation.addUpdateListener { animator ->
+                    tabs?.setBackgroundColor(animator.animatedValue as Int)
+                    tabs?.invalidate()// avoid NPE
+                    app_bar_for_drawer?.setBackgroundColor(animator.animatedValue as Int)
+                    app_bar_for_drawer?.invalidate()// avoid NPE
+                    window?.statusBarColor = (animator.animatedValue as Int)
+                    linear_nav_header?.setBackgroundColor(animator.animatedValue as Int)
+                    linear_nav_header?.invalidate() // avoid NPE
+                    image_option_drawer?.borderColor = (animator.animatedValue as Int)
+                    image_option_drawer?.invalidate()// avoid NPE
+                }
+                colorAnimation.start()
+            }
+        }, 100) //10sec
 
 
     }
@@ -545,13 +512,11 @@ Testing
     {
         view_pager_container_home.visibility = View.GONE
         frame_container_tv_show.visibility = View.VISIBLE
-        tabs.visibility = View.GONE
     }
     private fun hideHomeTvShow()
     {
         view_pager_container_home.visibility = View.VISIBLE
         frame_container_tv_show.visibility = View.GONE
-        tabs.visibility = View.VISIBLE
     }
 
 
@@ -567,7 +532,6 @@ Testing
     override fun onResume() {
         super.onResume()
         Log.d(tagLog, "onResume | i did'nt save barColor on instanceSaveState| and onResume will be set randomColor that is feature :D not bug or anymore :v ")
-
         // some bug maybe come by fragment fixed | relative small so i need limit the fragment loaded
         view_pager_container_home.offscreenPageLimit = 3
 
@@ -665,6 +629,9 @@ Testing
 
     }
 
+
+}
+
 /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -682,94 +649,94 @@ Testing
 
 
 
-    //==============================================================================
-    /**
-     * Submission 1 Func
-     * this homeMovie function for submission 1 !READ THE GUIDE for knowing my CODE </>
-     * Check This Header for GUIDE
-     * Android Lint Pleasure Please don't delete me ! :D
-     */
+//==============================================================================
+/**
+ * Submission 1 Func
+ * this homeMovie function for submission 1 !READ THE GUIDE for knowing my CODE </>
+ * Check This Header for GUIDE
+ * Android Lint Pleasure Please don't delete me ! :D
+ */
 
-    /*
-    private fun homeMovie() {
-        Log.d(tagLog, "Home Movie Loading .... for set adapter ListView")
+/*
+private fun homeMovie() {
+    Log.d(tagLog, "Home Movie Loading .... for set adapter ListView")
 //        lv_list_movie_home_favorite.adapter = adapterMovie
 //        delayAsync = DelayAsync()
 //        delayAsync.execute()
-        // timeOut
-        adapterMovie = MovieAdapter(this)
-        // avoid skipped 34 frame of my code
-        val doInBackGroundMovie = 1000 //in just start
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
+    // timeOut
+    adapterMovie = MovieAdapter(this)
+    // avoid skipped 34 frame of my code
+    val doInBackGroundMovie = 1000 //in just start
+    Handler().postDelayed(object : Runnable {
+        override fun run() {
 //                frame_progress.visibility = View.VISIBLE
-                this.finish()
-                Log.d(tagLog, "DONE ... for get and load data in background")
-            }
-
-            private fun finish() {
-                Log.d(tagLog, "Loading ... for get and load data in background")
-                lv_list_movie_home.adapter = adapterMovie
-
-                loadDataMovie()
-                setMovieAdd()
-                bindMovieHome()
-//                frame_progress.visibility = View.GONE
-            }
-        }, doInBackGroundMovie.toLong())
-    }
-
-    fun bindMovieHome() {
-
-        lv_list_movie_home.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-
-
-            val imagePoster = dataModelMovies[position].moviePicture
-            val imagePosterBack = dataModelMovies[position].moviePictureBackground
-            val imagePosterRel1 = dataModelMovies[position].moviePictureRelated1
-            val imagePosterRel2 = dataModelMovies[position].moviePictureRelated2
-            val imagePosterRel3 = dataModelMovies[position].moviePictureRelated3
-            val movieName = dataModelMovies[position].movieName
-
-            Log.d(tagLog, "List View movie :  $movieName got clicked")
-
-            // get PoJo data from onClickListener
-            val dataModelMovie = MovieDataModels(
-                +imagePoster,
-                +imagePosterBack,
-                +imagePosterRel1,
-                +imagePosterRel2,
-                +imagePosterRel3,
-                "" + movieName,
-                "" + dataModelMovies[position].movieRelease,
-                "" + dataModelMovies[position].movieOverview,
-                "" + dataModelMovies[position].movieRankLastToday,
-                "" + dataModelMovies[position].movieRAnkLastWeek,
-                "" + dataModelMovies[position].movieDirector1,
-                "" + dataModelMovies[position].movieDirector2,
-                "" + dataModelMovies[position].movieOrigLang,
-                "" + dataModelMovies[position].movieRuntime,
-                "" + dataModelMovies[position].movieBudget,
-                "" + dataModelMovies[position].movieRevenue,
-                "" + dataModelMovies[position].movieScreenPlay1,
-                "" + dataModelMovies[position].movieScreenPlay2,
-                "" + dataModelMovies[position].movieGenres,
-                "" + dataModelMovies[position].movieKeywords,
-                "" + dataModelMovies[position].movieScore,
-                "" + dataModelMovies[position].movieViewers
-            )
-            // moveIntent with PoJo
-            val intent = Intent(this@MovieCatalogueMainActivity, MovieCatalogueDetailActivity::class.java)
-            intent.putExtra(MovieCatalogueDetailActivity.EXTRA_MOVIE_DATA, dataModelMovie)
-//            startActivityForResult(intent, REQUEST_CODE_VIEWER_MOVIE)
-            startActivity(intent)
-
+            this.finish()
+            Log.d(tagLog, "DONE ... for get and load data in background")
         }
+
+        private fun finish() {
+            Log.d(tagLog, "Loading ... for get and load data in background")
+            lv_list_movie_home.adapter = adapterMovie
+
+            loadDataMovie()
+            setMovieAdd()
+            bindMovieHome()
+//                frame_progress.visibility = View.GONE
+        }
+    }, doInBackGroundMovie.toLong())
+}
+
+fun bindMovieHome() {
+
+    lv_list_movie_home.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+
+
+        val imagePoster = dataModelMovies[position].moviePicture
+        val imagePosterBack = dataModelMovies[position].moviePictureBackground
+        val imagePosterRel1 = dataModelMovies[position].moviePictureRelated1
+        val imagePosterRel2 = dataModelMovies[position].moviePictureRelated2
+        val imagePosterRel3 = dataModelMovies[position].moviePictureRelated3
+        val movieName = dataModelMovies[position].movieName
+
+        Log.d(tagLog, "List View movie :  $movieName got clicked")
+
+        // get PoJo data from onClickListener
+        val dataModelMovie = MovieDataModels(
+            +imagePoster,
+            +imagePosterBack,
+            +imagePosterRel1,
+            +imagePosterRel2,
+            +imagePosterRel3,
+            "" + movieName,
+            "" + dataModelMovies[position].movieRelease,
+            "" + dataModelMovies[position].movieOverview,
+            "" + dataModelMovies[position].movieRankLastToday,
+            "" + dataModelMovies[position].movieRAnkLastWeek,
+            "" + dataModelMovies[position].movieDirector1,
+            "" + dataModelMovies[position].movieDirector2,
+            "" + dataModelMovies[position].movieOrigLang,
+            "" + dataModelMovies[position].movieRuntime,
+            "" + dataModelMovies[position].movieBudget,
+            "" + dataModelMovies[position].movieRevenue,
+            "" + dataModelMovies[position].movieScreenPlay1,
+            "" + dataModelMovies[position].movieScreenPlay2,
+            "" + dataModelMovies[position].movieGenres,
+            "" + dataModelMovies[position].movieKeywords,
+            "" + dataModelMovies[position].movieScore,
+            "" + dataModelMovies[position].movieViewers
+        )
+        // moveIntent with PoJo
+        val intent = Intent(this@MovieCatalogueMainActivity, MovieCatalogueDetailActivity::class.java)
+        intent.putExtra(MovieCatalogueDetailActivity.EXTRA_MOVIE_DATA, dataModelMovie)
+//            startActivityForResult(intent, REQUEST_CODE_VIEWER_MOVIE)
+        startActivity(intent)
+
     }
+}
 
-    fun loadDataMovie() {
+fun loadDataMovie() {
 
-        Log.d(tagLog, "Load Data Movie from get string with array")
+    Log.d(tagLog, "Load Data Movie from get string with array")
 
 //        moviePicture = resources.obtainTypedArray(R.array.data_movie_image)
 //        moviePictureBackground = resources.obtainTypedArray(R.array.data_movie_image_background)
@@ -800,73 +767,71 @@ Testing
 //        movieScore = resources.getStringArray(R.array.data_movie_score)
 //        movieViewers = resources.getStringArray(R.array.data_movie_viewer)
 
-        Log.d(tagLog, "Load Data Movie have done ")
-
-    }
-
-    fun setMovieAdd() {
-
-        Log.d(tagLog, "Set data string")
-        dataModelMovies = ArrayList()
-        for (i in movieName.indices) {
-
-            val moviePic = moviePicture.getResourceId(i, -1)
-            val moviePicBack = moviePictureBackground.getResourceId(i, -1)
-            val moviePicRel1 = moviePictureRel1.getResourceId(i, -1)
-            val moviePicRel2 = moviePictureRel2.getResourceId(i, -1)
-            val moviePicRel3 = moviePictureRel3.getResourceId(i, -1)
-            val movieName = movieName[i]
-            val movieRelease = movieRelease?.get(i)
-            val movieOverView = movieOverview?.get(i)
-            val movieLastToday = movieRankLastToday?.get(i)
-            val movieLastWeek = movieRankLastWeek?.get(i)
-            val movieDir1 = movieDirector1?.get(i)
-            val movieDir2 = movieDirector2?.get(i)
-            val movieOriLang = movieOrigLang?.get(i)
-            val movieRunTime = movieRunTime?.get(i)
-            val movieBudget = movieBudget?.get(i)
-            val movieRevenue = movieRevenue?.get(i)
-            val movieScr1 = movieScreenPlay1?.get(i)
-            val movieScr2 = movieScreenPlay2?.get(i)
-            val movieGenre = movieGenres?.get(i)
-            val movieKeywords = movieKeywords?.get(i)
-            val movieScore = movieScore?.get(i)
-            val movieViewer = movieViewers?.get(i)
-
-            val movie = MovieDataModels(
-                moviePic,
-                moviePicBack,
-                moviePicRel1,
-                moviePicRel2,
-                moviePicRel3,
-                movieName,
-                movieRelease,
-                movieOverView,
-                movieLastToday,
-                movieLastWeek,
-                movieDir1,
-                movieDir2,
-                movieOriLang,
-                movieRunTime,
-                movieBudget,
-                movieRevenue,
-                movieScr1,
-                movieScr2,
-                movieGenre,
-                movieKeywords,
-                movieScore,
-                movieViewer
-            )
-            dataModelMovies.add(movie)
-        }
-        // for in adapter arguments
-        adapterMovie?.dataModelMovies = dataModelMovies
-        Log.d(tagLog, "Movie Adapter Has been set UP ")
-    }
-
-    /**
-     * END OF Submission 1 Func
-     */
-*/
+    Log.d(tagLog, "Load Data Movie have done ")
 
 }
+
+fun setMovieAdd() {
+
+    Log.d(tagLog, "Set data string")
+    dataModelMovies = ArrayList()
+    for (i in movieName.indices) {
+
+        val moviePic = moviePicture.getResourceId(i, -1)
+        val moviePicBack = moviePictureBackground.getResourceId(i, -1)
+        val moviePicRel1 = moviePictureRel1.getResourceId(i, -1)
+        val moviePicRel2 = moviePictureRel2.getResourceId(i, -1)
+        val moviePicRel3 = moviePictureRel3.getResourceId(i, -1)
+        val movieName = movieName[i]
+        val movieRelease = movieRelease?.get(i)
+        val movieOverView = movieOverview?.get(i)
+        val movieLastToday = movieRankLastToday?.get(i)
+        val movieLastWeek = movieRankLastWeek?.get(i)
+        val movieDir1 = movieDirector1?.get(i)
+        val movieDir2 = movieDirector2?.get(i)
+        val movieOriLang = movieOrigLang?.get(i)
+        val movieRunTime = movieRunTime?.get(i)
+        val movieBudget = movieBudget?.get(i)
+        val movieRevenue = movieRevenue?.get(i)
+        val movieScr1 = movieScreenPlay1?.get(i)
+        val movieScr2 = movieScreenPlay2?.get(i)
+        val movieGenre = movieGenres?.get(i)
+        val movieKeywords = movieKeywords?.get(i)
+        val movieScore = movieScore?.get(i)
+        val movieViewer = movieViewers?.get(i)
+
+        val movie = MovieDataModels(
+            moviePic,
+            moviePicBack,
+            moviePicRel1,
+            moviePicRel2,
+            moviePicRel3,
+            movieName,
+            movieRelease,
+            movieOverView,
+            movieLastToday,
+            movieLastWeek,
+            movieDir1,
+            movieDir2,
+            movieOriLang,
+            movieRunTime,
+            movieBudget,
+            movieRevenue,
+            movieScr1,
+            movieScr2,
+            movieGenre,
+            movieKeywords,
+            movieScore,
+            movieViewer
+        )
+        dataModelMovies.add(movie)
+    }
+    // for in adapter arguments
+    adapterMovie?.dataModelMovies = dataModelMovies
+    Log.d(tagLog, "Movie Adapter Has been set UP ")
+}
+
+/**
+ * END OF Submission 1 Func
+ */
+*/
