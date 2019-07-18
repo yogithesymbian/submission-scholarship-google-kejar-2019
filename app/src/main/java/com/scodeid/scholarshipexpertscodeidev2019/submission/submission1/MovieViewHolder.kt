@@ -35,6 +35,8 @@ import kotlinx.android.synthetic.main.fragment_movie_dialog.*
  * https://stackoverflow.com/questions/34498562/in-kotlin-what-is-the-idiomatic-way-to-deal-with-nullable-values-referencing-o?answertab=active#tab-top
  */
 
+
+
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MovieViewHolder internal constructor(view: View, context: Context?) {
 

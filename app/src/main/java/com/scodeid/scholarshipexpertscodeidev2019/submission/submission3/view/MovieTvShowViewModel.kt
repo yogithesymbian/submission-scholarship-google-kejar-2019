@@ -55,78 +55,81 @@ class MovieTvShowViewModel : ViewModel() {
     }
 
     fun setMovieTvShow(lang: String, context: Context?) {
-        Log.d(TAG_LOG, "Language use : $lang")
-        AndroidNetworking.get(ApiEndPoint.SERVER_TV_SHOW)
-            .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-            .addPathParameter("LANGUAGE", lang)
-            .setPriority(Priority.LOW)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    val jsonArray = response.optJSONArray("results")
+        if (arrayListMovieTvShow.isEmpty())
+        {
+            Log.d(TAG_LOG, "Language use : $lang")
+            AndroidNetworking.get(ApiEndPoint.SERVER_TV_SHOW)
+                .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
+                .addPathParameter("LANGUAGE", lang)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
+                        val jsonArray = response.optJSONArray("results")
 
-                    if (jsonArray?.length() == 0) {
-                        Toast.makeText(context, "result data is empty, Add the data first", Toast.LENGTH_LONG).show()
-                    }
+                        if (jsonArray?.length() == 0) {
+                            Toast.makeText(context, "result data is empty, Add the data first", Toast.LENGTH_LONG).show()
+                        }
 
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.optJSONObject(i)
+                        for (i in 0 until jsonArray.length()) {
+                            val jsonObject = jsonArray.optJSONObject(i)
 
-                        arrayListMovieTvShow.add(
-                            MoviesTvShowApiData(
-                                jsonObject.getString("original_name"),
-                                arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.getString("name"),
-                                jsonObject.getInt("popularity"),
-                                arrayListOf(jsonObject.getString("origin_country")),
-                                jsonObject.getInt("vote_count"),
-                                jsonObject.getString("first_air_date"),
-                                jsonObject.getString("backdrop_path"),
-                                jsonObject.getString("original_language"),
-                                jsonObject.getInt("id"),
-                                jsonObject.getInt("vote_average"),
-                                jsonObject.getString("overview"),
-                                jsonObject.getString("poster_path")
+                            arrayListMovieTvShow.add(
+                                MoviesTvShowApiData(
+                                    jsonObject.getString("original_name"),
+                                    arrayListOf(jsonObject.getString("genre_ids")),
+                                    jsonObject.getString("name"),
+                                    jsonObject.getInt("popularity"),
+                                    arrayListOf(jsonObject.getString("origin_country")),
+                                    jsonObject.getInt("vote_count"),
+                                    jsonObject.getString("first_air_date"),
+                                    jsonObject.getString("backdrop_path"),
+                                    jsonObject.getString("original_language"),
+                                    jsonObject.getInt("id"),
+                                    jsonObject.getInt("vote_average"),
+                                    jsonObject.getString("overview"),
+                                    jsonObject.getString("poster_path")
+                                )
                             )
-                        )
 
-                        if (jsonArray.length() - 1 == i) {
-                            // post the data value
-                            listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
+                            if (jsonArray.length() - 1 == i) {
+                                // post the data value
+                                listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
 
+                            }
                         }
                     }
-                }
 
-                override fun onError(anError: ANError?) {
+                    override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR", anError?.errorDetail.toString())
-                    val intent = Intent(context, NoInternetConnActivity::class.java)
-                    context?.startActivity(intent)
+                        Log.d("ON_ERROR", anError?.errorDetail.toString())
+                        val intent = Intent(context, NoInternetConnActivity::class.java)
+                        context?.startActivity(intent)
 
 
-                    // received error from server
-                    if (anError?.errorCode != 0) {
+                        // received error from server
+                        if (anError?.errorCode != 0) {
 
-                        Log.d(
-                            TAG_LOG,
-                            "onError errorCode : " + anError?.errorCode
-                        ) // error.getErrorCode() - the error code from server
-                        Log.d(
-                            TAG_LOG,
-                            "onError errorBody : " + anError?.errorBody
-                        ) // error.getErrorBody() - the error body from server
-                        Log.d(
-                            TAG_LOG,
-                            "onError errorDetail : " + anError?.errorDetail
-                        ) // error.getErrorDetail() - just an error detail
+                            Log.d(
+                                TAG_LOG,
+                                "onError errorCode : " + anError?.errorCode
+                            ) // error.getErrorCode() - the error code from server
+                            Log.d(
+                                TAG_LOG,
+                                "onError errorBody : " + anError?.errorBody
+                            ) // error.getErrorBody() - the error body from server
+                            Log.d(
+                                TAG_LOG,
+                                "onError errorDetail : " + anError?.errorDetail
+                            ) // error.getErrorDetail() - just an error detail
 
-                    } else {
-                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        } else {
+                            // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                            Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        }
                     }
-                }
-            })
+                })
+        }
         // request API
     }
 

@@ -26,7 +26,6 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
 
     val adapter = MoviesTvShowApiAdapter(ArrayList())
 
-    val arrayList = ArrayList<MoviesTvShowApiData>()
 
     companion object {
         @JvmStatic
@@ -50,7 +49,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
+        return  inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
     }
 
 
@@ -66,10 +65,8 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
             }
         }
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(TAG_LOG, "onActivityCreated")
+    private fun movieTvShowHandle()
+    {
 
         recycler_view_tv_show.setHasFixedSize(true)
         recycler_view_tv_show.layoutManager = LinearLayoutManager(context)
@@ -78,9 +75,21 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
         movieTvShowViewModel = ViewModelProviders.of(this).get(MovieTvShowViewModel::class.java)
         movieTvShowViewModel.getMoviesTvShow().observe(this, getMovieTvShow)
 
-        movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
+        if (adapter.itemCount == 0)
+        {
+            movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
+        }
+        else
+        {
+            frame_progress_tv_show.visibility = View.GONE
+            card_tv_show.visibility = View.VISIBLE
+        }
+    }
 
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG_LOG, "onActivityCreated")
 
     }
 
@@ -94,7 +103,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG_LOG, "onViewCreated")
 
-
+        movieTvShowHandle() // load data and set
 
     }
 

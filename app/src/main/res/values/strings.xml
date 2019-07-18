@@ -186,12 +186,11 @@
     <string name="activity_movie_catalogue_detail_adult_desc_1">This content is adult , only +18</string>
     <string name="activity_movie_catalogue_detail_language">English</string>
     <string name="activity_movie_catalogue_detail_language_ja">Japan</string>
-    <string name="activity_no_internet_conn_body1">Check quota/WI-FI or get notification while you have conneection to internet</string>
+    <string name="activity_no_internet_conn_body1">Check quota/WI-FI or get notification while you have connection to internet</string>
     <string name="activity_no_internet_conn_head1">No Internet Connection</string>
     <string name="activity_no_internet_conn_get_notification">GET NOTIFICATION</string>
     <string name="activity_no_internet_conn_try_again">TRY AGAIN</string>
     <string name="activity_movie_catalogue_detail_original_name">Original Name</string>
-    <string name="activity_movie_catalogue_original_country">Original Country</string>
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
 

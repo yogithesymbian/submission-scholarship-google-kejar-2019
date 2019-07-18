@@ -219,7 +219,6 @@
     <string name="activity_no_internet_conn_get_notification">BERI TAHU SAYA</string>
     <string name="activity_no_internet_conn_try_again">COBA LAGI</string>
     <string name="activity_movie_catalogue_detail_original_name">Original Name</string>
-    <string name="activity_movie_catalogue_original_country">Original Country</string>
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
 

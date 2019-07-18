@@ -43,6 +43,8 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataMode
 import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModelsRecycler
 import com.scodeid.scholarshipexpertscodeidev2019.submission.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.TV_SHOW
 import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewers
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
@@ -186,16 +188,23 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
      *  -> other feature's
      */
 
+    private val stateChangeVisible = "state_change_visible"
+//
+    private var statusActivity = ""
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 Log.d(tagLog, "Try opening home movie activity")
+//                checkVisibleState()
+                statusActivity = MOVIE //invert logic
                 hideHomeTvShow()
-                // already by default tabs homeActivity
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tv_show -> {
                 Log.d(tagLog, "Try opening 2 movie activity")
+//                checkVisibleState()
+
+                statusActivity = TV_SHOW //invert logic
                 hideHome()
                 handleFragmentApiTvShow()
 
@@ -209,7 +218,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         }
         false
     }
-
 
     private fun handleFragmentApiTvShow() {
         // instance fragmentManager
@@ -270,6 +278,13 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(stateChangeVisible,statusActivity)
+    }
+
     /**
      * onCreate
      */
@@ -279,6 +294,14 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_movie_catalogue_main)
         setSupportActionBar(toolbarManual)
 
+        if (savedInstanceState != null)
+        {
+            val onChangeVisible = savedInstanceState.getString(stateChangeVisible)
+            if (onChangeVisible != null)
+            {
+                statusActivity = onChangeVisible
+            }
+        }
 //        toolbarManual.overflowIcon?.setColorFilter(resources.getColor(R.color.black70), PorterDuff.Mode.SRC_ATOP)
 //        toolbarManual.setNavigationOnClickListener {
 //            drawer_layout.openDrawer(GravityCompat.START)
@@ -467,7 +490,6 @@ Testing
 //        }, doInBackGroundMovie.toLong())
 
 //         homeMovie()//this function for Submission 1 Func 2
-        //for my child
 
 
 
@@ -512,6 +534,8 @@ Testing
 
     }
 
+
+
     private fun hideHome()
     {
         view_pager_container_home.visibility = View.GONE
@@ -524,6 +548,7 @@ Testing
     }
 
 
+
     /**
      * LifeCycle Android
      * onCreate -> onStart -> onResum -> onPause -> onStop -> onRestart -> onDestroy
@@ -531,6 +556,17 @@ Testing
     override fun onStart() {
         super.onStart()
         Log.d(tagLog, "onStart")
+
+        if (statusActivity == TV_SHOW)
+        {
+            Log.d(tagLog, "Status activity $TV_SHOW")
+            hideHome()
+        }
+        else if(statusActivity == MOVIE)
+        {
+            Log.d(tagLog, "Status activity $MOVIE")
+            hideHomeTvShow()
+        }
     }
 
     override fun onResume() {
@@ -540,9 +576,9 @@ Testing
         view_pager_container_home.offscreenPageLimit = 3
 
 
-        //select home from other on destroy an activity
-        val tabs = tabs.getTabAt(4 - 6)
-        tabs?.select()
+//        select home from other on destroy an activity
+//        val tabs = tabs.getTabAt(4 - 6)
+//        tabs?.select()
     }
 
     override fun onPause() {

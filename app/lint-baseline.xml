@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+===================================================
+THESE Class / Function JUST FOR SUBMISSION 2 UNUSED
+====================================================
+Kotlin 22 warnings
+    Redundant consctructs 22 warning
+        Unused symbol 22 warning
+            > MovieAdapter.kt
+            > MovieDataModels.kt
+            > MoviesHomeRecyclerFragment
+-->
 <issues format="5" by="lint 3.4.1">
 
 </issues>

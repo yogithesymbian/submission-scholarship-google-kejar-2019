@@ -53,79 +53,82 @@ class MovieViewModel : ViewModel(){
         val TAG_LOG: String = MovieViewModel::class.java.simpleName
     }
     fun setMovie(lang: String,context: Context?) {
-        Log.d(TAG_LOG, "Language use : $lang")
-        AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
-            .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-            .addPathParameter("LANGUAGE", lang)
-            .setPriority(Priority.LOW)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
+        if (arrayListMovie.isEmpty())
+        {
+            Log.d(TAG_LOG, "Language use : $lang")
+            AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
+                .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
+                .addPathParameter("LANGUAGE", lang)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
 //                    arrayListMovie.clear() // for clear while , for !duplicate //already clear on adapter set data like @deprecated my code :V :D
-                    val jsonArray = response.optJSONArray("results")
+                        val jsonArray = response.optJSONArray("results")
 
-                    if (jsonArray?.length() == 0)
-                    {
-                        Toast.makeText(context,"result data is empty, Add the data first", Toast.LENGTH_LONG).show()
-                    }
-                    /**
-                     * for closing progress dialog ini
-                     * looping for jsonArray to save data in , then checking has it ? with if statements
-                     */
-                    for (i in 0 until jsonArray.length())
-                    {
-                        val jsonObject = jsonArray.optJSONObject(i)
-
-                        arrayListMovie.add(
-                            MoviesApiData(
-                                jsonObject.getInt("vote_count"),
-                                jsonObject.getInt("id"),
-                                jsonObject.getBoolean("video"),
-                                jsonObject.getInt("vote_average"),
-                                jsonObject.getString("title"),
-                                jsonObject.getInt("popularity"),
-                                jsonObject.getString("poster_path"),
-                                jsonObject.getString("original_language"),
-                                jsonObject.getString("original_title"),
-                                arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.getString("backdrop_path"),
-                                jsonObject.getBoolean("adult"),
-                                jsonObject.getString("overview"),
-                                jsonObject.getString("release_date")
-                            )
-                        )
-
-                        if (jsonArray.length() - 1 == i)
+                        if (jsonArray?.length() == 0)
                         {
-                            listMovieMutableLiveData.postValue(arrayListMovie)
+                            Toast.makeText(context,"result data is empty, Add the data first", Toast.LENGTH_LONG).show()
+                        }
+                        /**
+                         * for closing progress dialog ini
+                         * looping for jsonArray to save data in , then checking has it ? with if statements
+                         */
+                        for (i in 0 until jsonArray.length())
+                        {
+                            val jsonObject = jsonArray.optJSONObject(i)
+
+                            arrayListMovie.add(
+                                MoviesApiData(
+                                    jsonObject.getInt("vote_count"),
+                                    jsonObject.getInt("id"),
+                                    jsonObject.getBoolean("video"),
+                                    jsonObject.getInt("vote_average"),
+                                    jsonObject.getString("title"),
+                                    jsonObject.getInt("popularity"),
+                                    jsonObject.getString("poster_path"),
+                                    jsonObject.getString("original_language"),
+                                    jsonObject.getString("original_title"),
+                                    arrayListOf(jsonObject.getString("genre_ids")),
+                                    jsonObject.getString("backdrop_path"),
+                                    jsonObject.getBoolean("adult"),
+                                    jsonObject.getString("overview"),
+                                    jsonObject.getString("release_date")
+                                )
+                            )
+
+                            if (jsonArray.length() - 1 == i)
+                            {
+                                listMovieMutableLiveData.postValue(arrayListMovie)
 //                            val adapter = context?.let { MoviesApiAdapter(it, MoviesWapiHomeFragment.arrayList) }
 //                            adapter?.notifyDataSetChanged()
 //                            recycler_view_home?.adapter = adapter
 //                            frame_progress.visibility = View.GONE
+                            }
                         }
                     }
-                }
 
-                override fun onError(anError: ANError?) {
+                    override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR",anError?.errorDetail.toString())
-                    val intent = Intent(context, NoInternetConnActivity::class.java)
-                    context?.startActivity(intent)
+                        Log.d("ON_ERROR",anError?.errorDetail.toString())
+                        val intent = Intent(context, NoInternetConnActivity::class.java)
+                        context?.startActivity(intent)
 
 
-                    // received error from server
-                    if (anError?.errorCode != 0) {
+                        // received error from server
+                        if (anError?.errorCode != 0) {
 
-                        Log.d(TAG_LOG, "onError errorCode : " + anError?.errorCode) // error.getErrorCode() - the error code from server
-                        Log.d(TAG_LOG, "onError errorBody : " + anError?.errorBody) // error.getErrorBody() - the error body from server
-                        Log.d(TAG_LOG, "onError errorDetail : " + anError?.errorDetail) // error.getErrorDetail() - just an error detail
+                            Log.d(TAG_LOG, "onError errorCode : " + anError?.errorCode) // error.getErrorCode() - the error code from server
+                            Log.d(TAG_LOG, "onError errorBody : " + anError?.errorBody) // error.getErrorBody() - the error body from server
+                            Log.d(TAG_LOG, "onError errorDetail : " + anError?.errorDetail) // error.getErrorDetail() - just an error detail
 
-                    } else {
-                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        } else {
+                            // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                            Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        }
                     }
-                }
-            })
+                })
+        }
         // request API
     }
 

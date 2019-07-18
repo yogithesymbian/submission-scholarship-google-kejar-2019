@@ -20,7 +20,9 @@ import android.widget.BaseAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModels
 import java.util.*
-
+/**
+ * THIS CLASS JUST FOR SUBMISSION 2 SOMETIMES WILL USE
+ */
 // adapter have complex
 @Suppress("NAME_SHADOWING")
 class MovieAdapter internal constructor(var context: Context?) : BaseAdapter() {

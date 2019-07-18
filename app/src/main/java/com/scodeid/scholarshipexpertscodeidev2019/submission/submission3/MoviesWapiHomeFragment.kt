@@ -54,6 +54,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     val adapter = MoviesApiAdapter(ArrayList())
 
+
     companion object{
         @JvmStatic
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
@@ -120,83 +121,10 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         super.onActivityCreated(savedInstanceState)
         Log.d(TAG_LOG,"onActivityCreated")
 
-        movieDataHandle()
-
-        /*
-//        frame_progress.visibility = View.VISIBLE
-
-        /**
-         * GET . READ API MOVIES
-         */
-
-        // avoid skipped 34 frame of my code
-        val doInBackGroundMovie = 3000 //in just start
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
-
-                this.finish()
-                Log.d(TAG_LOG, "DONE ... for get and load data in background")
-            }
-
-            private fun finish() {
-                Log.d(TAG_LOG, "Loading ... for get and load data in background")
-
-
-
-                // end of get api
-                // later's i dunno object map in Function still learning
-                /*
-                Rx2AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
-                    .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-                    .addPathParameter("LANGUAGE", resources.getString(R.string.app_language))
-                    .build()
-                    .getObjectObservable(MoviesApiData::class.java)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .map(object : Function<MoviesApiData, MoviesApiData>() {
-                        @Throws(Exception::class)
-                        fun apply(apiMovie: MoviesApiData): MoviesApiData {
-                            // here we get ApiUser from server
-                            // then by converting, we are returning user
-                            return apiMovie
-                        }
-                    })
-                    .subscribe(object : Observer<MoviesApiData> {
-                        override fun onChanged(t: MoviesApiData?) {
-
-                        }
-
-                        fun onSubscribe(d: Disposable) {
-
-                        }
-
-                        fun onNext(moviesApiData: MoviesApiData) {
-
-                        }
-
-                        fun onError(e: Throwable) {
-
-                        }
-
-                        fun onComplete() {
-
-                        }
-                    })
-                */
-
-            }
-        }, doInBackGroundMovie.toLong())
-
-        /**
-         * END OF GET . READ API MOVIES PROCESS
-         */
-
-*/
     }
 
-    private fun movieDataHandle() {
 
-//        adapter.notifyDataSetChanged()
+    private fun movieDataHandle() {
 
         recycler_view_home.setHasFixedSize(true)
         recycler_view_home.layoutManager = LinearLayoutManager(context)
@@ -205,14 +133,20 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         movieViewModel.getMovies().observe(this, getMovie)
 
-        movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+        if (adapter.itemCount == 0)
+        {
+            movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+        }
+        else
+        {
+            frame_progress.visibility = View.GONE
+        }
     }
 
 
     override fun onStart() {
         super.onStart()
         Log.d(TAG_LOG,"onStart")
-
 
     }
 
@@ -233,15 +167,12 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
                 else -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
             }
         }
+        movieDataHandle() //load data movies
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(tag,"onResume Tabs")
-//        adapter?.notifyDataSetChanged()
-//        recycler_view_home.setHasFixedSize(true)
-//        recycler_view_home.layoutManager = LinearLayoutManager(context)
-//        recycler_view_home.adapter = adapter
 
     }
     override fun onPause() {
@@ -267,7 +198,6 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     override fun onDetach() {
         super.onDetach()
         Log.d(TAG_LOG,"onDetach")
-//        arrayList.clear()  //clear when out
     }
 
 

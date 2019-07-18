@@ -58,7 +58,7 @@ class MoviesApiAdapter internal constructor(
     private val arrayListMovies : ArrayList<MoviesApiData>
 ) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
 //before i have internal constructor context: Context but when i in the fragment is needed passing an ArrayList
-    // then the variable is global so i can't pass the context cause null then the array can't retrive properly cause context are null on fragment global variable
+    // then the variable is global so i can't pass the context cause null then the array can't retrieve properly cause context are null on fragment global variable
     //so in here i re use the ViewGroup (parent.context)
     // and i have explore in 1 day and found this logic val context = holder.itemView.context :'(
     companion object{
@@ -167,7 +167,7 @@ class MoviesApiAdapter internal constructor(
 
         holder
             .itemView.image_movie.setOnClickListener {
-            Log.d(TAG_LOG + "Bind", "image ${holder.itemView.image_movie} got clicked and Try opening dialog view")
+            Log.d(TAG_LOG + "Bind", "image ${holder.itemView.image_movie} and the video is ${arrayListMovies[position].video} got clicked and Try opening dialog view")
 
             /**
              * DIALOG view movie catalogue

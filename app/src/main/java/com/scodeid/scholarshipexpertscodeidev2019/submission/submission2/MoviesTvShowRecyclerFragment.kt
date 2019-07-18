@@ -259,9 +259,9 @@ class MoviesTvShowRecyclerFragment : Fragment() {
      * This MovieDataObject.kt Object Array
      */
 
-    private fun passingDataArrayResources(rArrayString: Int, position: Int): String? {
-        return (context?.resources?.getStringArray(rArrayString)?.get(position))
-    }
+//    private fun passingDataArrayResources(rArrayString: Int, position: Int): String? {
+//        return (context?.resources?.getStringArray(rArrayString)?.get(position))
+//    }
 
     /**
      * STAY UNFOLD this array :'( later's will use looping for set positing foreach for in indices

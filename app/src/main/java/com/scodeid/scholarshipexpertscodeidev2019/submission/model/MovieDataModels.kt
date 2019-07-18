@@ -15,6 +15,9 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * THIS CLASS JUST FOR SUBMISSION 2 SOMETIMES WILL USE
+ */
 @Parcelize
 class MovieDataModels (
     val moviePicture: Int, //done
