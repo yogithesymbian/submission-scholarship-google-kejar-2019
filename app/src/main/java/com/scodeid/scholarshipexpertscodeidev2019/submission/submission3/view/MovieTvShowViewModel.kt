@@ -57,6 +57,7 @@ class MovieTvShowViewModel : ViewModel() {
     fun setMovieTvShow(lang: String, context: Context?) {
         if (arrayListMovieTvShow.isEmpty())
         {
+            Log.d(TAG_LOG,"arrayList TV_SHOW is Empty, request api is in background")
             Log.d(TAG_LOG, "Language use : $lang")
             AndroidNetworking.get(ApiEndPoint.SERVER_TV_SHOW)
                 .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
@@ -131,6 +132,11 @@ class MovieTvShowViewModel : ViewModel() {
                 })
         }
         // request API
+        else{
+            Log.d(TAG_LOG,"arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
+            listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
+        }
+        // didn't request API
     }
 
     fun getMoviesTvShow(): LiveData<ArrayList<MoviesTvShowApiData>> {

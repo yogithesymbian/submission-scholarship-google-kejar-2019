@@ -17,7 +17,7 @@
     <include
         layout="@layout/activity_movie_catalogue_main_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigationView"
@@ -32,5 +32,6 @@
             tools:ignore="RtlHardcoded">
 
     </com.google.android.material.navigation.NavigationView>
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

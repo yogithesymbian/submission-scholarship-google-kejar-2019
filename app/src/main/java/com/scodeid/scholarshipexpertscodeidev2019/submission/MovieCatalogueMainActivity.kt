@@ -124,7 +124,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
     }
 
     override fun homeMovies(models: MovieDataModelsRecycler) {
-        Log.d(tagLog,"later's")
+        Log.d(tagLog, "later's")
     }
 
 
@@ -188,24 +188,46 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
      *  -> other feature's
      */
 
-    private val stateChangeVisible = "state_change_visible"
-//
-    private var statusActivity = ""
+
+    companion object {
+        @JvmStatic
+        val stateChangeVisible = "" //
+        var statusActivity = ""
+    }
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
                 Log.d(tagLog, "Try opening home movie activity")
-//                checkVisibleState()
-                statusActivity = MOVIE //invert logic
-                hideHomeTvShow()
+                statusActivity = MOVIE //invert logic check onStart
+                Handler().postDelayed(object : Runnable {
+                    override fun run() {
+                        frame_ui_change_progress.visibility = View.VISIBLE
+                        this.finish()
+                        frame_ui_change_progress.visibility = View.GONE
+                    }
+
+                    private fun finish() {
+                        hideHomeTvShow()
+                    }
+                }, 100)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tv_show -> {
                 Log.d(tagLog, "Try opening 2 movie activity")
-//                checkVisibleState()
+                statusActivity = TV_SHOW //invert logic onStart
+                Handler().postDelayed(object : Runnable {
+                    override fun run() {
+                        frame_ui_change_progress.visibility = View.VISIBLE
+                        this.finish()
+                        frame_ui_change_progress.visibility = View.GONE
+                    }
 
-                statusActivity = TV_SHOW //invert logic
-                hideHome()
+                    private fun finish() {
+                        hideHome()
+                    }
+                }, 100)
+
                 handleFragmentApiTvShow()
 
                 return@OnNavigationItemSelectedListener true
@@ -230,7 +252,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         val fragment = mFragmentManager.findFragmentByTag(MoviesTvWapiHomeFragment::class.java.simpleName)
         if (fragment !is MoviesTvWapiHomeFragment) {
             // add()
-            mFragmentTransaction.add(R.id.frame_container_tv_show, mTvHome, MoviesTvWapiHomeFragment::class.java.simpleName)
+            mFragmentTransaction.add(
+                R.id.frame_container_tv_show,
+                mTvHome,
+                MoviesTvWapiHomeFragment::class.java.simpleName
+            )
             //commit()
             mFragmentTransaction.commit()
         }
@@ -282,7 +308,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(stateChangeVisible,statusActivity)
+        outState.putString(stateChangeVisible, statusActivity)
     }
 
     /**
@@ -294,10 +320,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         setContentView(R.layout.activity_movie_catalogue_main)
         setSupportActionBar(toolbarManual)
 
-        if (savedInstanceState != null)
-        {
+        if (savedInstanceState != null) {
             val onChangeVisible = savedInstanceState.getString(stateChangeVisible)
-            if (onChangeVisible != null)
+            if (onChangeVisible != null) // NPE ? no , i think this good for avoid annotation
             {
                 statusActivity = onChangeVisible
             }
@@ -306,6 +331,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
 //        toolbarManual.setNavigationOnClickListener {
 //            drawer_layout.openDrawer(GravityCompat.START)
 //        }
+
         // bottom navigation listener ON
 //        val moviesHomeBotNavAdapter = MoviesHomeBotNavAdapter(this@MovieCatalogueMainActivity)
 //        navigation.setOnNavigationItemSelectedListener(moviesHomeBotNavAdapter.mOnNavigationItemSelectedListener)
@@ -318,7 +344,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         /**
          * TabLayout View Pager Like ButtonNavigationView
          */
-
         mMainSectionsPagerAdapter = MainSectionsPagerAdapter(
             supportFragmentManager,
             tabs
@@ -354,26 +379,39 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
 
                 when (position) {
                     home -> {
-                        Log.d(tagLog,"Home Tab Got Clicked")
+                        Log.d(tagLog, "Home Tab Got Clicked")
 
-                        app_bar_for_drawer.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
+                        app_bar_for_drawer.setBackgroundColor(
+                            ResourcesCompat.getColor(
+                                resources,
+                                R.color.colorPrimary,
+                                theme
+                            )
+                        )
                         app_bar_for_drawer.invalidate()
                         tabs.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
                         tabs.invalidate()
 
                         window.statusBarColor = (ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
-                        linear_nav_header.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
+                        linear_nav_header.setBackgroundColor(
+                            ResourcesCompat.getColor(
+                                resources,
+                                R.color.colorPrimary,
+                                theme
+                            )
+                        )
                         linear_nav_header.invalidate()
                         toolbarManual.setLogo(R.drawable.ic_airplay_blue_24dp)
                         toolbarManual.invalidate() // ctrl + click to see what is the invalidate
-                        image_option_drawer.borderColor = (ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
+                        image_option_drawer.borderColor =
+                            (ResourcesCompat.getColor(resources, R.color.colorPrimary, theme))
                         image_option_drawer.invalidate()
 
                         val tabs = tabs.getTabAt(home - 6)
                         tabs?.select()
                     }
                     popular -> {
-                        Log.d(tagLog,"Popular Tab Got Clicked")
+                        Log.d(tagLog, "Popular Tab Got Clicked")
 /*
 Testing
                         val moviePictures= resources.getStringArray(R.array.data_movie_name)
@@ -395,7 +433,7 @@ Testing
                         tabs?.select()
                     }
                     trailer -> {
-                        Log.d(tagLog,"Trailer Tab Got Clicked")
+                        Log.d(tagLog, "Trailer Tab Got Clicked")
 
                         /**
                          * animation change color bar layout
@@ -411,7 +449,7 @@ Testing
                         tabs?.select()
                     }
                     saved -> {
-                        Log.d(tagLog,"Saved Tab Got Clicked")
+                        Log.d(tagLog, "Saved Tab Got Clicked")
 
                         /**
                          * animation change color bar layout
@@ -447,11 +485,13 @@ Testing
         Glide.with(this)
             .asBitmap()
             .load(R.drawable.ic_profile_home_user)
-            .apply(RequestOptions()
-                .override(36, 36))
+            .apply(
+                RequestOptions()
+                    .override(36, 36)
+            )
             .into(image_option_drawer)
 
-        image_option_drawer.setOnClickListener{
+        image_option_drawer.setOnClickListener {
             drawer_layout.openDrawer(GravityCompat.START)
         }
 
@@ -492,8 +532,6 @@ Testing
 //         homeMovie()//this function for Submission 1 Func 2
 
 
-
-
     }
 
 
@@ -510,12 +548,12 @@ Testing
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
         colorAnimation.duration = 500 // milliseconds
 
-        Handler().postDelayed(object : Runnable{
+        Handler().postDelayed(object : Runnable {
             override fun run() {
                 this.finish()
             }
-            private fun finish()
-            {
+
+            private fun finish() {
                 colorAnimation.addUpdateListener { animator ->
                     tabs?.setBackgroundColor(animator.animatedValue as Int)
                     tabs?.invalidate()// avoid NPE
@@ -535,18 +573,15 @@ Testing
     }
 
 
-
-    private fun hideHome()
-    {
+    private fun hideHome() {
         view_pager_container_home.visibility = View.GONE
         frame_container_tv_show.visibility = View.VISIBLE
     }
-    private fun hideHomeTvShow()
-    {
+
+    private fun hideHomeTvShow() {
         view_pager_container_home.visibility = View.VISIBLE
         frame_container_tv_show.visibility = View.GONE
     }
-
 
 
     /**
@@ -557,13 +592,10 @@ Testing
         super.onStart()
         Log.d(tagLog, "onStart")
 
-        if (statusActivity == TV_SHOW)
-        {
+        if (statusActivity == TV_SHOW) {
             Log.d(tagLog, "Status activity $TV_SHOW")
             hideHome()
-        }
-        else if(statusActivity == MOVIE)
-        {
+        } else if (statusActivity == MOVIE) {
             Log.d(tagLog, "Status activity $MOVIE")
             hideHomeTvShow()
         }
@@ -571,14 +603,25 @@ Testing
 
     override fun onResume() {
         super.onResume()
-        Log.d(tagLog, "onResume | i did'nt save barColor on instanceSaveState| and onResume will be set randomColor that is feature :D not bug or anymore :v ")
+        Log.d(
+            tagLog,
+            "onResume | i did'nt save barColor on instanceSaveState| and onResume will be set randomColor that is feature :D not bug or anymore :v "
+        )
         // some bug maybe come by fragment fixed | relative small so i need limit the fragment loaded
         view_pager_container_home.offscreenPageLimit = 3
 
+        val tabs = tabs.getTabAt(4 - 6)
+        tabs?.select()
 
-//        select home from other on destroy an activity
-//        val tabs = tabs.getTabAt(4 - 6)
-//        tabs?.select()
+        if (statusActivity == TV_SHOW)
+        {
+            navigation.selectedItemId = R.id.navigation_tv_show
+        }
+        else if (statusActivity == MOVIE)
+        {
+            navigation.selectedItemId = R.id.navigation_home
+        }
+
     }
 
     override fun onPause() {
@@ -668,9 +711,8 @@ Testing
 
 
     }
-
-
 }
+
 
 /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -686,7 +728,6 @@ Testing
         }
     }
     */
-
 
 
 //==============================================================================

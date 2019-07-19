@@ -37,9 +37,22 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_movies_tv_show_detail, container, false)
     }
 
-    @SuppressLint("PrivateResource")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(tagLog, "onStart")
+    }
+
+    @SuppressLint("PrivateResource")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log.d(tagLog, "onViewCreated")
+        //view
+
         // check bundle
         if (arguments != null)
         {
@@ -123,17 +136,6 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
             }, doInInBackGroundMovie.toLong())
 
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d(tagLog, "onViewCreated")
-        //view
     }
 
     override fun onResume() {

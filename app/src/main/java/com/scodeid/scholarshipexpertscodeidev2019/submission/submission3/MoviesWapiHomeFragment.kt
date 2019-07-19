@@ -6,12 +6,12 @@ package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -87,31 +87,12 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_movies_home_recycler, container, false)
-        Log.d(TAG_LOG,"onCreateView")
-        swipe_refresh_recycler_home?.setOnRefreshListener {
-
-            Handler().postDelayed(object : Runnable{
-                override fun run() {
-                    swipe_refresh_recycler_home?.isRefreshing = true
-                    this.finish()
-                }
-                private fun finish(){
-                    movieDataHandle()
-                    swipe_refresh_recycler_home?.isRefreshing = false
-                }
-            }, 500)
-
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_movies_home_recycler, container, false)
     }
     private val getMovie =
         Observer<ArrayList<MoviesApiData>> { movieItems ->
             if (movieItems != null) {
                 adapter.setData(movieItems)
-                adapter.notifyDataSetChanged()
-
                 frame_progress.visibility = View.GONE
             }
         }
@@ -126,20 +107,24 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     private fun movieDataHandle() {
 
+        adapter.notifyDataSetChanged()
+
         recycler_view_home.setHasFixedSize(true)
         recycler_view_home.layoutManager = LinearLayoutManager(context)
+
         recycler_view_home.adapter = adapter
 
         movieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+
         movieViewModel.getMovies().observe(this, getMovie)
 
-        if (adapter.itemCount == 0)
+        if (recycler_view_home.isEmpty())
         {
+            Log.d(TAG_LOG,"recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
             movieViewModel.setMovie(resources.getString(R.string.app_language), context)
         }
-        else
-        {
-            frame_progress.visibility = View.GONE
+        else{
+            Log.d(TAG_LOG,"recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
         }
     }
 
@@ -152,6 +137,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        Log.d(TAG_LOG,"onViewCreated is running")
         val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable(""+ KEY)
         pojoSubTab?.let {
 
@@ -167,6 +153,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
                 else -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
             }
         }
+
         movieDataHandle() //load data movies
     }
 

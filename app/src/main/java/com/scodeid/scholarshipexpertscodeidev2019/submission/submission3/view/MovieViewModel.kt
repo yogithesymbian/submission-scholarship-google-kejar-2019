@@ -55,6 +55,7 @@ class MovieViewModel : ViewModel(){
     fun setMovie(lang: String,context: Context?) {
         if (arrayListMovie.isEmpty())
         {
+            Log.d(TAG_LOG,"arrayList MOVIE is Empty, request api is in background")
             Log.d(TAG_LOG, "Language use : $lang")
             AndroidNetworking.get(ApiEndPoint.SERVER_MOVIES)
                 .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
@@ -130,6 +131,11 @@ class MovieViewModel : ViewModel(){
                 })
         }
         // request API
+        else{
+            Log.d(TAG_LOG,"arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
+            listMovieMutableLiveData.postValue(arrayListMovie)
+        }
+        // didn't request API
     }
 
     fun getMovies(): LiveData<ArrayList<MoviesApiData>> {

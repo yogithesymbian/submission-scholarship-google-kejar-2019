@@ -20,7 +20,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.M
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.view.MovieTvShowViewModel
 import kotlinx.android.synthetic.main.fragment_movies_tv_show.*
 
-class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
+class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     private var movieTvShowViewModel = MovieTvShowViewModel()
 
@@ -35,7 +35,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Log.d(TAG_LOG,"onAttach")
+        Log.d(TAG_LOG, "onAttach")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,41 +49,45 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return  inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
+        return inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
     }
-
 
 
     private val getMovieTvShow =
         Observer<ArrayList<MoviesTvShowApiData>> { movieItems ->
             if (movieItems != null) {
                 adapter.setData(movieItems)
-                adapter.notifyDataSetChanged()
-
                 frame_progress_tv_show.visibility = View.GONE
                 card_tv_show.visibility = View.VISIBLE
             }
         }
 
-    private fun movieTvShowHandle()
-    {
+    private fun movieTvShowHandle() {
+
+
+        adapter.notifyDataSetChanged()
 
         recycler_view_tv_show.setHasFixedSize(true)
         recycler_view_tv_show.layoutManager = LinearLayoutManager(context)
         recycler_view_tv_show.adapter = adapter
 
         movieTvShowViewModel = ViewModelProviders.of(this).get(MovieTvShowViewModel::class.java)
-        movieTvShowViewModel.getMoviesTvShow().observe(this, getMovieTvShow)
 
+
+        movieTvShowViewModel.getMoviesTvShow().observe(this, getMovieTvShow)
         if (adapter.itemCount == 0)
         {
+            Log.d(TAG_LOG,"adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
             movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
         }
-        else
+        else // for skip loading cause default is true on loading while back stack of fragment tv home and tv home_detail ,
         {
+            // after else on check arrayList.isEmpty()
+            Log.d(TAG_LOG,"adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
             frame_progress_tv_show.visibility = View.GONE
             card_tv_show.visibility = View.VISIBLE
         }
+
     }
 
 
@@ -110,6 +114,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment(){
     override fun onResume() {
         super.onResume()
         Log.d(tag, "onResume Tabs")
+        recycler_view_tv_show.adapter = adapter
     }
 
     override fun onPause() {

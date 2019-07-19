@@ -66,6 +66,7 @@ class MoviesTvShowApiAdapter (
     {
         arrayListMoviesTvShow.clear()
         arrayListMoviesTvShow.addAll(itemsMovie)
+        notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

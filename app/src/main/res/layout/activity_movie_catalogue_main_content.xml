@@ -9,10 +9,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:showIn="@layout/activity_movie_catalogue_main_bar"
         tools:context=".submission.MovieCatalogueMainActivity"
         >
+    <FrameLayout
+            android:id="@+id/frame_ui_change_progress"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- progress -->
+        <!--android:indeterminateTint="@color/white"-->
+        <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal|center_vertical|center"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="UnusedAttribute"/>
+    </FrameLayout>
 
     <!-- LIST VIEW SUBMISSION 1 VISIBLE GONE NOT USE AT THIS TIME-->
     <ListView
@@ -44,6 +68,8 @@
             tools:ignore="UnusedAttribute">
 
     </androidx.appcompat.widget.ContentFrameLayout>
+
+
 
     <!--likeViewPager-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
