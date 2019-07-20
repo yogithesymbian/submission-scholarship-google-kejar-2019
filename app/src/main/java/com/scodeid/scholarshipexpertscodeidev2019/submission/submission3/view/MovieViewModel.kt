@@ -52,6 +52,7 @@ class MovieViewModel : ViewModel(){
         @JvmStatic
         val TAG_LOG: String = MovieViewModel::class.java.simpleName
     }
+
     fun setMovie(lang: String,context: Context?) {
         if (arrayListMovie.isEmpty())
         {

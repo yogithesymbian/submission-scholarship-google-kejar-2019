@@ -118,12 +118,13 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         movieViewModel.getMovies().observe(this, getMovie)
 
-        if (recycler_view_home.isEmpty())
+        if (recycler_view_home.isEmpty()) // i didn't make state just use isEmpty for simplify that mean data ever load on else in model
         {
             Log.d(TAG_LOG,"recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
             movieViewModel.setMovie(resources.getString(R.string.app_language), context)
         }
-        else{
+        else
+        {
             Log.d(TAG_LOG,"recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
         }
     }

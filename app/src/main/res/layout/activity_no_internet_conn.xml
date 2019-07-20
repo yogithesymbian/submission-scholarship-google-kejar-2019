@@ -16,14 +16,14 @@
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="148dp"
+            android:layout_marginTop="64dp"
             android:text="@string/activity_no_internet_conn_head1"
             android:textStyle="bold"
             android:textAllCaps="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.575"/>
+            app:layout_constraintHorizontal_bias="0.498"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_body_info"
@@ -80,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_try_against"
             app:layout_constraintEnd_toEndOf="@+id/button_try_against"
-            app:layout_constraintHorizontal_bias="0.4"/>
+            app:layout_constraintHorizontal_bias="0.69"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_logo"

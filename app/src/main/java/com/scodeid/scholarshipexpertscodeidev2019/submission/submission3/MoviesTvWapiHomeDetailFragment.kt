@@ -39,6 +39,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.d(tagLog,"onActivityCreated")
 
     }
 
