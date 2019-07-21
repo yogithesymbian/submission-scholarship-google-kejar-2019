@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2019. SCODEID
- * v4 test
+ * welcome master
  */
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.dialogView
