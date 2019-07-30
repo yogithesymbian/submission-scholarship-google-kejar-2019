@@ -63,12 +63,6 @@ class ItemClickRecyclerSupport constructor(private var mRecyclerView: RecyclerVi
     fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
         mOnItemLongClickListener = listener
     }
-
-//    private fun detach(view: RecyclerView) {
-//        view.removeOnChildAttachStateChangeListener(mAttachListener)
-//        view.setTag(R.id.item_click_support, null)
-//    }
-
     interface OnItemClickListener {
         fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View)
     }

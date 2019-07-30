@@ -24,10 +24,9 @@ import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail.*
 class MoviesTvWapiHomeDetailFragment : Fragment() {
 
     companion object {
-        var tagLog = "MoviesTvShowDetailFragment"
-        var extraTvDetails = "extra_tv_details"
+        val TAG_LOG: String = MoviesTvWapiHomeDetailFragment::class.java.simpleName
+        const val EXTRA_TV_DETAILS = "extra_tv_details"
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,28 +36,17 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_movies_tv_show_detail, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(tagLog,"onActivityCreated")
-
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(tagLog, "onStart")
-    }
-
     @SuppressLint("PrivateResource")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(tagLog, "onViewCreated")
+        Log.d(TAG_LOG, "onViewCreated")
         //view
 
         // check bundle
         if (arguments != null)
         {
-            Log.d(tagLog,"Bundle Argument != null ")
-            val data = arguments?.getParcelable<MoviesTvShowApiData>(extraTvDetails)
+            Log.d(TAG_LOG,"Bundle Argument != null ")
+            val data = arguments?.getParcelable<MoviesTvShowApiData>(EXTRA_TV_DETAILS)
 
             /**
              * Image Set Data
@@ -93,7 +81,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
             Handler().postDelayed(object : Runnable {
                 override fun run() {
                     this.finish()
-                    Log.d(tagLog,"Loading ... for get and load data in background")
+                    Log.d(TAG_LOG,"Loading ... for get and load data in background")
                 }
 
                 @SuppressLint("SetTextI18n")
@@ -138,38 +126,5 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
 
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(tag, "onResume Tabs")
-
-    }
-
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(tagLog, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(tagLog, "onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(tagLog, "onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(tag, "on Destroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(tagLog, "onDetach")
-    }
-
 
 }

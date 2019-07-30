@@ -28,10 +28,4 @@ interface MovieViewViewers
 {
     fun allMovieData(models: MovieDataModels)
     fun homeMovies(models: MovieDataModelsRecycler)
-
-//    fun maintenanceNotify(context: Context)
-//    {
-//        Snackbar.make(context.theme,"Sorry this feature still have maintenance ", Snackbar.LENGTH_LONG)
-//            .show()
-//    }
 }

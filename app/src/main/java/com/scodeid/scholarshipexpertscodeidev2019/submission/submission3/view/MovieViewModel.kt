@@ -49,7 +49,6 @@ class MovieViewModel : ViewModel(){
 
     companion object{
         val arrayListMovie = ArrayList<MoviesApiData>()
-        @JvmStatic
         val TAG_LOG: String = MovieViewModel::class.java.simpleName
     }
 
@@ -118,6 +117,7 @@ class MovieViewModel : ViewModel(){
 
 
                         // received error from server
+                        // later's this scope will have an intent for user knowledge about condition on getAnError { notification package }
                         if (anError?.errorCode != 0) {
 
                             Log.d(TAG_LOG, "onError errorCode : " + anError?.errorCode) // error.getErrorCode() - the error code from server

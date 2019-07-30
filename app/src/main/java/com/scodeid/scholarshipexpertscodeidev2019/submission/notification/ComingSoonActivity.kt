@@ -15,11 +15,6 @@ class ComingSoonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coming_soon)
 
-        // load image with Glide is recommendation
-//        Glide.with(this)
-//            .load(R.drawable.ic_poster_robinhood_background)
-//            .into(image_coming_soon)
-
         button_back.setOnClickListener {
             // backActivity
             finish()

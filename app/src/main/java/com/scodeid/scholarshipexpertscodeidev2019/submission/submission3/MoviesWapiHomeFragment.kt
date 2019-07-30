@@ -4,7 +4,6 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -56,10 +55,9 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
 
     companion object{
-        @JvmStatic
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
-        @JvmStatic
-        val KEY = "keyPojoSubTab"
+        const val KEY = "keyPojoSubTab"
+
         fun newInstanceData(pojoSubTab: MovieTabColorModel) : MoviesWapiHomeFragment
         {
             val fragment = MoviesWapiHomeFragment()
@@ -68,17 +66,6 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             fragment.arguments = args
             return fragment
         }
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(TAG_LOG,"onAttach")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG_LOG,"onCreate")
 
     }
 
@@ -96,13 +83,6 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
                 frame_progress.visibility = View.GONE
             }
         }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(TAG_LOG,"onActivityCreated")
-
-    }
 
 
     private fun movieDataHandle() {
@@ -129,13 +109,6 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG_LOG,"onStart")
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         Log.d(TAG_LOG,"onViewCreated is running")
@@ -157,36 +130,5 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         movieDataHandle() //load data movies
     }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(tag,"onResume Tabs")
-
-    }
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG_LOG,"onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG_LOG,"onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG_LOG,"onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG_LOG,"on Destroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG_LOG,"onDetach")
-    }
-
 
 }

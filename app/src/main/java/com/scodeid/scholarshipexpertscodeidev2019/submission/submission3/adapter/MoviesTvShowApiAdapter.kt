@@ -57,9 +57,7 @@ class MoviesTvShowApiAdapter (
 
     companion object{
         //limited recycler view item @later's will use pagination
-        @JvmStatic
-        val LIMIT = 10
-        @JvmStatic
+        const val LIMIT = 10
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
     fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>)
@@ -93,7 +91,7 @@ class MoviesTvShowApiAdapter (
         // tx tx data between the fragment using Bundle
         val mBundle = Bundle()
 
-        mBundle.putParcelable(MoviesTvWapiHomeDetailFragment.extraTvDetails, moviesTvShowApiData)
+        mBundle.putParcelable(MoviesTvWapiHomeDetailFragment.EXTRA_TV_DETAILS, moviesTvShowApiData)
         mMoviesTvShowDetailFragment.arguments = mBundle
 
         //manage the fragment manager in this fragment

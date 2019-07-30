@@ -6,7 +6,6 @@
 package com.scodeid.scholarshipexpertscodeidev2019.submission.dialogView
 
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -31,12 +30,6 @@ import kotlinx.android.synthetic.main.fragment_movie_dialog.view.*
 
 class MovieDialogFragment : DialogFragment() {
 
-//    later's
-//    private lateinit var movieDialogFragment: OnOptionDialogListener
-//
-//    interface OnOptionDialogListener {
-//        fun onOptionChoose(text: String?)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +41,7 @@ class MovieDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(tagLog,"onViewCreated")
+        Log.d(TAG_LOG,"onViewCreated")
 
         view.button_close.setOnClickListener{
             dialog?.cancel()
@@ -57,20 +50,8 @@ class MovieDialogFragment : DialogFragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(tagLog,"onAttach")
-        // nested fragment use the child fragment
-//        val fragment = parentFragment
-
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(tagLog,"onDetach")
-    }
     companion object {
-        var tagLog = "OptionDialogFragment"
+        val TAG_LOG: String = MovieDialogFragment::class.java.simpleName
     }
 
 

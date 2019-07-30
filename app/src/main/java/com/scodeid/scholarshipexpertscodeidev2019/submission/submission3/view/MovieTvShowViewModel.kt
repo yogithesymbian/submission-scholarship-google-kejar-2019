@@ -50,7 +50,6 @@ class MovieTvShowViewModel : ViewModel() {
 
     companion object {
         val arrayListMovieTvShow = ArrayList<MoviesTvShowApiData>()
-        @JvmStatic
         val TAG_LOG: String = MovieTvShowViewModel::class.java.simpleName
     }
 
@@ -109,6 +108,7 @@ class MovieTvShowViewModel : ViewModel() {
 
 
                         // received error from server
+                        // later's this scope will have an intent for user knowledge about condition on getAnError { notification package }
                         if (anError?.errorCode != 0) {
 
                             Log.d(

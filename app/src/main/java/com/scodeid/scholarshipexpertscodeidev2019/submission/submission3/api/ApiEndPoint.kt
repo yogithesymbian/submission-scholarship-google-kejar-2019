@@ -31,7 +31,6 @@ Linux 4.19.0-kali5-amd64
 class ApiEndPoint {
     companion object{
         const val API_KEY_V3_AUTH = "10494fa60da45dee76b53c177ada8d19"
-//        @JvmStatic
 //        val API_READ_ACCESS_TOKEN_V4_AUTH = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDQ5NGZhNjBkYTQ1ZGVlNzZiNTNjMTc3YWRhOGQxOSIsInN1YiI6IjVkMjcxZmIyNWY2YzQ5MDJjMzVjZDE2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.f5vy18cwvMcwoC4o1ibEac9FBBRw7Etc5f5tlzGbx-Y"
 
         const val SERVER_MOVIES = "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language={LANGUAGE}"

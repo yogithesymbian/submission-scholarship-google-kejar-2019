@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_movie_catalogue_detail.*
 
 class MovieCatalogueDetailActivity : Activity() {
     private val mHideHandler = Handler()
-    private val tagLog = "MovieDetailActivity"
+    private val TAG_LOG = MovieCatalogueDetailActivity::class.java.simpleName
 
     //    private var delayAsyncDetailMovie: DelayAsyncMovieDetail? = null
     private val mHidePart2Runnable = Runnable {
@@ -95,9 +95,7 @@ class MovieCatalogueDetailActivity : Activity() {
         button_share.setOnTouchListener(mDelayHideTouchListener)
         button_stream_watch.setOnTouchListener(mDelayHideTouchListener)
 
-//        val movieDataParcel = intent.getParcelableExtra<MovieDataModels>(EXTRA_MOVIE_DATA) //submission 1
-//        val movieDataParcel = intent.getParcelableExtra<MovieDataModelsRecycler>(EXTRA_MOVIE_DATA) //submission 2
-        val movieDataParcel = intent.getParcelableExtra<MoviesApiData>(EXTRA_MOVIE_DATA) //submission 3
+        val movieDataParcel = intent.getParcelableExtra<MoviesApiData>(EXTRA_MOVIE_DATA)
 
         verifyIntentFromHomeMovieCatalogue(movieDataParcel.title)
 
@@ -166,108 +164,6 @@ class MovieCatalogueDetailActivity : Activity() {
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(image_backdrop)
 
-
-        /**
-         * SET DATA from PoJo Intent Submission 2
-         * ======================================
-         */
-
-        /*
-        val string = "" + movieDataParcel.movieName
-        text_tv_movie_name.text = string
-
-        //score is like later's will refactor
-        text_score_label_percent.text =  movieDataParcel.movieScore +" "+resources.getString(R.string.activity_movie_catalogue_detail_score)
-        text_overview_desc.text = movieDataParcel.movieOverview
-
-        text_rank_last_today_label_data.text = movieDataParcel.movieRankLastToday + "\n"
-        text_rank_last_week_label_data.text = movieDataParcel.movieRAnkLastWeek + "\n"
-
-        text_director_label_who.text = movieDataParcel.movieDirector1
-        text_director_label_who1.text = movieDataParcel.movieDirector2
-
-        text_screen_label_who.text = movieDataParcel.movieScreenPlay1
-        text_screen_label_who1.text = movieDataParcel.movieScreenPlay2
-
-        text_original_language_label_data.text = movieDataParcel.movieOrigLang
-
-        text_runtime_label_data.text = movieDataParcel.movieRuntime + "\n"
-        text_budget_label_data.text = movieDataParcel.movieBudget + "\n"
-
-        text_revenue_label_data.text = movieDataParcel.movieRevenue + "\n"
-        text_genre_label_data.text = movieDataParcel.movieGenres + "\n"
-        text_keywords_label_data.text = movieDataParcel.movieKeywords + "\n"
-
-        text_release_label_data.text = movieDataParcel.movieRelease + "\n"
-
-        val imagePoster = movieDataParcel.moviePicture?.toInt()
-        val imagePosterBack = movieDataParcel.moviePictureBackground?.toInt()
-        val imagePosterRel1 = movieDataParcel.moviePictureRelated1?.toInt()
-        val imagePosterRel2 = movieDataParcel.moviePictureRelated2?.toInt()
-        val imagePosterRel3 = movieDataParcel.moviePictureRelated3?.toInt()
-
-        Glide.with(this@MovieCatalogueDetailActivity)
-            .asBitmap()
-            .load(imagePoster)
-            .apply(RequestOptions().override(114, 174))
-            .into(image_poster)
-
-        Glide.with(this@MovieCatalogueDetailActivity)
-            .asBitmap()
-            .load(imagePosterBack)
-            .apply(RequestOptions().override(175, 100))
-            .into(image_backdrop)
-        // related movie image
-        Glide.with(this@MovieCatalogueDetailActivity)
-            .asBitmap()
-            .load(imagePosterRel1)
-            .apply(RequestOptions().override(75, 75))
-            .into(image_related1)
-        Glide.with(this@MovieCatalogueDetailActivity)
-            .asBitmap()
-            .load(imagePosterRel2)
-            .apply(RequestOptions().override(75, 75))
-            .into(image_related2)
-        Glide.with(this@MovieCatalogueDetailActivity)
-            .asBitmap()
-            .load(imagePosterRel3)
-            .apply(RequestOptions().override(75, 75))
-            .into(image_related3)
-        */
-
-
-        /**
-         * SET DATA from PoJo Intent Submission 1
-         * ======================================
-         *         // avoid skipped 34 frame of my code only image resource or resource link maybe later's
-         */
-
-/*
-        val doInBackGroundMovieDetail = 1000 //in just start
-        Handler().postDelayed(object : Runnable {
-            override fun run() {
-
-                this.finish()
-                Log.d(TAG_LOG,"DONE ... for get and load data in background")
-
-            }
-
-            private fun finish()
-            {
-
-                Log.d(TAG_LOG,"Loading ... for get and load data in background")
-                movieDataParcel.moviePicture.let { image_poster.setImageResource(it) }
-                movieDataParcel.moviePictureBackground.let { image_backdrop.setImageResource(it) }
-                movieDataParcel.moviePictureRelated1.let { image_related1.setImageResource(it) }
-                movieDataParcel.moviePictureRelated2.let { image_related2.setImageResource(it) }
-                movieDataParcel.moviePictureRelated3.let { image_related3.setImageResource(it) }
-
-
-            }
-        }, doInBackGroundMovieDetail.toLong())
-        */
-
-
         image_related1.setOnClickListener{
             notificationFeatureWarn()
         }
@@ -283,19 +179,19 @@ class MovieCatalogueDetailActivity : Activity() {
          */
 
         button_take_notification.setOnClickListener {
-            Log.d(tagLog,"notification got clicked")
+            Log.d(TAG_LOG,"notification got clicked")
             notificationFeatureWarn()
         }
         button_buy_download.setOnClickListener {
-            Log.d(tagLog,"download got clicked")
+            Log.d(TAG_LOG,"download got clicked")
             notificationFeatureWarn()
         }
         button_stream_watch.setOnClickListener {
-            Log.d(tagLog,"stream got clicked")
+            Log.d(TAG_LOG,"stream got clicked")
             notificationFeatureWarn()
         }
         button_share.setOnClickListener {
-            Log.d(tagLog,"share got clicked")
+            Log.d(TAG_LOG,"share got clicked")
             notificationFeatureWarn()
         }
     }
@@ -310,7 +206,7 @@ class MovieCatalogueDetailActivity : Activity() {
 
         if (movieName == movieName) {
             // check with log
-            Log.d(tagLog, "Intent From Home Like mockito/junit succeed")
+            Log.d(TAG_LOG, "Intent From Home Like mockito/junit succeed")
         } else {
             // exit / onBackPressed
             finish()
@@ -319,54 +215,12 @@ class MovieCatalogueDetailActivity : Activity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d(tagLog, "onBackPressed Clicked ")
+        Log.d(TAG_LOG, "onBackPressed Clicked ")
 //        val viewerAddIntent = Intent()
 //        val viewData = 1
 //        viewerAddIntent.putExtra(EXTRA_VIEWER, viewData)
 //        setResult(RESULT_CODE,viewerAddIntent)
         finish()
-    }
-
-    /**
-     * LifeCycle Android
-     * onCreate -> onStart -> onResum -> onPause -> onStop -> onRestart -> onDestroy
-     */
-    override fun onStart() {
-        super.onStart()
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        /**
-         * if need memory got killed and back to the onCreate
-         * if user return to activity back to the onResume
-         */
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        /**
-         * if need navigate's to the activity
-         * if user return to activity back to the onResume then run onStart
-         */
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d(tagLog, "onStart")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(tagLog, "Detail Movie Activity onDestroy")
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

@@ -63,9 +63,7 @@ class MoviesApiAdapter internal constructor(
     // and i have explore in 1 day and found this logic val context = holder.itemView.context :'(
     companion object{
         //limited recycler view item @later's will use pagination
-        @JvmStatic
-        val LIMIT = 10
-        @JvmStatic
+        const val LIMIT = 10
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
 

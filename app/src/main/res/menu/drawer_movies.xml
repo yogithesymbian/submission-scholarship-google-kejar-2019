@@ -2,39 +2,12 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".submission.MovieCatalogueMainActivity">
 
-    <group android:checkableBehavior="single">
-        <item
-                android:id="@+id/nav_home"
-                android:icon="@drawable/ic_home_black_24dp"
-                android:title="@string/drawer_home" />
-        <item
-                android:icon="@drawable/ic_photo_camera_black_24dp"
-                android:title="@string/drawer_camera_photo" />
-        <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_album_black_24dp"
-                android:title="@string/drawer_gallery" />
-        <item
-                android:icon="@drawable/ic_slideshow_black_24dp"
-                android:title="@string/drawer_play_slideshow" />
-        <item
-                android:icon="@drawable/ic_album_black_24dp"
-                android:title="@string/drawer_configuration" />
-        <item
-                android:icon="@drawable/ic_album_black_24dp"
-                android:title="@string/drawer_cart" />
-    </group>
-
-    <item android:title="@string/drawer_communicate">
-        <menu>
-            <item
-                    android:icon="@drawable/ic_album_black_24dp"
-                    android:title="@string/drawer_share" />
-            <item
-                    android:icon="@drawable/ic_album_black_24dp"
-                    android:title="@string/drawer_send_message" />
-        </menu>
-    </item>
+    <!--<group android:checkableBehavior="single">-->
+        <!--<item-->
+                <!--android:id="@+id/nav_home"-->
+                <!--android:icon="@drawable/ic_home_black_24dp"-->
+                <!--android:title="@string/drawer_home" />-->
+    <!--</group>-->
 
     <item android:title="@string/menu_drawer_movies_setting">
         <menu>

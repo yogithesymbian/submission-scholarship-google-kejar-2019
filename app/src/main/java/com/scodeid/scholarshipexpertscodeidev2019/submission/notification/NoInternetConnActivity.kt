@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_no_internet_conn.*
 class NoInternetConnActivity : AppCompatActivity() {
 
     companion object{
-        @JvmStatic
         val TAG_LOG: String = NoInternetConnActivity::class.java.simpleName
     }
     override fun onCreate(savedInstanceState: Bundle?) {

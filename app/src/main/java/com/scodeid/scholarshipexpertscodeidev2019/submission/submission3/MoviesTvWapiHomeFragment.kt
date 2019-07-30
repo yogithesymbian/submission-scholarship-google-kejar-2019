@@ -5,7 +5,6 @@
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -26,21 +25,8 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     val adapter = MoviesTvShowApiAdapter(ArrayList())
 
-
     companion object {
-        @JvmStatic
-        var TAG_LOG: String = MoviesTvWapiHomeFragment::class.java.simpleName
-
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d(TAG_LOG, "onAttach")
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG_LOG, "onCreate")
+        val TAG_LOG: String = MoviesTvWapiHomeFragment::class.java.simpleName
     }
 
     override fun onCreateView(
@@ -63,7 +49,6 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
         }
 
     private fun movieTvShowHandle() {
-
 
         adapter.notifyDataSetChanged()
 
@@ -91,18 +76,6 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d(TAG_LOG, "onActivityCreated")
-
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG_LOG, "onStart")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG_LOG, "onViewCreated")
@@ -116,30 +89,4 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
         Log.d(tag, "onResume Tabs")
         recycler_view_tv_show.adapter = adapter
     }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG_LOG, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG_LOG, "onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG_LOG, "onDestroyView")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(tag, "on Destroy")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG_LOG, "onDetach")
-    }
-
 }
