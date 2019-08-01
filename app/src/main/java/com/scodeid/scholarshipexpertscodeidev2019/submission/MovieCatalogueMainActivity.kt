@@ -123,8 +123,15 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_favorite -> {
-                val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteActivity::class.java)
-                startActivity(intent)
+                Handler().postDelayed(object : Runnable {
+                    override fun run() {
+                        this.finish()
+                    }
+                    private fun finish() {
+                        val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteActivity::class.java)
+                        startActivity(intent)
+                    }
+                }, 300)
                 return@OnNavigationItemSelectedListener  true
             }
         }

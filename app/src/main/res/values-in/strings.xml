@@ -22,7 +22,6 @@
     <string name="title_notifications">Notifikasi</string>
 
 
-
     <string name="navigation_drawer_open" tools:keep="@string/navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close" tools:keep="@string/navigation_drawer_close">Close navigation drawer</string>
 
@@ -30,7 +29,8 @@
     <string name="action_settings" tools:keep="@string/action_settings">Settings</string>
 
 
-    <string name="title_activity_main_navigation_drawer" tools:keep="@string/title_activity_main_navigation_drawer">MainNavigationDrawerActivity</string><![CDATA[
+    <string name="title_activity_main_navigation_drawer" tools:keep="@string/title_activity_main_navigation_drawer">MainNavigationDrawerActivity</string>
+    <![CDATA[
 
 
         
@@ -39,28 +39,6 @@
         
     ]]>
     <string name="drawer_home"> RUMAH </string>
-        
-    <string name="drawer_camera_photo"> Foto Kamera </string>
-        
-    <string name="drawer_gallery"> Galeri </string>
-        
-    <string name="drawer_play_slideshow"> Mainkan SlideShow </string>
-        
-    <string name="drawer_configuration"> Configuration </string>
-        
-    <string name="drawer_cart"> Keranjang </string>
-        
-    <string name="drawer_communicate"> Communicate </string>
-        
-    <string name="drawer_share"> Bagikan </string>
-        
-    <string name="drawer_send_message"> Kirim Pesan </string>
-        
-    <string name="drawer_hotel"> Hotel </string>
-        
-    <string name="drawer_subway"> Subway </string>
-        
-    <string name="drawer_map"> Peta </string>
 
     <string name="option_movies_sort_movies" tools:keep="@ string / option_movies_sort_movies"> Sortir Film </string>
         
@@ -222,17 +200,18 @@
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
     <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
-    <string name="toast_sql_lite_insert_success">Success add to favorite</string>
-    <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
-    <string name="toast_sql_lite_delete_fail">Failed delete data</string>
-    <string name="dialog_cancel_title">Cancel</string>
-    <string name="dialog_cancel_msg">You want to cancel the change ?</string>
-    <string name="dialog_delete_msg">You want to delete the item ?</string>
-    <string name="dialog_delete_title">Delete Item</string>
-    <string name="dialog_positif_yes">YES</string>
-    <string name="dialog_positif_no">NO</string>
+    <string name="toast_sql_lite_insert_success">berhasil tambah ke favorite</string>
+    <string name="toast_sql_lite_insert_fail">tidak berhasil tambah ke favorite</string>
+    <string name="toast_sql_lite_delete_fail">gagal menghapus data</string>
+    <string name="dialog_cancel_title">Batal</string>
+    <string name="dialog_cancel_msg">Ingin membatalkan perubahan ?</string>
+    <string name="dialog_delete_msg">Ingin menghapus item ini ?</string>
+    <string name="dialog_delete_title">Hapus Item</string>
+    <string name="dialog_positif_yes">YA</string>
+    <string name="dialog_positif_no">TIDAK</string>
     <string name="activity_main_favorite_movies_movies">Movies</string>
     <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
+    <string name="navigation_bottom_movie_favorite">Favorite</string>
 
 
 </resources>

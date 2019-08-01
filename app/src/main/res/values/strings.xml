@@ -32,17 +32,6 @@
 
     <string name="title_activity_main_navigation_drawer" tools:keep="@string/title_activity_main_navigation_drawer">MainNavigationDrawerActivity</string>
     <string name="drawer_home">Home</string>
-    <string name="drawer_camera_photo">Camera Photo</string>
-    <string name="drawer_gallery">Gallery</string>
-    <string name="drawer_play_slideshow">Play SlideShow</string>
-    <string name="drawer_configuration">Configuration</string>
-    <string name="drawer_cart">Cart</string>
-    <string name="drawer_communicate">Communicate</string>
-    <string name="drawer_share">Share</string>
-    <string name="drawer_send_message">Send Message</string>
-    <string name="drawer_hotel">Hotel</string>
-    <string name="drawer_subway">Subway</string>
-    <string name="drawer_map">Map</string>
 
     <string name="option_movies_sort_movies" tools:keep="@string/option_movies_sort_movies">Sort Movies</string>
     <string name="option_movies_yomovie_web" tools:keep="@string/option_movies_yomovie_web">yoMovie Web</string>
@@ -194,7 +183,7 @@
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
     <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
-    <string name="toast_sql_lite_insert_success">Success add to favorite</string>
+    <string name="\toast_sql_lite_insert_success">Success add to favorite</string>
     <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
     <string name="toast_sql_lite_delete_fail">Failed delete data</string>
     <string name="dialog_cancel_title">Cancel</string>
@@ -205,6 +194,7 @@
     <string name="dialog_positif_no">NO</string>
     <string name="activity_main_favorite_movies_movies">Movies</string>
     <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
+    <string name="navigation_bottom_movie_favorite">Favorite</string>
 
 
 </resources>

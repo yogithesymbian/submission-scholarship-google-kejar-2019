@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.activity_movie_catalogue_detail.*
 
 class MovieCatalogueDetailActivity : Activity() {
     private val mHideHandler = Handler()
-    private val TAG_LOG = MovieCatalogueDetailActivity::class.java.simpleName
+    private val TAG_LOG: String = MovieCatalogueDetailActivity::class.java.simpleName
 
     //    private var delayAsyncDetailMovie: DelayAsyncMovieDetail? = null
     private val mHidePart2Runnable = Runnable {
