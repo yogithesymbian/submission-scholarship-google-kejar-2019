@@ -44,6 +44,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.notification.Coming
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.TV_SHOW
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewers
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
@@ -121,6 +122,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                 startActivity(Intent(this@MovieCatalogueMainActivity, ComingSoonActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.navigation_favorite -> {
+                val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteActivity::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener  true
+            }
         }
         false
     }
@@ -153,12 +159,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_home -> {
-                Log.d(TAG_LOG, "Home Drawer Clicked")
-            }
-            R.id.nav_gallery -> {
-                Log.d(TAG_LOG, "Gallery Drawer Clicked")
-            }
             R.id.nav_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
@@ -384,8 +384,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                 colorAnimation.start()
             }
         }, 100) //10sec
-
-
     }
 
 

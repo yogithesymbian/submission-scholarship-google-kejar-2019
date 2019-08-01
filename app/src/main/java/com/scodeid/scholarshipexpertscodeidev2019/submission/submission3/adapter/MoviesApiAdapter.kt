@@ -20,14 +20,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.ItemClickRecyclerSupport
 import com.scodeid.scholarshipexpertscodeidev2019.submission.MovieCatalogueDetailActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesWapiHomeFragment
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesWapiHomeFragment.Companion.insertFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.view.*
 import kotlinx.android.synthetic.main.item_movies.view.*
-
-
-
 
 
 /**
@@ -55,24 +54,25 @@ Linux 4.19.0-kali5-amd64
  */
 
 class MoviesApiAdapter internal constructor(
-    private val arrayListMovies : ArrayList<MoviesApiData>
+    private val arrayListMovies: ArrayList<MoviesApiData>
 ) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
-//before i have internal constructor context: Context but when i in the fragment is needed passing an ArrayList
+    //before i have internal constructor context: Context but when i in the fragment is needed passing an ArrayList
     // then the variable is global so i can't pass the context cause null then the array can't retrieve properly cause context are null on fragment global variable
     //so in here i re use the ViewGroup (parent.context)
     // and i have explore in 1 day and found this logic val context = holder.itemView.context :'(
-    companion object{
+    companion object {
         //limited recycler view item @later's will use pagination
         const val LIMIT = 10
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
 
-    fun setData(itemsMovie: ArrayList<MoviesApiData>)
-    {
+    fun setData(itemsMovie: ArrayList<MoviesApiData>) {
         arrayListMovies.clear()
         arrayListMovies.addAll(itemsMovie)
         notifyDataSetChanged()
     }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemMovies = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false))
         val context = parent.context
@@ -81,22 +81,22 @@ class MoviesApiAdapter internal constructor(
          */
         ItemClickRecyclerSupport
             .addTo(parent.recycler_view_home)
-            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener{
+            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener {
 
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
 
                     openingDetailMovie(arrayListMovies[position], context)
-                    Log.d(TAG_LOG,"Try opening something about the detail movies")
+                    Log.d(TAG_LOG, "Try opening something about the detail movies")
                 }
 
             })
         ItemClickRecyclerSupport
             .addTo(parent.recycler_view_home)
-            .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener{
+            .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener {
 
                 override fun onItemLongClicked(recyclerView: RecyclerView, position: Int, v: View): Boolean {
-                    Log.d(TAG_LOG,"Try onLongClick itemMovies")
-                    Toast.makeText(context,arrayListMovies[position].title, Toast.LENGTH_SHORT)
+                    Log.d(TAG_LOG, "Try onLongClick itemMovies")
+                    Toast.makeText(context, arrayListMovies[position].title, Toast.LENGTH_SHORT)
                         .show()
                     return true
                 }
@@ -130,10 +130,20 @@ class MoviesApiAdapter internal constructor(
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
-        holder.itemView.text_overview.text = arrayListMovies[position].overview
-        holder.itemView.text_tv_movie_name.text = arrayListMovies[position].title
+        val title = arrayListMovies[position].title
+        val overview = arrayListMovies[position].overview
+        val poster = POSTER_IMAGE + "w185" + arrayListMovies[position].posterPath
         val context = holder.itemView.context
+
+        holder.itemView.image_fav.setOnClickListener {
+            // someone passing insertFavoriteMovie into initFavoriteParam
+            MoviesWapiHomeFragment.initFavoriteParam(title, overview, poster, context,  ::insertFavoriteMovie)
+        }
+
+        holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
+        holder.itemView.text_overview.text = overview
+        holder.itemView.text_movie_name.text = title
+
         val movieDialog = Dialog(context)
         /**
          * GENRE ID into NAME  https://api.themoviedb.org/3/genre/movie/list?api_key=10494fa60da45dee76b53c177ada8d19&language=en-US
@@ -153,11 +163,10 @@ class MoviesApiAdapter internal constructor(
             .signature(new StringSignature(profile.imageLastUpdate))
             .apply(RequestOptions().override(125, 125))*/
 
-        val imagePoster = arrayListMovies[position].posterPath
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w185"+ imagePoster)
+                .load(poster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -166,7 +175,10 @@ class MoviesApiAdapter internal constructor(
 
         holder
             .itemView.image_movie.setOnClickListener {
-            Log.d(TAG_LOG + "Bind", "image ${holder.itemView.image_movie} and the video is ${arrayListMovies[position].video} got clicked and Try opening dialog view")
+            Log.d(
+                TAG_LOG + "Bind",
+                "image ${holder.itemView.image_movie} and the video is ${arrayListMovies[position].video} got clicked and Try opening dialog view"
+            )
 
             /**
              * DIALOG view movie catalogue
@@ -179,7 +191,7 @@ class MoviesApiAdapter internal constructor(
             }
             Glide.with(it)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w342"+imagePoster)
+                .load(POSTER_IMAGE + "w342" + arrayListMovies[position].posterPath)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)
@@ -189,8 +201,7 @@ class MoviesApiAdapter internal constructor(
 //             end of dialog view
         }
         // end of image clicked
-
-
     }
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view)
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

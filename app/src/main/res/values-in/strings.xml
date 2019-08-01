@@ -221,6 +221,18 @@
     <string name="activity_movie_catalogue_detail_original_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
+    <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
+    <string name="toast_sql_lite_insert_success">Success add to favorite</string>
+    <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
+    <string name="toast_sql_lite_delete_fail">Failed delete data</string>
+    <string name="dialog_cancel_title">Cancel</string>
+    <string name="dialog_cancel_msg">You want to cancel the change ?</string>
+    <string name="dialog_delete_msg">You want to delete the item ?</string>
+    <string name="dialog_delete_title">Delete Item</string>
+    <string name="dialog_positif_yes">YES</string>
+    <string name="dialog_positif_no">NO</string>
+    <string name="activity_main_favorite_movies_movies">Movies</string>
+    <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
 
 
 </resources>

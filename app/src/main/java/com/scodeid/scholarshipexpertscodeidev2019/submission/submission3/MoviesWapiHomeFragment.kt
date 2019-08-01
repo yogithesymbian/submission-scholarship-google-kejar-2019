@@ -4,11 +4,15 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission3
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
@@ -19,6 +23,8 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieTabColor
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.view.MovieViewModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 
 
@@ -49,17 +55,15 @@ Linux 4.19.0-kali5-amd64
 class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
 
-    private var movieViewModel  = MovieViewModel()
+    private var movieViewModel = MovieViewModel()
 
-    val adapter = MoviesApiAdapter(ArrayList())
+    private val adapter = MoviesApiAdapter(ArrayList())
 
-
-    companion object{
+    companion object {
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
         const val KEY = "keyPojoSubTab"
 
-        fun newInstanceData(pojoSubTab: MovieTabColorModel) : MoviesWapiHomeFragment
-        {
+        fun newInstanceData(pojoSubTab: MovieTabColorModel): MoviesWapiHomeFragment {
             val fragment = MoviesWapiHomeFragment()
             val args = Bundle()
             args.putParcelable(KEY, pojoSubTab)
@@ -67,6 +71,50 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             return fragment
         }
 
+        fun initFavoriteParam(
+            title: String, description: String, poster: String, context: Context,
+            bar: (title: String, description: String, poster: String, context: Context) -> Unit
+        ) {
+            bar(title, description, poster, context)
+        }
+
+        // my function to pass into the other
+        @SuppressLint("RestrictedApi")
+        fun insertFavoriteMovie(title: String, description: String, poster: String, context: Context) {
+
+            println(
+                "\n\t $title" +
+                        "\n\t $description" +
+                        "\n\t $poster" +
+                        "\n\t $context"
+            )
+
+            val helperDatabase = HelperDatabase(context)
+
+            // Gets the data repository in write mode
+            val db = helperDatabase.writableDatabase
+
+            // Create a new map of values, where column names are the keys
+            val values = ContentValues().apply {
+                put(MovieContractDatabase.MovieColumns.TITLE, title)
+                put(MovieContractDatabase.MovieColumns.DESCRIPTION, description)
+                put(MovieContractDatabase.MovieColumns.POSTER, poster)
+            }
+
+            val insert =  db?.insert(MovieContractDatabase.MovieColumns.TABLE_NAME, null, values)
+            if (insert != null) {
+                if (insert > 0) {
+                    db.insert(MovieContractDatabase.MovieColumns.TABLE_NAME, null, values)
+                    Toast.makeText(context,context.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+                        .show()
+                }
+                else {
+                    Toast.makeText(context,context.getString(R.string.toast_sql_lite_insert_fail), Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+        }
     }
 
     override fun onCreateView(
@@ -76,6 +124,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_movies_home_recycler, container, false)
     }
+
     private val getMovie =
         Observer<ArrayList<MoviesApiData>> { movieItems ->
             if (movieItems != null) {
@@ -100,19 +149,17 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         if (recycler_view_home.isEmpty()) // i didn't make state just use isEmpty for simplify that mean data ever load on else in model
         {
-            Log.d(TAG_LOG,"recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
+            Log.d(TAG_LOG, "recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
             movieViewModel.setMovie(resources.getString(R.string.app_language), context)
-        }
-        else
-        {
-            Log.d(TAG_LOG,"recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
+        } else {
+            Log.d(TAG_LOG, "recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        Log.d(TAG_LOG,"onViewCreated is running")
-        val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable(""+ KEY)
+        Log.d(TAG_LOG, "onViewCreated is running")
+        val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable("" + KEY)
         pojoSubTab?.let {
 
             val color0 = "R.color.color0"
@@ -120,10 +167,34 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             val color2 = "R.color.color2"
             val color3 = "R.color.color3"
             when {
-                it.colorString == color0 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
-                it.colorString == color1 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabGreen, null))
-                it.colorString == color2 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabPink, null))
-                it.colorString == color3 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabPurple, null))
+                it.colorString == color0 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.white,
+                        null
+                    )
+                )
+                it.colorString == color1 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabGreen,
+                        null
+                    )
+                )
+                it.colorString == color2 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabPink,
+                        null
+                    )
+                )
+                it.colorString == color3 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabPurple,
+                        null
+                    )
+                )
                 else -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
             }
         }

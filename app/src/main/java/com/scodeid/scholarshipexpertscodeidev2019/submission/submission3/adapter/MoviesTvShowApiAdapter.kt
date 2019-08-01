@@ -144,6 +144,7 @@ class MoviesTvShowApiAdapter (
 
             /**
              * DIALOG view movie catalogue
+             * override the layout movie with tv_show
              */
             movieDialog.setContentView(R.layout.fragment_movie_dialog)
             // bind onClick on there layout movie dialogUe
