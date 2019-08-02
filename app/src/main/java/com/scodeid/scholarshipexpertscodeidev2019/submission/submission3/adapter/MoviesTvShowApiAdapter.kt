@@ -12,6 +12,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +22,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.ItemClickRecyclerSupport
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeDetailFragment
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment.Companion.insertFavoriteTv
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesTvShowApiData
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
@@ -121,13 +125,25 @@ class MoviesTvShowApiAdapter (
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.itemView.text_tv_movie_name.text = arrayListMoviesTvShow[position].name
-        holder.itemView.text_tv_rate.text = arrayListMoviesTvShow[position].voteAverage.toString() //score /rate
-
-        val context = holder.itemView.context
-        val movieDialog = Dialog(context)
-
+        val title = arrayListMoviesTvShow[position].name
+        val voteAverage = arrayListMoviesTvShow[position].voteAverage //score /rate
         val imagePoster = arrayListMoviesTvShow[position].posterPath
+        val context = holder.itemView.context
+
+        val movieDialog = Dialog(context)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+
+        holder.itemView.checkbox_fav_tv.setOnCheckedChangeListener { buttonView, isChecked ->
+            buttonView.startAnimation(animation)
+            if (isChecked) MoviesTvWapiHomeFragment.initFavoriteTvParam(title, voteAverage,  imagePoster, context,  ::insertFavoriteTv)
+            else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
+                Toast.LENGTH_LONG)
+                .show()
+        }
+
+        holder.itemView.text_tv_movie_name.text = title
+        holder.itemView.text_tv_rate.text = voteAverage.toString()
+
         context.let {
             Glide.with(it)
                 .asBitmap()

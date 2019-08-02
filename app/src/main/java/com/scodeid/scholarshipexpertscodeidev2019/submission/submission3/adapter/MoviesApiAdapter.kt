@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -133,18 +134,24 @@ class MoviesApiAdapter internal constructor(
         val title = arrayListMovies[position].title
         val overview = arrayListMovies[position].overview
         val poster = POSTER_IMAGE + "w185" + arrayListMovies[position].posterPath
-        val context = holder.itemView.context
 
-        holder.itemView.image_fav.setOnClickListener {
-            // someone passing insertFavoriteMovie into initFavoriteParam
-            MoviesWapiHomeFragment.initFavoriteParam(title, overview, poster, context,  ::insertFavoriteMovie)
+        val context = holder.itemView.context
+        val movieDialog = Dialog(context)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+
+        holder.itemView.checkbox_fav_movie.setOnCheckedChangeListener { buttonView, isChecked ->
+            buttonView.startAnimation(animation)
+            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(title, overview, poster, context,  ::insertFavoriteMovie)
+            else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
+                    Toast.LENGTH_LONG)
+                    .show()
         }
 
         holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
         holder.itemView.text_overview.text = overview
         holder.itemView.text_movie_name.text = title
 
-        val movieDialog = Dialog(context)
+
         /**
          * GENRE ID into NAME  https://api.themoviedb.org/3/genre/movie/list?api_key=10494fa60da45dee76b53c177ada8d19&language=en-US
          * later's

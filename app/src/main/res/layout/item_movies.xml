@@ -43,7 +43,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="UnusedAttribute"
-                    tools:src="@drawable/ic_google_kejar_2019"/>
+                    tools:src="@drawable/ic_google_kejar_2019"
+                    app:layout_constraintVertical_bias="1.0"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_movie_name"
@@ -187,24 +188,30 @@
 
                     app:layout_constraintStart_toEndOf="@+id/text_more_info"
                     app:layout_constraintTop_toBottomOf="@+id/view_break"
-                    app:layout_constraintEnd_toEndOf="@+id/view_break"
                     app:layout_constraintHorizontal_bias="1.0"
-                    android:id="@+id/appCompatRatingBar"/>
+                    android:id="@+id/appCompatRatingBar"
+                    app:layout_constraintEnd_toStartOf="@+id/checkbox_fav_movie"/>
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_fav"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/ic_favorite_red_600_24dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_movie_name"
-                    app:layout_constraintTop_toTopOf="@+id/text_movie_name"
-                    app:layout_constraintBottom_toTopOf="@+id/text_overview"
-                    app:layout_constraintHorizontal_bias="1.0"
+            <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/checkbox_fav_movie"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginEnd="16dp"
+                    android:background="@drawable/main_checkbox_selector_favorite"
+                    android:button="@null"
+                    android:checked="false"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toEndOf="@+id/text_more_info"
+                    app:layout_constraintBottom_toBottomOf="@+id/appCompatRatingBar"
+                    app:layout_constraintTop_toBottomOf="@+id/view_break"
+                    app:layout_constraintVertical_bias="0.49"
                     />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

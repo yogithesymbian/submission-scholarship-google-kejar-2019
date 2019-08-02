@@ -34,6 +34,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
     companion object {
         val TAG_LOG: String = MoviesTvWapiHomeFragment::class.java.simpleName
 
+        // store to database
         fun initFavoriteTvParam(
             title: String, voteAverage: Int, poster: String, context: Context,
             bar: (title: String, voteAverage: Int, poster: String, context: Context) -> Unit
@@ -75,8 +76,8 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
                         .show()
                 }
             }
-
         }
+        // end of store to database
     }
 
     override fun onCreateView(

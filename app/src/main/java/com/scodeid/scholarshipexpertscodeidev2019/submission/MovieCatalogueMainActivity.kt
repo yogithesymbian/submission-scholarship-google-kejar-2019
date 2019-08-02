@@ -46,6 +46,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesT
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.TV_SHOW
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteTvActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewers
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
@@ -81,7 +82,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
     /**
      * BOTTOM NAVIGATION
      */
-    var clicked : Boolean = false
+    var clicked: Boolean = false
     private lateinit var mMainSectionsPagerAdapter: MainSectionsPagerAdapter
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -130,21 +131,19 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                     override fun run() {
                         this.finish()
                     }
-                    private fun finish() {
-                        if (clicked)
-                        {
+                    private fun finish(){
+                        if (clicked) {
                             hideActionFavorite(applicationContext)
                             clicked = false
-                        }
-                        else {
-                            if(!clicked) {
+                        } else {
+                            if (!clicked) {
                                 showActionFavorite(applicationContext)
                                 clicked = true
                             }
                         }
                     }
-                }, 100)
-                return@OnNavigationItemSelectedListener  true
+                },100)
+                return@OnNavigationItemSelectedListener true
             }
         }
         false
@@ -194,6 +193,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
     /**
      * END OF LISTENER DRAWER NAV
      */
@@ -220,22 +220,28 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
             }
         }
 
+        /**
+         *  NAVIGATION BOTTOM LISTENER
+         */
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         // make implement work
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
+        /**
+         *  END OF NAVIGATION BOTTOM LISTENER
+         */
 
         /**
-         * TabLayout View Pager Like ButtonNavigationView
+         * TabLayout View Pager
          */
         mMainSectionsPagerAdapter = MainSectionsPagerAdapter(
             supportFragmentManager,
             tabs
         )
-
-        // Set up the ViewPager with the sections adapter.
-        view_pager_container_home.adapter = mMainSectionsPagerAdapter
+        /**
+         * END OF TabLayout View Pager
+         */
 
         // Set up the ViewPager with the sections adapter.
         view_pager_container_home.adapter = mMainSectionsPagerAdapter
@@ -243,7 +249,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         /**
          * listener view pager home
          */
-
         view_pager_container_home.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 // later's
@@ -378,18 +383,22 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
          */
 
         /**
-         * LISTENER FAVORITE
+         * LISTENER FAVORITE BOTTOM SLIDE IN OUT
          */
         fab_fav_movie.setOnClickListener {
             val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
             startActivity(intent)
         }
         fab_fav_tv.setOnClickListener {
-            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
+            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteTvActivity::class.java)
             startActivity(intent)
         }
+        /**
+         * END OF LISTENER FAVORITE
+         */
 
     }
+
     /**
      * End Of OnCreate
      */
@@ -451,6 +460,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         fab_fav_tv.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in))
         fab_fav_tv.visibility = View.VISIBLE
     }
+
     /**
      * END OF VISIBILITY VISIBLE && GONE
      */
@@ -481,12 +491,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         val tabs = tabs.getTabAt(4 - 6)
         tabs?.select()
 
-        if (statusActivity == TV_SHOW)
-        {
+        if (statusActivity == TV_SHOW) {
             navigation.selectedItemId = R.id.navigation_tv_show
-        }
-        else if (statusActivity == MOVIE)
-        {
+        } else if (statusActivity == MOVIE) {
             navigation.selectedItemId = R.id.navigation_home
         }
 

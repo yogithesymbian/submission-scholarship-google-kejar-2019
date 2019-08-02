@@ -4,11 +4,11 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission4
 
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.TvModel
 
 /**
  * @author
- * Created by scode on 31,July,2019
+ * Created by scode on 02,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -30,7 +30,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
  */
 
-interface LoadMovieCallBack {
+interface LoadTvCallBack {
     fun preExecute()
-    fun postExecuteMovie(movieModel: ArrayList<MovieModel>)
+    fun postExecuteTv(tvModel: ArrayList<TvModel>)
 }

@@ -59,7 +59,7 @@
             android:textColor="@color/white80"
             app:backgroundTint="@color/black80"
 
-            app:icon="@drawable/ic_home_black_24dp"
+            app:icon="@drawable/ic_menu_home_black_24dp"
             app:iconTint="@color/white80"
 
             app:layout_constraintEnd_toEndOf="@+id/text_dialog"

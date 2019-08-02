@@ -33,8 +33,9 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_favorite)
-        recycler_favorite.layoutManager = LinearLayoutManager(this)
-        recycler_favorite.setHasFixedSize(true)
+
+        recycler_favorite_movie.layoutManager = LinearLayoutManager(this)
+        recycler_favorite_movie.setHasFixedSize(true)
 
         helperModel = getInstance(applicationContext)
         helperModel.open()
@@ -42,7 +43,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
         //{button/add/edit/delete later's}
 
         favoriteAdapter = FavoriteAdapter(this)
-        recycler_favorite.adapter = favoriteAdapter
+        recycler_favorite_movie.adapter = favoriteAdapter
 
         if (savedInstanceState == null) {
             LoadNotesAsync(helperModel, this).execute()
@@ -62,7 +63,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
                 if (resultCode == MainFavoriteMovieDeleteActivity.RESULT_DELETE) {
                     val position = data.getIntExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, 0)
                     favoriteAdapter.removeItemMovies(position)
-                    showSnackbarMessage("succss delete item")
+                    showSnackbarMessage("success delete item")
                 }
             }
         }
@@ -79,7 +80,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
     }
 
     private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycler_favorite, message, Snackbar.LENGTH_SHORT)
+        Snackbar.make(recycler_favorite_movie, message, Snackbar.LENGTH_SHORT)
             .show()
     }
 
@@ -95,11 +96,10 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
         }
     }
 
-    override fun postExecute(movieModel: ArrayList<MovieModel>) {
+    override fun postExecuteMovie(movieModel: ArrayList<MovieModel>) {
         favoriteAdapter.listMovieModel = movieModel
         frame_progress_favorite.visibility = View.GONE
         card_favorite.visibility = View.VISIBLE
-
     }
 
     override fun onPointerCaptureChanged(hasCapture: Boolean) {
@@ -124,7 +124,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
 
         override fun onPostExecute(movieModels: ArrayList<MovieModel>) {
             super.onPostExecute(movieModels)
-            weakReferenceCallBack.get()?.postExecute(movieModels)
+            weakReferenceCallBack.get()?.postExecuteMovie(movieModels)
         }
 
     }

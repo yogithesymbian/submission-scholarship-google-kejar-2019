@@ -15,14 +15,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.HelperModel
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
-import kotlinx.android.synthetic.main.activity_main_favorite_delete.*
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.TvModel
+import kotlinx.android.synthetic.main.activity_main_favorite_tv_delete.*
 
-class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
+class MainFavoriteTvDeleteActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_MOVIE = "extra_movie"
+
+        const val EXTRA_TV = "extra_tv"
         const val EXTRA_POSITION = "extra_position"
 
         const val REQUEST_UPDATE = 200
@@ -31,15 +33,16 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
         private const val ALERT_DIALOG_CLOSE = 10
         private const val ALERT_DIALOG_DELETE = 20
 
-        val TAG_LOG: String = MainFavoriteMovieDeleteActivity::class.java.simpleName
+        val TAG_LOG: String = MainFavoriteTvDeleteActivity::class.java.simpleName
     }
 
-    private var movieModel: MovieModel? = null
+    private var tvModel: TvModel? = null
     private var helperModel: HelperModel? = null
     private var position: Int = 0
     private var isEdit = false
 
     private fun showAlertDialog(type: Int) {
+
         val isDialogClose = type == ALERT_DIALOG_CLOSE
         val dialogTitle: String
         val dialogMsg: String
@@ -53,7 +56,6 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
         }
 
         val alertDialogBuilder = AlertDialog.Builder(this)
-
         alertDialogBuilder.setTitle(dialogTitle)
         alertDialogBuilder
             .setMessage(dialogMsg)
@@ -63,7 +65,7 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
                     finish()
                 } else {
                     // init for delete
-                    val result = movieModel?.id?.let { helperModel?.deleteMovie(it)?.toLong() }
+                    val result = tvModel?.id?.let { helperModel?.deleteTv(it)?.toLong() }
                     // looking for the delete have an item ?
                     if (result != null) {
                         // result_success ?
@@ -73,7 +75,11 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
                             setResult(RESULT_DELETE, intent)
                             finish()
                         } else {
-                            Toast.makeText(this@MainFavoriteMovieDeleteActivity, getString(R.string.toast_sql_lite_delete_fail), Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                this@MainFavoriteTvDeleteActivity,
+                                getString(R.string.toast_sql_lite_delete_fail),
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
                     }
@@ -87,23 +93,23 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
     @SuppressLint("PrivateResource")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_favorite_delete)
+        setContentView(R.layout.activity_main_favorite_tv_delete)
 
         helperModel = HelperModel.getInstance(applicationContext)
-        movieModel = intent.getParcelableExtra<MovieModel>(EXTRA_MOVIE)
+        tvModel = intent.getParcelableExtra<TvModel>(EXTRA_TV)
 
         // set position intent
-        if (movieModel != null) {
+        if (tvModel != null) {
             position = intent.getIntExtra(EXTRA_POSITION, 0)
             isEdit = true
         }
 
         if (isEdit) {
-            if (movieModel != null) {
-                Log.d(TAG_LOG, "image can load ? see : " + movieModel?.posterImage)
+            if (tvModel != null) {
+                Log.d(TAG_LOG, "image can load ? see : ${tvModel?.posterImage}")
                 Glide.with(this)
                     .asBitmap()
-                    .load(movieModel?.posterImage)
+                    .load("${POSTER_IMAGE}w185${tvModel?.posterImage}")
                     .error(R.color.error_color_material_light)
                     .format(DecodeFormat.PREFER_ARGB_8888)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -115,9 +121,7 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
         image_delete_favorite.setOnClickListener {
             showAlertDialog(ALERT_DIALOG_DELETE)
         }
-
     }
-
     override fun onBackPressed() {
         showAlertDialog(ALERT_DIALOG_CLOSE)
     }

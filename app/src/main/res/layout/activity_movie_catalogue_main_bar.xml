@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_margin="8dp"
-                android:background="@android:color/white"
+                android:background="@drawable/main_rounded_shape"
                 android:elevation="12dp"
                 android:fitsSystemWindows="true"
                 android:outlineAmbientShadowColor="@color/black80"
@@ -113,70 +113,70 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="@string/activity_movie_catalogue_main_content_for_you"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     />
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_soon"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_soon"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
 
             <com.google.android.material.tabs.TabItem
                     style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
+                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
                     android:text="@string/activity_movie_catalogue_main_content_coming"/>
         </com.google.android.material.tabs.TabLayout>
 
@@ -226,7 +226,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginRight="20dp"
             android:visibility="gone"
-            app:srcCompat="@drawable/ic_live_tv_black_24dp"
+            app:srcCompat="@drawable/ic_menu_live_tv_black_24dp"
             app:backgroundTint="@color/colorPrimary"
             app:tint="@color/white"
             tools:ignore="RtlHardcoded,UnusedAttribute"/>

@@ -18,8 +18,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.CustomOnItemClickListener
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieDeleteActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteTvDeleteActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.TvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows_favorite.view.*
@@ -90,7 +91,7 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(listTvModel[position].posterImage)
+                .load("${POSTER_IMAGE}w185${listTvModel[position].posterImage}")
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -99,10 +100,10 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         holder.itemView.setOnClickListener(CustomOnItemClickListener(position, object :
             CustomOnItemClickListener.OnItemClickCallback {
             override fun onItemClicked(view: View, position: Int) {
-                val intent = Intent(activity, MainFavoriteMovieDeleteActivity::class.java)
-                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, position)
-                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_MOVIE, listTvModel[position])
-                activity.startActivityForResult(intent, MainFavoriteMovieDeleteActivity.REQUEST_UPDATE)
+                val intent = Intent(activity, MainFavoriteTvDeleteActivity::class.java)
+                intent.putExtra(MainFavoriteTvDeleteActivity.EXTRA_POSITION, position)
+                intent.putExtra(MainFavoriteTvDeleteActivity.EXTRA_TV, listTvModel[position])
+                activity.startActivityForResult(intent, MainFavoriteTvDeleteActivity.REQUEST_UPDATE)
             }
         }))
 

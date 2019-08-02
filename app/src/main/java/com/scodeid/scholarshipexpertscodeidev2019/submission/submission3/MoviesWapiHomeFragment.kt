@@ -71,6 +71,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             return fragment
         }
 
+        // store to database
         fun initFavoriteParam(
             title: String, description: String, poster: String, context: Context,
             bar: (title: String, description: String, poster: String, context: Context) -> Unit
@@ -112,8 +113,8 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
                         .show()
                 }
             }
-
         }
+        // end of store to database
     }
 
     override fun onCreateView(
