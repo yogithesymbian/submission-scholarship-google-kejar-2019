@@ -127,7 +127,7 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
             }
             Glide.with(it)
                 .asBitmap()
-                .load(listTvModel[position].posterImage)
+                .load("${POSTER_IMAGE}w185${listTvModel[position].posterImage}")
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)
