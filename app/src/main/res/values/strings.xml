@@ -183,7 +183,7 @@
     <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
     <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
-    <string name="\toast_sql_lite_insert_success">Success add to favorite</string>
+    <string name="toast_sql_lite_insert_success">Success add to favorite</string>
     <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
     <string name="toast_sql_lite_delete_fail">Failed delete data</string>
     <string name="dialog_cancel_title">Cancel</string>
@@ -195,6 +195,8 @@
     <string name="activity_main_favorite_movies_movies">Movies</string>
     <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
     <string name="navigation_bottom_movie_favorite">Favorite</string>
+    <string name="activity_main_favorite_movies_this_day">This Day</string>
+    <string name="activity_main_favorite_movies_yesterday">Yesterday</string>
 
 
 </resources>

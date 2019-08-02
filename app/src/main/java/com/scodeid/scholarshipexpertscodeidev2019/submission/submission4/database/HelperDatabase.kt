@@ -8,7 +8,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns
 
 /**
  * @author
@@ -38,12 +38,14 @@ class HelperDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_TABLE_MOVIE)
+        db.execSQL(SQL_CREATE_TABLE_TV)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // This database is only a cache for online data, so its upgrade policy is
         // to simply to discard the data and start over
-        db.execSQL(" DROP TABLE IF EXISTS ${MovieColumns.TABLE_NAME}")
+        db.execSQL(" DROP TABLE IF EXISTS ${MovieColumns.TABLE_NAME_MOVIE}")
+        db.execSQL(" DROP TABLE IF EXISTS ${MovieColumns.TABLE_NAME_TV}")
         onCreate(db)
     }
 
@@ -54,10 +56,17 @@ class HelperDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val DATABASE_VERSION = 1
 
         private const val SQL_CREATE_TABLE_MOVIE =
-            "CREATE TABLE ${MovieColumns.TABLE_NAME} (" +
+            "CREATE TABLE ${MovieColumns.TABLE_NAME_MOVIE} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                     "${MovieColumns.TITLE} TEXT," +
                     "${MovieColumns.DESCRIPTION} TEXT," +
+                    "${MovieColumns.POSTER} TEXT)"
+
+        private const val SQL_CREATE_TABLE_TV =
+            "CREATE TABLE ${MovieColumns.TABLE_NAME_TV} (" +
+                    "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                    "${MovieColumns.TITLE} TEXT," +
+                    "${MovieColumns.VOTE_AVERAGE} INTEGER," +
                     "${MovieColumns.POSTER} TEXT)"
     }
 }

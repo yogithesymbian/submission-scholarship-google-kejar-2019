@@ -15,11 +15,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieHelperModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.HelperModel
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
 import kotlinx.android.synthetic.main.activity_main_favorite_delete.*
 
-class MainFavoriteDeleteActivity : AppCompatActivity() {
+class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_MOVIE = "extra_movie"
@@ -31,11 +31,11 @@ class MainFavoriteDeleteActivity : AppCompatActivity() {
 
         private const val ALERT_DIALOG_CLOSE = 10
         private const val ALERT_DIALOG_DELETE = 20
-        val TAG_LOG: String = MainFavoriteDeleteActivity::class.java.simpleName
+        val TAG_LOG: String = MainFavoriteMovieDeleteActivity::class.java.simpleName
     }
 
     private var movieModel: MovieModel? = null
-    private var movieHelperModel: MovieHelperModel? = null
+    private var helperModel: HelperModel? = null
     private var position: Int = 0
     private var isEdit = false
 
@@ -63,7 +63,7 @@ class MainFavoriteDeleteActivity : AppCompatActivity() {
                     finish()
                 } else {
                     // init for delete
-                    val result = movieModel?.id?.let { movieHelperModel?.deleteMovie(it)?.toLong() }
+                    val result = movieModel?.id?.let { helperModel?.deleteMovie(it)?.toLong() }
                     // looking for the delete have an item ?
                     if (result != null) {
                         // result_success ?
@@ -73,7 +73,7 @@ class MainFavoriteDeleteActivity : AppCompatActivity() {
                             setResult(RESULT_DELETE, intent)
                             finish()
                         } else {
-                            Toast.makeText(this@MainFavoriteDeleteActivity, getString(R.string.toast_sql_lite_delete_fail), Toast.LENGTH_SHORT)
+                            Toast.makeText(this@MainFavoriteMovieDeleteActivity, getString(R.string.toast_sql_lite_delete_fail), Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -89,7 +89,7 @@ class MainFavoriteDeleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_favorite_delete)
 
-        movieHelperModel = MovieHelperModel.getInstance(applicationContext)
+        helperModel = HelperModel.getInstance(applicationContext)
         movieModel = intent.getParcelableExtra<MovieModel>(EXTRA_MOVIE)
 
         // set position intent

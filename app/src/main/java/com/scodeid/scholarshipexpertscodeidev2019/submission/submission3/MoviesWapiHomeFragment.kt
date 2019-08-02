@@ -23,8 +23,8 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieTabColor
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.adapter.MoviesApiAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.view.MovieViewModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 
 
@@ -96,15 +96,14 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
             // Create a new map of values, where column names are the keys
             val values = ContentValues().apply {
-                put(MovieContractDatabase.MovieColumns.TITLE, title)
-                put(MovieContractDatabase.MovieColumns.DESCRIPTION, description)
-                put(MovieContractDatabase.MovieColumns.POSTER, poster)
+                put(ContractDatabase.MovieColumns.TITLE, title)
+                put(ContractDatabase.MovieColumns.DESCRIPTION, description)
+                put(ContractDatabase.MovieColumns.POSTER, poster)
             }
 
-            val insert =  db?.insert(MovieContractDatabase.MovieColumns.TABLE_NAME, null, values)
+            val insert =  db?.insert(ContractDatabase.MovieColumns.TABLE_NAME_MOVIE, null, values)
             if (insert != null) {
                 if (insert > 0) {
-                    db.insert(MovieContractDatabase.MovieColumns.TABLE_NAME, null, values)
                     Toast.makeText(context,context.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
                         .show()
                 }

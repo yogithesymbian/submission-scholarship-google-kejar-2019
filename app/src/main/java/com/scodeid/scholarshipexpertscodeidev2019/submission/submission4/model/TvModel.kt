@@ -2,13 +2,14 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database
+package com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model
 
-import android.provider.BaseColumns
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
  * @author
- * Created by scode on 31,July,2019
+ * Created by scode on 01,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -29,12 +30,11 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
 
  */
-object MovieContractDatabase {
-    // Table contents are grouped together in an anonymous object.
-    object MovieColumns : BaseColumns {
-        const val TABLE_NAME = "table_movies"
-        const val TITLE = "title"
-        const val DESCRIPTION = "description"
-        const val POSTER = "poster"
-    }
-}
+
+@Parcelize
+class TvModel (
+    var id : Int,
+    var title : String,
+    var voteAverage : Int,
+    var posterImage : String
+) : Parcelable

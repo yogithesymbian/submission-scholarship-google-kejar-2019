@@ -10,7 +10,7 @@
         android:id="@+id/constraint_delete"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".submission.submission4.MainFavoriteDeleteActivity">
+        tools:context=".submission.submission4.MainFavoriteMovieDeleteActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_poster_delete"

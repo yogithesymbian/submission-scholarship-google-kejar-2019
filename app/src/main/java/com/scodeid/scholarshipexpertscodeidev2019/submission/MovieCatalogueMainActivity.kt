@@ -25,6 +25,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -44,7 +45,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.notification.Coming
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.TV_SHOW
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewers
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
@@ -54,6 +55,12 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataMode
 
 class MovieCatalogueMainActivity : AppCompatActivity(),
     MovieViewViewers, NavigationView.OnNavigationItemSelectedListener {
+
+    companion object {
+        var stateChangeVisible = ""
+        var statusActivity = ""
+        private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
+    }
 
     /**
      * Presenter Like Unit Testing with MPV
@@ -71,15 +78,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         Log.d(TAG_LOG, "later's")
     }
 
-
-
+    /**
+     * BOTTOM NAVIGATION
+     */
+    var clicked : Boolean = false
     private lateinit var mMainSectionsPagerAdapter: MainSectionsPagerAdapter
-    companion object {
-        var stateChangeVisible = "" //
-        var statusActivity = ""
-        private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
-    }
-
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
@@ -128,16 +131,31 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
                         this.finish()
                     }
                     private fun finish() {
-                        val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteActivity::class.java)
-                        startActivity(intent)
+                        if (clicked)
+                        {
+                            hideActionFavorite(applicationContext)
+                            clicked = false
+                        }
+                        else {
+                            if(!clicked) {
+                                showActionFavorite(applicationContext)
+                                clicked = true
+                            }
+                        }
                     }
-                }, 300)
+                }, 100)
                 return@OnNavigationItemSelectedListener  true
             }
         }
         false
     }
+    /**
+     * END OF BOTTOM NAVIGATION
+     */
 
+    /**
+     * FRAGMENT API TV SHOW
+     */
     private fun handleFragmentApiTvShow() {
         // instance fragmentManager
         val mFragmentManager = supportFragmentManager
@@ -158,7 +176,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
             mFragmentTransaction.commit()
         }
     }
-
+    /**
+     * END OF FRAGMENT API TV SHOW
+     */
 
 
     /**
@@ -174,7 +194,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
-
+    /**
+     * END OF LISTENER DRAWER NAV
+     */
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -355,9 +377,19 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
          * End Of TabLayout Programmatically
          */
 
+        /**
+         * LISTENER FAVORITE
+         */
+        fab_fav_movie.setOnClickListener {
+            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
+            startActivity(intent)
+        }
+        fab_fav_tv.setOnClickListener {
+            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
+            startActivity(intent)
+        }
+
     }
-
-
     /**
      * End Of OnCreate
      */
@@ -393,7 +425,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         }, 100) //10sec
     }
 
-
+    /**
+     * VISIBILITY VISIBLE && GONE
+     */
     private fun hideHome() {
         view_pager_container_home.visibility = View.GONE
         frame_container_tv_show.visibility = View.VISIBLE
@@ -403,6 +437,24 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         view_pager_container_home.visibility = View.VISIBLE
         frame_container_tv_show.visibility = View.GONE
     }
+
+    private fun hideActionFavorite(applicationContext: Context) {
+        fab_fav_movie.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out))
+        fab_fav_movie.visibility = View.GONE
+        fab_fav_tv.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.slide_out))
+        fab_fav_tv.visibility = View.GONE
+    }
+
+    private fun showActionFavorite(applicationContext: Context) {
+        fab_fav_movie.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in))
+        fab_fav_movie.visibility = View.VISIBLE
+        fab_fav_tv.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.slide_in))
+        fab_fav_tv.visibility = View.VISIBLE
+    }
+    /**
+     * END OF VISIBILITY VISIBLE && GONE
+     */
+
 
     override fun onStart() {
         super.onStart()
@@ -499,12 +551,4 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        Log.d(TAG_LOG, "onPrepareOptionMenu For Icon")
-//        val settingsItem = menu?.findItem(R.id.option_drawer)
-//        settingsItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_golf_course_black_24dp)
-        return super.onPrepareOptionsMenu(menu)
-
-
-    }
 }

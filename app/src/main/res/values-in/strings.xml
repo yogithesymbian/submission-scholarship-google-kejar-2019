@@ -212,6 +212,8 @@
     <string name="activity_main_favorite_movies_movies">Movies</string>
     <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
     <string name="navigation_bottom_movie_favorite">Favorite</string>
+    <string name="activity_main_favorite_movies_this_day">This Day</string>
+    <string name="activity_main_favorite_movies_yesterday">Yesterday</string>
 
 
 </resources>

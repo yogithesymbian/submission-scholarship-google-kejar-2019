@@ -20,14 +20,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieDeleteActivity
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.TvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
-import kotlinx.android.synthetic.main.item_movies_favorite.view.*
-import java.util.*
+import kotlinx.android.synthetic.main.item_movies_tv_shows_favorite.view.*
 
 /**
  * @author
- * Created by scode on 30,July,2019
+ * Created by scode on 01,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -48,18 +47,19 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
 
  */
-class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+
+class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteTvAdapter.FavoriteTvViewHolder>() {
 
     companion object {
-        val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
+        val TAG_LOG: String = FavoriteTvAdapter::class.java.simpleName
     }
     // will save all data
-    var listMovieModel = ArrayList<MovieModel>()
-        set(listMovies) {
-            if (listMovies.size > 0) {
-                this.listMovieModel.clear()
+    var listTvModel = ArrayList<TvModel>()
+        set(listTv) {
+            if (listTv.size > 0) {
+                this.listTvModel.clear()
             }
-            this.listMovieModel.addAll(listMovies)
+            this.listTvModel.addAll(listTv)
             notifyDataSetChanged()
         }
 
@@ -68,49 +68,50 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
      * remove/delete
      */
 
-    fun removeItemMovies(position: Int) {
-        this.listMovieModel.removeAt(position)
+    fun removeItemTv(position: Int) {
+        this.listTvModel.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, this.listMovieModel.size)
+        notifyItemRangeChanged(position, this.listTvModel.size)
     }
 
     /**
      * implement of recycler
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_favorite, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteTvViewHolder {
+        return FavoriteTvViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows_favorite, parent, false))
     }
 
     @SuppressLint("PrivateResource")
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteTvViewHolder, position: Int) {
         val context = holder.itemView.context
-        holder.textTitle.text = this.listMovieModel[position].title
-        holder.textDesc.text = this.listMovieModel[position].description
+        holder.textTitle.text = this.listTvModel[position].title
+        holder.textDesc.text = this.listTvModel[position].voteAverage.toString()
+
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieModel[position].posterImage)
+                .load(listTvModel[position].posterImage)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(holder.itemView.image_movie)
+                .into(holder.itemView.image_tv_movie)
         }
-        holder.itemView.card_item_favorite.setOnClickListener(CustomOnItemClickListener(position, object :
+        holder.itemView.setOnClickListener(CustomOnItemClickListener(position, object :
             CustomOnItemClickListener.OnItemClickCallback {
             override fun onItemClicked(view: View, position: Int) {
                 val intent = Intent(activity, MainFavoriteMovieDeleteActivity::class.java)
                 intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, position)
-                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_MOVIE, listMovieModel[position])
+                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_MOVIE, listTvModel[position])
                 activity.startActivityForResult(intent, MainFavoriteMovieDeleteActivity.REQUEST_UPDATE)
             }
         }))
 
         val movieDialog = Dialog(context)
         holder
-            .itemView.image_movie.setOnClickListener {
+            .itemView.image_tv_movie.setOnClickListener {
             Log.d(
                 TAG_LOG + "Bind",
-                "image ${holder.itemView.image_movie} got clicked and Try opening dialog view"
+                "image ${holder.itemView.image_tv_movie} got clicked and Try opening dialog view"
             )
 
             /**
@@ -125,7 +126,7 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
             }
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieModel[position].posterImage)
+                .load(listTvModel[position].posterImage)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)
@@ -138,11 +139,11 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     }
 
     override fun getItemCount(): Int {
-        return this.listMovieModel.size
+        return this.listTvModel.size
     }
 
-    inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val textTitle: TextView = itemView.findViewById(R.id.text_movie_name)
-        internal val textDesc: TextView = itemView.findViewById(R.id.text_overview)
+    inner class FavoriteTvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal val textTitle: TextView = itemView.findViewById(R.id.text_tv_movie_name)
+        internal val textDesc: TextView = itemView.findViewById(R.id.text_tv_rate)
     }
 }

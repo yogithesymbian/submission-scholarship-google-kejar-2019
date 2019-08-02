@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        tools:context=".submission.submission4.MainFavoriteActivity">
+        tools:context=".submission.submission4.MainFavoriteMovieActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,13 +85,13 @@
                     <com.google.android.material.tabs.TabItem
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="@string/activity_main_favorite_movies_movies"
+                            android:text="@string/activity_main_favorite_movies_this_day"
                             />
 
                     <com.google.android.material.tabs.TabItem
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="@string/activity_main_favorite_movies_tv_show"/>
+                            android:text="@string/activity_main_favorite_movies_yesterday"/>
                 </com.google.android.material.tabs.TabLayout>
 
 

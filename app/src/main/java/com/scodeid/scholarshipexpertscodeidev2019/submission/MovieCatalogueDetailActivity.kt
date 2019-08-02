@@ -61,6 +61,7 @@ class MovieCatalogueDetailActivity : Activity() {
         actionBar?.show()
         fullscreen_content_controls.visibility = View.VISIBLE
     }
+
     private var mVisible: Boolean = false
     private val mHideRunnable = Runnable { hide() }
 

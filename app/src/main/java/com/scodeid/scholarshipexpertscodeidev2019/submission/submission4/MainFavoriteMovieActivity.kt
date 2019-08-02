@@ -14,19 +14,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.adapter.FavoriteAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieHelperModel
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieHelperModel.Companion.getInstance
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.HelperModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.HelperModel.Companion.getInstance
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference
 
-class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
+class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
     }
 
-    private lateinit var movieHelperModel: MovieHelperModel
+    private lateinit var helperModel: HelperModel
     private lateinit var favoriteAdapter: FavoriteAdapter
 
     @SuppressLint("Recycle")
@@ -36,8 +36,8 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
         recycler_favorite.layoutManager = LinearLayoutManager(this)
         recycler_favorite.setHasFixedSize(true)
 
-        movieHelperModel = getInstance(applicationContext)
-        movieHelperModel.open()
+        helperModel = getInstance(applicationContext)
+        helperModel.open()
 
         //{button/add/edit/delete later's}
 
@@ -45,7 +45,7 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
         recycler_favorite.adapter = favoriteAdapter
 
         if (savedInstanceState == null) {
-            LoadNotesAsync(movieHelperModel, this).execute()
+            LoadNotesAsync(helperModel, this).execute()
         } else {
             val movieModels = savedInstanceState.getParcelableArrayList<MovieModel>(EXTRA_STATE)
             if (movieModels != null) {
@@ -58,9 +58,9 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            if (requestCode == MainFavoriteDeleteActivity.REQUEST_UPDATE) {
-                if (resultCode == MainFavoriteDeleteActivity.RESULT_DELETE) {
-                    val position = data.getIntExtra(MainFavoriteDeleteActivity.EXTRA_POSITION, 0)
+            if (requestCode == MainFavoriteMovieDeleteActivity.REQUEST_UPDATE) {
+                if (resultCode == MainFavoriteMovieDeleteActivity.RESULT_DELETE) {
+                    val position = data.getIntExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, 0)
                     favoriteAdapter.removeItemMovies(position)
                     showSnackbarMessage("succss delete item")
                 }
@@ -75,7 +75,7 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
 
     override fun onDestroy() {
         super.onDestroy()
-        movieHelperModel.close()
+        helperModel.close()
     }
 
     private fun showSnackbarMessage(message: String) {
@@ -106,10 +106,10 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
 
     }
 
-    private class LoadNotesAsync(movieHelperModel: MovieHelperModel, callBack: LoadMovieCallBack) :
+    private class LoadNotesAsync(helperModel: HelperModel, callBack: LoadMovieCallBack) :
         AsyncTask<Void, Void, ArrayList<MovieModel>>() {
 
-        private val weakReferenceMovieHelper: WeakReference<MovieHelperModel> = WeakReference(movieHelperModel)
+        private val weakReferenceHelper: WeakReference<HelperModel> = WeakReference(helperModel)
 
         private val weakReferenceCallBack: WeakReference<LoadMovieCallBack> = WeakReference(callBack)
 
@@ -119,7 +119,7 @@ class MainFavoriteActivity : AppCompatActivity(), LoadMovieCallBack {
         }
 
         override fun doInBackground(vararg voids: Void): ArrayList<MovieModel>? {
-            return weakReferenceMovieHelper.get()?.getAllMovies()
+            return weakReferenceHelper.get()?.getAllMovies()
         }
 
         override fun onPostExecute(movieModels: ArrayList<MovieModel>) {

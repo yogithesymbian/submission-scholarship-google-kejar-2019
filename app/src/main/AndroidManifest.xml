@@ -14,9 +14,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".submission.submission4.MainFavoriteDeleteActivity">
+        <activity android:name=".submission.submission4.MainFavoriteMovieDeleteActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteActivity">
+        <activity android:name=".submission.submission4.MainFavoriteMovieActivity">
         </activity>
         <activity android:name=".submission.notification.NoInternetConnActivity">
         </activity>

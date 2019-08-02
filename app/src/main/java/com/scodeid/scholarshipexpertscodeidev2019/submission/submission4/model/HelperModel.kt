@@ -9,17 +9,18 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.DESCRIPTION
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.POSTER
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TITLE
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.VOTE_AVERAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.DESCRIPTION
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.POSTER
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.TABLE_NAME
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.TITLE
 
-//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.Companion.DESCRIPTION
-//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.Companion.POSTER
-//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.MovieColumns.Companion.TITLE
-//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.MovieContractDatabase.TABLE_MOVIES
+//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.Companion.DESCRIPTION
+//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.Companion.POSTER
+//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.Companion.TITLE
+//import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.TABLE_MOVIES
 
 /**
  * @author
@@ -45,7 +46,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
  */
 
-class MovieHelperModel
+class HelperModel
 /**
  * CONSTRUCTOR
  */
@@ -55,16 +56,19 @@ private constructor(context: Context) {
         /**
          * DECLARE DATABASE VARIABLE
          */
-        private const val DATABASE_TABLE = MovieContractDatabase.MovieColumns.TABLE_NAME
+        private const val DATABASE_TABLE_MOVIE = TABLE_NAME_MOVIE
+        private const val DATABASE_TABLE_TV = TABLE_NAME_TV
+
+
         private lateinit var helperDatabase: HelperDatabase
-        lateinit var INSTANCE: MovieHelperModel
+        lateinit var INSTANCE: HelperModel
         private lateinit var sqLiteDatabase: SQLiteDatabase
         /**
          * INITIALIZE DATABASE LATER'S
          */
-        fun getInstance(context: Context): MovieHelperModel {
+        fun getInstance(context: Context): HelperModel {
             synchronized(SQLiteOpenHelper::class.java) {
-                INSTANCE = MovieHelperModel(context)
+                INSTANCE = HelperModel(context)
             }
             return INSTANCE
         }
@@ -92,11 +96,10 @@ private constructor(context: Context) {
 
     //**************favorite action**************************
 
-    // get data /read
     fun getAllMovies(): ArrayList<MovieModel> {
         val arrayList = ArrayList<MovieModel>()
         val cursor = sqLiteDatabase.query(
-            DATABASE_TABLE,
+            DATABASE_TABLE_MOVIE,
             null, null, null, null, null,
             BaseColumns._ID + " ASC", null
         )
@@ -119,9 +122,40 @@ private constructor(context: Context) {
         return arrayList
     }
 
+    fun getAllTv(): ArrayList<TvModel> {
+        val arrayList = ArrayList<TvModel>()
+        val cursor = sqLiteDatabase.query(
+            DATABASE_TABLE_TV,
+            null, null, null, null, null,
+            BaseColumns._ID + " ASC", null
+        )
+        cursor.moveToFirst()
+        var tvModel: TvModel
+        if (cursor.count > 0) {
+            do {
+                tvModel = TvModel(
+                    cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)),
+                    "" + cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
+                      cursor.getInt(cursor.getColumnIndexOrThrow(VOTE_AVERAGE)),
+                    "" + cursor.getString(cursor.getColumnIndexOrThrow(POSTER))
+                )
+
+                arrayList.add(tvModel)
+                cursor.moveToNext()
+            } while (!cursor.isAfterLast)
+        }
+        cursor.close()
+        return arrayList
+    }
+
     // delete data movie
     fun deleteMovie(id: Int): Int {
-        return sqLiteDatabase.delete(TABLE_NAME, BaseColumns._ID + " = '" + id + "'", null)
+        return sqLiteDatabase.delete(TABLE_NAME_MOVIE, BaseColumns._ID + " = '" + id + "'", null)
+    }
+
+    // delete data TV
+    fun deleteTv(id: Int): Int {
+        return sqLiteDatabase.delete(TABLE_NAME_TV, BaseColumns._ID + " = '" + id + "'", null)
     }
 
 
