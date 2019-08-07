@@ -118,7 +118,6 @@
 
             <!--tools:text="@string/item_movies_0_viewer"-->
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_icon_viewer"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"

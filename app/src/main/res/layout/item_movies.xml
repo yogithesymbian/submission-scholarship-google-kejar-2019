@@ -23,7 +23,7 @@
 
             tools:layout_editor_absoluteY="4dp"
             tools:layout_editor_absoluteX="4dp"
-            android:id="@+id/materialCardView">
+            >
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -42,9 +42,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
                     tools:ignore="UnusedAttribute"
-                    tools:src="@drawable/ic_google_kejar_2019"
-                    app:layout_constraintVertical_bias="1.0"/>
+                    tools:src="@drawable/ic_google_kejar_2019"/>
 
             <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/text_movie_name"
@@ -117,7 +117,6 @@
 
             <!--tools:text="@string/item_movies_0_viewer"-->
             <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_icon_viewer"
                     style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
@@ -140,9 +139,10 @@
                     app:elevation="1dp"
 
 
-                    tools:ignore="RtlHardcoded,SmallSp,UnusedAttribute"
                     app:layout_constraintBottom_toBottomOf="@+id/image_movie"
                     app:layout_constraintStart_toStartOf="parent"
+
+                    tools:ignore="RtlHardcoded,SmallSp,UnusedAttribute"
                     tools:text="@string/item_movies_99_views"/>
 
             <View
@@ -177,6 +177,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/appCompatRatingBar"
                     style="@style/Base.Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,7 +190,6 @@
                     app:layout_constraintStart_toEndOf="@+id/text_more_info"
                     app:layout_constraintTop_toBottomOf="@+id/view_break"
                     app:layout_constraintHorizontal_bias="1.0"
-                    android:id="@+id/appCompatRatingBar"
                     app:layout_constraintEnd_toStartOf="@+id/checkbox_fav_movie"/>
 
             <androidx.appcompat.widget.AppCompatCheckBox

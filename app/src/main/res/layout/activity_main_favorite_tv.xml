@@ -62,7 +62,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_main_favorite_manage_favorte_tv_show"
+                        android:text="@string/activity_main_favorite_manage_favorite_tv_show"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:id="@+id/appCompatTextView"

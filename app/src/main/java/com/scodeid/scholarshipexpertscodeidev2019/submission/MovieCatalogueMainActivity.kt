@@ -40,22 +40,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModelsRecycler
 import com.scodeid.scholarshipexpertscodeidev2019.submission.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.utils.TV_SHOW
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteTvActivity
-import com.scodeid.scholarshipexpertscodeidev2019.submission.view.MovieViewViewers
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_content.*
 import kotlinx.android.synthetic.main.nav_header_home_movies.*
-import com.scodeid.scholarshipexpertscodeidev2019.submission.model.MovieDataModels as MovieDataModels1
 
-class MovieCatalogueMainActivity : AppCompatActivity(),
-    MovieViewViewers, NavigationView.OnNavigationItemSelectedListener {
+class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         var stateChangeVisible = ""
@@ -63,21 +59,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
         private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
     }
 
-    /**
-     * Presenter Like Unit Testing with MPV
-     * implement on Submission ListView
-     * for Viewers Toast
-     * testing
-     * Intent MoviesDataResult Activity
-     */
-    override fun allMovieData(models: MovieDataModels1) {
-        // coming soon :D ....
-        Log.d(TAG_LOG, "V-I-E-W (MPV) view unit for viewer is run ? ")
-    }
-
-    override fun homeMovies(models: MovieDataModelsRecycler) {
-        Log.d(TAG_LOG, "later's")
-    }
 
     /**
      * BOTTOM NAVIGATION
@@ -387,6 +368,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(),
          */
         fab_fav_movie.setOnClickListener {
             val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
+//            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieRoomActivity::class.java)
             startActivity(intent)
         }
         fab_fav_tv.setOnClickListener {

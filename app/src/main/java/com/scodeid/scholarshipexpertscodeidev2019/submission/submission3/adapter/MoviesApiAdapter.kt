@@ -57,10 +57,6 @@ Linux 4.19.0-kali5-amd64
 class MoviesApiAdapter internal constructor(
     private val arrayListMovies: ArrayList<MoviesApiData>
 ) : RecyclerView.Adapter<MoviesApiAdapter.ViewHolder>() {
-    //before i have internal constructor context: Context but when i in the fragment is needed passing an ArrayList
-    // then the variable is global so i can't pass the context cause null then the array can't retrieve properly cause context are null on fragment global variable
-    //so in here i re use the ViewGroup (parent.context)
-    // and i have explore in 1 day and found this logic val context = holder.itemView.context :'(
     companion object {
         //limited recycler view item @later's will use pagination
         const val LIMIT = 10
@@ -131,6 +127,7 @@ class MoviesApiAdapter internal constructor(
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        val id = arrayListMovies[position].id
         val title = arrayListMovies[position].title
         val overview = arrayListMovies[position].overview
         val poster = POSTER_IMAGE + "w185" + arrayListMovies[position].posterPath
@@ -141,7 +138,7 @@ class MoviesApiAdapter internal constructor(
 
         holder.itemView.checkbox_fav_movie.setOnCheckedChangeListener { buttonView, isChecked ->
             buttonView.startAnimation(animation)
-            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(title, overview, poster, context,  ::insertFavoriteMovie)
+            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(id, title, overview, poster, context,  ::insertFavoriteMovie)
             else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
                     Toast.LENGTH_LONG)
                     .show()

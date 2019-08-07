@@ -40,7 +40,6 @@
 
     <!-- LIST VIEW SUBMISSION 1 VISIBLE GONE NOT USE AT THIS TIME-->
     <ListView
-            android:id="@+id/lv_list_movie_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:smoothScrollbar="true"

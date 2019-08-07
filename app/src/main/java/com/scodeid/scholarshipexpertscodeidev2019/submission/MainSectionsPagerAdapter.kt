@@ -18,8 +18,9 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesW
 
 // section for Home | popular | trailer | saved
 class MainSectionsPagerAdapter(fm: FragmentManager, private val tabs: TabLayout) : FragmentPagerAdapter(fm) {
-
-    val TAG_LOG: String = MainSectionsPagerAdapter::class.java.simpleName
+    companion object{
+        val TAG_LOG: String = MainSectionsPagerAdapter::class.java.simpleName
+    }
     override fun getItem(position: Int): Fragment {
 
         return when (position) {

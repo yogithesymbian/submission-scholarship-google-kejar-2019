@@ -29,17 +29,17 @@
     <string name="action_settings" tools:keep="@string/action_settings">Settings</string>
 
 
-    <string name="title_activity_main_navigation_drawer" tools:keep="@string/title_activity_main_navigation_drawer">MainNavigationDrawerActivity</string>
-    <![CDATA[
+    <string name="title_activity_main_navigation_drawer" tools:keep="@string/title_activity_main_navigation_drawer">MainNavigationDrawerActivity</string><![CDATA[
 
 
+
         
 
         
         
+
+
     ]]>
-    <string name="drawer_home"> RUMAH </string>
-
     <string name="option_movies_sort_movies" tools:keep="@ string / option_movies_sort_movies"> Sortir Film </string>
         
     <string name="option_movies_yomovie_web" tools:keep="@ string / option_movies_yomovie_web"> Web yoMovie </string>
@@ -184,7 +184,6 @@
     <string name="google" tools:keep="@string/google">Google Io 2019</string>
     <string name="activity_movie_catalogue_detail_score">Nilai</string>
     <string name="activity_movie_catalogue_detail_coming" tools:keep="@string/activity_movie_catalogue_detail_coming">Maaf, tombol segera hadir</string>
-    <string name="notification_warning_1">Maaf fitur ini masih dalam pemeliharaan</string>
     <string name="activity_movie_catalogue_detail_adult">Dewasa</string>
     <string name="activity_movie_catalogue_detail_popularity">Kepopuleran</string>
     <string name="activity_movie_catalogue_detail_vote_count">Hitungan Suara</string>
@@ -196,10 +195,10 @@
     <string name="activity_no_internet_conn_head1">Tidak ada koneksi Internet</string>
     <string name="activity_no_internet_conn_get_notification">BERI TAHU SAYA</string>
     <string name="activity_no_internet_conn_try_again">COBA LAGI</string>
-    <string name="activity_movie_catalogue_detail_original_name">Original Name</string>
-    <string name="fragment_movies_tv_show_detail_origin_name">Original Name</string>
-    <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
-    <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
+    <string name="activity_movie_catalogue_detail_original_name">Original Nama</string>
+    <string name="fragment_movies_tv_show_detail_origin_name">Original Nama</string>
+    <string name="fragment_movies_tv_show_detail_origin_country">Original Kota</string>
+    <string name="activity_main_favorite_delete_tap_for_delete">SENTUH UNTUK MENGHAPUS</string>
     <string name="toast_sql_lite_insert_success">berhasil tambah ke favorite</string>
     <string name="toast_sql_lite_insert_fail">tidak berhasil tambah ke favorite</string>
     <string name="toast_sql_lite_delete_fail">gagal menghapus data</string>
@@ -207,16 +206,12 @@
     <string name="dialog_cancel_msg">Ingin membatalkan perubahan ?</string>
     <string name="dialog_delete_msg">Ingin menghapus item ini ?</string>
     <string name="dialog_delete_title">Hapus Item</string>
-    <string name="dialog_positif_yes">YA</string>
-    <string name="dialog_positif_no">TIDAK</string>
-    <string name="activity_main_favorite_movies_movies">Movies</string>
-    <string name="activity_main_favorite_movies_tv_show">Tv Show</string>
+    <string name="dialog_positive_yes">YA</string>
+    <string name="dialog_positive_no">TIDAK</string>
     <string name="navigation_bottom_movie_favorite">Favorite</string>
-    <string name="activity_main_favorite_movies_this_day">This Day</string>
-    <string name="activity_main_favorite_movies_yesterday">Yesterday</string>
-    <string name="activity_main_favorite_manage_favorite_movie">Manage Favorite Movie</string>
-    <string name="activity_main_favorite_manage_favorte_tv_show">Manage Favorte Tv Show</string>
-
-
+    <string name="activity_main_favorite_movies_this_day">Hari Ini</string>
+    <string name="activity_main_favorite_movies_yesterday">Kemarin</string>
+    <string name="activity_main_favorite_manage_favorite_movie">Kelola Favorit Movie</string>
+    <string name="activity_main_favorite_manage_favorite_tv_show">Kelola Favorit Tv Show</string>
 </resources>
 

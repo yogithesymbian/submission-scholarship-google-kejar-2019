@@ -62,6 +62,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
     companion object {
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
         const val KEY = "keyPojoSubTab"
+//        private lateinit var  movieRoomView : MovieRoomView
 
         fun newInstanceData(pojoSubTab: MovieTabColorModel): MoviesWapiHomeFragment {
             val fragment = MoviesWapiHomeFragment()
@@ -70,25 +71,29 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             fragment.arguments = args
             return fragment
         }
-
         // store to database
         fun initFavoriteParam(
-            title: String, description: String, poster: String, context: Context,
-            bar: (title: String, description: String, poster: String, context: Context) -> Unit
+            id: Int, title: String, description: String, poster: String, context: Context,
+            bar: (id: Int, title: String, description: String, poster: String, context: Context) -> Unit
         ) {
-            bar(title, description, poster, context)
+            bar(id, title, description, poster, context)
         }
-
-        // my function to pass into the other
         @SuppressLint("RestrictedApi")
-        fun insertFavoriteMovie(title: String, description: String, poster: String, context: Context) {
+        fun insertFavoriteMovie(id: Int,title: String, description: String, poster: String, context: Context) {
 
             println(
+                "\n\t $id" +
                 "\n\t $title" +
                         "\n\t $description" +
                         "\n\t $poster" +
-                        "\n\t $context"
-            )
+                        "\n\t $context")
+
+//            val movieRoomModel = MovieRoomModel(
+//                id,
+//                title,
+//                description,
+//                poster)
+//            movieRoomView.insert(movieRoomModel)
 
             val helperDatabase = HelperDatabase(context)
 
@@ -198,7 +203,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
                 else -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
             }
         }
-
+//        movieRoomView = ViewModelProviders.of(this).get(MovieRoomView::class.java)
         movieDataHandle() //load data movies
     }
 

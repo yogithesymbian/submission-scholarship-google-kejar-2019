@@ -4,6 +4,7 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
@@ -61,7 +62,7 @@ private constructor(context: Context) {
 
 
         private lateinit var helperDatabase: HelperDatabase
-        lateinit var INSTANCE: HelperModel
+        private lateinit var INSTANCE: HelperModel
         private lateinit var sqLiteDatabase: SQLiteDatabase
         /**
          * INITIALIZE DATABASE LATER'S
@@ -86,7 +87,11 @@ private constructor(context: Context) {
         sqLiteDatabase = helperDatabase.writableDatabase
     }
 
+    @Suppress("Unused")
     fun close() {
+        // dunno why get re opened object i was try and catch /final y still get the error at cursor close
+        // not properly on close , app not for close , but just throw an error then click back and try delete item is work
+        // then i removee that close for cursor.close
         helperDatabase.close()
 
         if (sqLiteDatabase.isOpen) {
@@ -96,6 +101,7 @@ private constructor(context: Context) {
 
     //**************favorite action**************************
 
+    @SuppressLint("Recycle")
     fun getAllMovies(): ArrayList<MovieModel> {
         val arrayList = ArrayList<MovieModel>()
         val cursor = sqLiteDatabase.query(
@@ -122,6 +128,7 @@ private constructor(context: Context) {
         return arrayList
     }
 
+    @SuppressLint("Recycle")
     fun getAllTv(): ArrayList<TvModel> {
         val arrayList = ArrayList<TvModel>()
         val cursor = sqLiteDatabase.query(
@@ -136,7 +143,7 @@ private constructor(context: Context) {
                 tvModel = TvModel(
                     cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)),
                     "" + cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
-                      cursor.getInt(cursor.getColumnIndexOrThrow(VOTE_AVERAGE)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(VOTE_AVERAGE)),
                     "" + cursor.getString(cursor.getColumnIndexOrThrow(POSTER))
                 )
 

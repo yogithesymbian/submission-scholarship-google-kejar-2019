@@ -58,7 +58,7 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
         alertDialogBuilder
             .setMessage(dialogMsg)
             .setCancelable(false)
-            .setPositiveButton(getString(R.string.dialog_positif_yes)) { _, _ ->
+            .setPositiveButton(getString(R.string.dialog_positive_yes)) { _, _ ->
                 if (isDialogClose) {
                     finish()
                 } else {
@@ -79,7 +79,7 @@ class MainFavoriteMovieDeleteActivity : AppCompatActivity() {
                     }
                 }
             }
-            .setNegativeButton(getString(R.string.dialog_positif_no)) { dialog, _ -> dialog.cancel() }
+            .setNegativeButton(getString(R.string.dialog_positive_no)) { dialog, _ -> dialog.cancel() }
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }

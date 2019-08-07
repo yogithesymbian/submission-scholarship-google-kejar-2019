@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        >
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_overview_label"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+
+            android:text="@string/activity_movie_catalogue_det_overview"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+
+            android:background="@color/white"
+
+            app:layout_constraintBottom_toBottomOf="@+id/text_overview_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_overview_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.47000003"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_overview_desc"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+
+            android:gravity="start"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textAlignment="textStart"
+
+            app:layout_constraintTop_toBottomOf="@+id/text_overview_label"
+            app:layout_constraintStart_toStartOf="@+id/text_overview_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@string/activity_movie_catalogue_det_lorem"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_creator_label_who1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginStart="52dp"
+
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="12sp"
+
+            app:layout_constraintTop_toBottomOf="@+id/text_featured_crew"
+            app:layout_constraintEnd_toEndOf="@+id/text_overview_desc"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/text_featured_crew"
+            tools:text="@string/activity_movie_catalogue_det_yogi_arif_widodo"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_featured_crew"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text="@string/activity_movie_catalogue_det_featured_crew"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+
+
+            app:layout_constraintTop_toBottomOf="@+id/text_overview_desc"
+            app:layout_constraintStart_toStartOf="@+id/text_overview_desc"/>
+
+    <!--Director -->
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_creator_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text="@string/fragment_movies_tv_show_detail_creator"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+
+            app:layout_constraintEnd_toEndOf="@+id/text_featured_crew"
+            app:layout_constraintStart_toStartOf="@+id/text_featured_crew"
+            app:layout_constraintTop_toBottomOf="@+id/text_creator_label_who"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SmallSp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_creator_label_who"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+
+            app:layout_constraintTop_toBottomOf="@+id/text_featured_crew"
+            app:layout_constraintStart_toStartOf="@+id/text_featured_crew"
+            app:layout_constraintEnd_toEndOf="@+id/text_featured_crew"
+            tools:text="@string/activity_movie_catalogue_det_yogi_arif_widodo"
+            />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_creator_label1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+
+            android:text="@string/fragment_movies_tv_show_detail_creator"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="11sp"
+
+            app:layout_constraintEnd_toEndOf="@+id/text_overview_desc"
+            app:layout_constraintTop_toBottomOf="@+id/text_creator_label_who"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/text_creator_label_who1"
+            tools:ignore="SmallSp"
+            />
+
+
+    <!--ScreenPlay-->
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_screen_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:text="@string/fragment_movies_tv_show_detail_creator"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="@dimen/text_smallMov_small_11sp"
+
+            app:layout_constraintEnd_toEndOf="@+id/text_featured_crew"
+            app:layout_constraintStart_toStartOf="@+id/text_featured_crew"
+            app:layout_constraintTop_toBottomOf="@+id/text_creator_label_who2"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="SmallSp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_creator_label_who2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+
+            app:layout_constraintTop_toBottomOf="@+id/text_creator_label"
+            app:layout_constraintStart_toStartOf="@+id/text_featured_crew"
+            app:layout_constraintEnd_toEndOf="@+id/text_featured_crew"
+            app:layout_constraintHorizontal_bias="0.52"
+            tools:text="@string/activity_movie_catalogue_det_yogi_arif_widodo"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_score"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_rounded_corner_light_blue_a700_24dp"
+            android:tooltipText="@string/activity_movie_catalogue_detail_score"
+            app:layout_constraintEnd_toEndOf="@+id/text_creator_label_who1"
+            app:layout_constraintBottom_toBottomOf="@+id/text_screen_label"
+            app:layout_constraintTop_toBottomOf="@+id/text_creator_label_who1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.90999997"
+            app:layout_constraintStart_toStartOf="@+id/text_creator_label1"
+            app:layout_constraintBottom_toTopOf="@+id/include_linearLayout2"
+            tools:targetApi="o"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_score_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toEndOf="@+id/image_score"
+            app:layout_constraintBottom_toBottomOf="@+id/image_score"
+            app:layout_constraintStart_toStartOf="@+id/image_score"
+            app:layout_constraintTop_toTopOf="@+id/image_score"
+            tools:text="9 %"/>
+
+    <include
+            android:id="@+id/include_linearLayout2"
+            layout="@layout/fragment_movies_tv_show_detail_white"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

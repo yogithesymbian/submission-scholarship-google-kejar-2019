@@ -69,10 +69,10 @@ class MainFavoriteTvActivity : AppCompatActivity(), LoadTvCallBack {
         finish()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        helperModel.close()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+////        helperModel.close()
+//    }
 
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(recycler_favorite_tv, message, Snackbar.LENGTH_SHORT)

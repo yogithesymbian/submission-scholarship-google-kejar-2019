@@ -20,6 +20,8 @@ import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesTvShowApiData
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail.*
+import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_blue.*
+import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_white.*
 
 class MoviesTvWapiHomeDetailFragment : Fragment() {
 

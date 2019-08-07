@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_margin="8dp"
-                android:background="@drawable/main_rounded_shape"
+                android:background="@android:color/white"
                 android:elevation="12dp"
                 android:fitsSystemWindows="true"
                 android:outlineAmbientShadowColor="@color/black80"
@@ -90,96 +90,6 @@
 
         </com.google.android.material.tabs.TabLayout>
 
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabsS"
-                style="@style/Widget.MaterialComponents.TabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_gravity="center"
-                android:elevation="12dp"
-                android:fitsSystemWindows="true"
-                android:scrollbarStyle="insideOverlay"
-                android:visibility="visible"
-                app:tabPaddingBottom="2dp"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                app:tabIndicatorColor="@color/white"
-                app:tabMode="scrollable"
-                app:tabGravity="fill"
-                app:tabPaddingStart="20dp"
-                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-                tools:ignore="UnusedAttribute">
-
-            <com.google.android.material.tabs.TabItem
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="@string/activity_movie_catalogue_main_content_for_you"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    />
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_soon"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_soon"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-
-            <com.google.android.material.tabs.TabItem
-                    style="@style/TextAppearance.AppCompat.Caption"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:icon="@drawable/ic_tabs_sentiment_very_satisfied_black_24dp"
-                    android:text="@string/activity_movie_catalogue_main_content_coming"/>
-        </com.google.android.material.tabs.TabLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -238,8 +148,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="70dp"
             android:layout_marginRight="20dp"
-            android:src="@drawable/ic_favorite_red_600_24dp"
             android:visibility="gone"
+            app:srcCompat="@drawable/ic_menu_home_black_24dp"
             app:backgroundTint="@color/colorPrimary"
             app:tint="@color/white"
             app:layout_anchor="@id/fab_fav_tv"
@@ -247,7 +157,6 @@
             tools:ignore="RtlHardcoded,UnusedAttribute"/>
 
     <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_for_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -255,7 +164,6 @@
             tools:targetApi="lollipop">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/frame_content"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="vertical">
@@ -273,7 +181,6 @@
                     android:layout_marginBottom="50dp">
 
                 <include
-                        android:id="@+id/content_main"
                         layout="@layout/activity_movie_catalogue_main_content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
