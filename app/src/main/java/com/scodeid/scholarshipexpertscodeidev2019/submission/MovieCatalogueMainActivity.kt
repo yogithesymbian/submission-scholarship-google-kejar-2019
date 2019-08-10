@@ -7,6 +7,7 @@
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
  * For Google Kejar 2019
+ * init branch submission 5
  */
 package com.scodeid.scholarshipexpertscodeidev2019.submission
 
