@@ -364,7 +364,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          */
 
         /**
-         * LISTENER FAVORITE BOTTOM SLIDE IN OUT
+         * LISTENER FAVORITE BOTTOM SLIDE IN OUT2
          */
         fab_fav_movie.setOnClickListener {
             val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
