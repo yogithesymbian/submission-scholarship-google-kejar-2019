@@ -8,10 +8,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.provider.BaseColumns._ID
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,7 +21,9 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.CustomOnItemClickListener
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieDeleteActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieDetailActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_favorite.view.*
@@ -52,7 +56,9 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
 
     companion object {
         val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
+        const val num1 = 1
     }
+
     // will save all data
     var listMovieModel = ArrayList<MovieModel>()
         set(listMovies) {
@@ -78,12 +84,21 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
      * implement of recycler
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_favorite, parent, false))
+        return FavoriteViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_movies_favorite,
+                parent,
+                false
+            )
+        )
     }
 
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val context = holder.itemView.context
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+        val id = this.listMovieModel[position].id
+        holder.release.text = this.listMovieModel[position].release
         holder.textTitle.text = this.listMovieModel[position].title
         holder.textDesc.text = this.listMovieModel[position].description
         context.let {
@@ -98,12 +113,29 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
         holder.itemView.card_item_favorite.setOnClickListener(CustomOnItemClickListener(position, object :
             CustomOnItemClickListener.OnItemClickCallback {
             override fun onItemClicked(view: View, position: Int) {
-                val intent = Intent(activity, MainFavoriteMovieDeleteActivity::class.java)
-                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, position)
-                intent.putExtra(MainFavoriteMovieDeleteActivity.EXTRA_MOVIE, listMovieModel[position])
-                activity.startActivityForResult(intent, MainFavoriteMovieDeleteActivity.REQUEST_UPDATE)
+                val intent = Intent(activity, MainFavoriteMovieDetailActivity::class.java)
+                intent.putExtra(MainFavoriteMovieDetailActivity.EXTRA_POSITION, position)
+                intent.putExtra(MainFavoriteMovieDetailActivity.EXTRA_MOVIE, listMovieModel[position])
+                activity.startActivityForResult(intent, MainFavoriteMovieDetailActivity.REQUEST_UPDATE)
             }
         }))
+        val unFavorite = holder.itemView.checkbox_fav_movie_favorite
+        unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            val helperDatabase = HelperDatabase(context)
+            val db = helperDatabase.writableDatabase
+
+            if (position == 0) db.delete(TABLE_NAME_MOVIE, "$_ID=?$num1", null)
+            else db.delete(TABLE_NAME_MOVIE, "$_ID=?$position", null)
+            db.execSQL("DELETE FROM $TABLE_NAME_MOVIE WHERE $_ID='$id'")
+            db.close()
+
+            buttonView.startAnimation(animation)
+            if (isChecked) {
+                removeItemMovies(position)
+                unFavorite.isChecked = false
+            }
+        }
 
         val movieDialog = Dialog(context)
         holder
@@ -144,5 +176,6 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val textTitle: TextView = itemView.findViewById(R.id.text_movie_name)
         internal val textDesc: TextView = itemView.findViewById(R.id.text_overview)
+        internal val release: TextView = itemView.findViewById(R.id.text_movies_release)
     }
 }

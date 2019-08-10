@@ -27,7 +27,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.MoviesT
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesTvShowApiData
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
-import kotlinx.android.synthetic.main.fragment_movies_tv_show.view.*
+import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.view.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
 
 
@@ -64,6 +64,11 @@ class MoviesTvShowApiAdapter (
         const val LIMIT = 10
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
+
+    init {
+        setHasStableIds(true)
+    }
+
     fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>)
     {
         arrayListMoviesTvShow.clear()
@@ -81,6 +86,18 @@ class MoviesTvShowApiAdapter (
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
                     openingTvShowDetail(arrayListMoviesTvShow[position], context)
                     Log.d(TAG_LOG,"Try opening something about the detail tv show" +arrayListMoviesTvShow[position].name)
+                }
+
+            })
+        ItemClickRecyclerSupport
+            .addTo(parent.recycler_view_tv_show)
+            .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener {
+
+                override fun onItemLongClicked(recyclerView: RecyclerView, position: Int, v: View): Boolean {
+                    Log.d(TAG_LOG, "Try onLongClick itemMovies")
+                    Toast.makeText(context, arrayListMoviesTvShow[position].name, Toast.LENGTH_SHORT)
+                        .show()
+                    return true
                 }
 
             })
@@ -181,6 +198,14 @@ class MoviesTvShowApiAdapter (
             // end of dialog view
         }
         // end of image clicked
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
     inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view)

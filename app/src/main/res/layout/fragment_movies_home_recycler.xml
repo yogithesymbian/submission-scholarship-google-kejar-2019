@@ -3,7 +3,7 @@
   ~ Copyright (c) 2019. SCODEID
   -->
 
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,55 +13,48 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
     <!--tools:context=".submission.submission2.MoviesHomeRecyclerFragment-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <FrameLayout
+            android:id="@+id/frame_progress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="20dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <FrameLayout
-                android:id="@+id/frame_progress"
+        <!-- progress -->
+        <!--android:indeterminateTint="@color/white"-->
+        <ProgressBar
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_horizontal|center_vertical|center"
+                android:layout_marginBottom="8dp"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+
                 android:visibility="visible"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- progress -->
-            <!--android:indeterminateTint="@color/white"-->
-            <ProgressBar
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center_horizontal|center_vertical|center"
-                    android:layout_marginBottom="8dp"
-                    android:indeterminate="true"
-                    android:indeterminateTintMode="src_atop"
-
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="UnusedAttribute"/>
-        </FrameLayout>
+                tools:ignore="UnusedAttribute"/>
+    </FrameLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:orientation="vertical"
-                    android:scrollIndicators="start"
-                    android:scrollbarStyle="insideOverlay"
-                    android:scrollbars="none"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/frame_progress"
-                    tools:ignore="UnusedAttribute">
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_home"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:scrollIndicators="start"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="none"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_progress"
+            tools:ignore="UnusedAttribute">
 
-            </androidx.recyclerview.widget.RecyclerView>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>

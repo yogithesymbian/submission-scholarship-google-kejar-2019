@@ -37,6 +37,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 @Entity(tableName = "table_movies_room")
 class MovieRoomModel(
     @PrimaryKey val id: Int,
+    val release : String,
     @ColumnInfo(name = "title_movie") val titleMovie: String,
     val overview: String,
     val poster: String

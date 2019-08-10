@@ -4,13 +4,11 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.submission.submission4
 
-import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.adapter.FavoriteTvAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.HelperModel
@@ -50,33 +48,6 @@ class MainFavoriteTvActivity : AppCompatActivity(), LoadTvCallBack {
                 favoriteTvAdapter.listTvModel = tvModels
             }
         }
-    }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            if (requestCode == MainFavoriteTvDeleteActivity.REQUEST_UPDATE) {
-                if (resultCode == MainFavoriteTvDeleteActivity.RESULT_DELETE) {
-                    val position = data.getIntExtra(MainFavoriteTvDeleteActivity.EXTRA_POSITION, 0)
-                    favoriteTvAdapter.removeItemTv(position)
-                    showSnackbarMessage("success delete item")
-                }
-            }
-        }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-////        helperModel.close()
-//    }
-
-    private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycler_favorite_tv, message, Snackbar.LENGTH_SHORT)
-            .show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

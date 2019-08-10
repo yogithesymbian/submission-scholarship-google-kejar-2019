@@ -4,7 +4,10 @@
   -->
 
 <LinearLayout
-        android:id="@+id/linearLayout2"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -12,14 +15,10 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="8dp"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/text_screen_label"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        app:layout_constraintTop_toBottomOf="@+id/text_screen_label">
 
     <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
@@ -58,6 +57,7 @@
             android:layout_height="wrap_content"
             tools:text="Scripted"
             />
+
     <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
@@ -220,12 +220,14 @@
             android:textSize="16sp"
             android:text="@string/activity_movie_catalogue_detail_vote_count"
             />
+
     <TextView
             android:id="@+id/text_vote_count_label_data"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
+
     <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"
@@ -236,12 +238,14 @@
             android:textSize="16sp"
             android:text="@string/activity_movie_catalogue_detail_popularity"
             />
+
     <TextView
             android:id="@+id/text_popularity_label_data"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
+
     <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Headline6"
             android:layout_width="wrap_content"

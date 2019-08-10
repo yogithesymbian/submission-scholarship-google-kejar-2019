@@ -18,11 +18,11 @@
         </activity>
         <activity android:name=".submission.submission4.MainFavoriteMovieRoomActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteTvDeleteActivity">
+        <activity android:name=".submission.submission4.MainFavoriteTvDetailActivity">
         </activity>
         <activity android:name=".submission.submission4.MainFavoriteTvActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteMovieDeleteActivity">
+        <activity android:name=".submission.submission4.MainFavoriteMovieDetailActivity">
         </activity>
         <activity android:name=".submission.submission4.MainFavoriteMovieActivity">
         </activity>

@@ -37,6 +37,7 @@ object ContractDatabase {
         const val TABLE_NAME_TV = "table_tv"
 
         // field
+        const val RELEASE = "release"
         const val TITLE = "title"
 
         const val DESCRIPTION = "description"

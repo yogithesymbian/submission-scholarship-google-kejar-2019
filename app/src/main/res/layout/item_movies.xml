@@ -3,27 +3,23 @@
   ~ Copyright (c) 2019. SCODEID
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<com.google.android.material.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+
+        android:layout_margin="4dp"
+
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="16dp"
+
+        tools:layout_editor_absoluteY="4dp"
+        tools:layout_editor_absoluteX="4dp"
         >
 
-    <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true"
-            app:cardCornerRadius="16dp"
-
-            tools:layout_editor_absoluteY="4dp"
-            tools:layout_editor_absoluteX="4dp"
-            >
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -215,7 +211,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

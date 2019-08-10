@@ -40,9 +40,6 @@ class FavoriteMovieRoomRepo (private val movieRoomDao: MovieRoomDao) {
         movieRoomDao.deleteMovies(movieRoomModel)
     }
 
-    fun deleteSingle(movieRoomModel: MovieRoomModel){
-        movieRoomDao.deleteMovies(movieRoomModel)
-    }
     suspend fun insert(movieRoomModel: MovieRoomModel) {
         movieRoomDao.insert(movieRoomModel)
     }

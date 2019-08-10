@@ -64,7 +64,7 @@ class MovieViewModel : ViewModel(){
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
-//                    arrayListMovie.clear() // for clear while , for !duplicate //already clear on adapter set data like @deprecated my code :V :D
+                    arrayListMovie.clear() // for clear while , for !duplicate //already clear on adapter set data like @deprecated my code :V :D
                         val jsonArray = response.optJSONArray("results")
 
                         if (jsonArray?.length() == 0)

@@ -34,6 +34,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 @Parcelize
 class MovieModel (
     var id : Int,
+    var release : String,
     var title : String,
     var description : String,
     var posterImage : String

@@ -65,6 +65,7 @@ class MovieTvShowViewModel : ViewModel() {
                 .build()
                 .getAsJSONObject(object : JSONObjectRequestListener {
                     override fun onResponse(response: JSONObject) {
+                        arrayListMovieTvShow.clear()
                         val jsonArray = response.optJSONArray("results")
 
                         if (jsonArray?.length() == 0) {

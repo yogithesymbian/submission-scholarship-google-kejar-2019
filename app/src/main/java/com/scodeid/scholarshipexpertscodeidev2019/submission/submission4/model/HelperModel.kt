@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.DESCRIPTION
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.POSTER
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.RELEASE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TITLE
@@ -91,7 +92,7 @@ private constructor(context: Context) {
     fun close() {
         // dunno why get re opened object i was try and catch /final y still get the error at cursor close
         // not properly on close , app not for close , but just throw an error then click back and try delete item is work
-        // then i removee that close for cursor.close
+        // then i remove that close for cursor.close
         helperDatabase.close()
 
         if (sqLiteDatabase.isOpen) {
@@ -115,6 +116,7 @@ private constructor(context: Context) {
             do {
                 movieModel = MovieModel(
                     cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)),
+                    "" + cursor.getString(cursor.getColumnIndexOrThrow(RELEASE)),
                     "" + cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
                     "" + cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)),
                     "" + cursor.getString(cursor.getColumnIndexOrThrow(POSTER))
@@ -156,11 +158,13 @@ private constructor(context: Context) {
     }
 
     // delete data movie
+    @Suppress("Unused")
     fun deleteMovie(id: Int): Int {
         return sqLiteDatabase.delete(TABLE_NAME_MOVIE, BaseColumns._ID + " = '" + id + "'", null)
     }
 
     // delete data TV
+    @Suppress("Unused")
     fun deleteTv(id: Int): Int {
         return sqLiteDatabase.delete(TABLE_NAME_TV, BaseColumns._ID + " = '" + id + "'", null)
     }

@@ -38,9 +38,6 @@ interface MovieRoomDao  {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(movieRoomModel: MovieRoomModel)
 
-    @Query("DELETE FROM table_movies_room")
-    suspend fun deleteAll()
-
     @Delete
     fun deleteMovies(movieRoomModel: MovieRoomModel)
 

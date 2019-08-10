@@ -8,10 +8,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.provider.BaseColumns._ID
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,10 +22,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.CustomOnItemClickListener
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteTvDeleteActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteTvDetailActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.adapter.FavoriteAdapter.Companion.num1
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.TvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
-import kotlinx.android.synthetic.main.item_movies_tv_shows_favorite.view.*
+import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
 
 /**
  * @author
@@ -69,7 +74,7 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
      * remove/delete
      */
 
-    fun removeItemTv(position: Int) {
+    private fun removeItemTv(position: Int) {
         this.listTvModel.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listTvModel.size)
@@ -88,6 +93,9 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         holder.textTitle.text = this.listTvModel[position].title
         holder.textDesc.text = this.listTvModel[position].voteAverage.toString()
 
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+        val id = this.listTvModel[position].id
+
         context.let {
             Glide.with(it)
                 .asBitmap()
@@ -100,12 +108,30 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         holder.itemView.setOnClickListener(CustomOnItemClickListener(position, object :
             CustomOnItemClickListener.OnItemClickCallback {
             override fun onItemClicked(view: View, position: Int) {
-                val intent = Intent(activity, MainFavoriteTvDeleteActivity::class.java)
-                intent.putExtra(MainFavoriteTvDeleteActivity.EXTRA_POSITION, position)
-                intent.putExtra(MainFavoriteTvDeleteActivity.EXTRA_TV, listTvModel[position])
-                activity.startActivityForResult(intent, MainFavoriteTvDeleteActivity.REQUEST_UPDATE)
+                val intent = Intent(activity, MainFavoriteTvDetailActivity::class.java)
+                intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, position)
+                intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_TV, listTvModel[position])
+                activity.startActivityForResult(intent, MainFavoriteTvDetailActivity.REQUEST_UPDATE)
             }
         }))
+
+        val unFavorite = holder.itemView.checkbox_fav_tv
+        unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            val helperDatabase = HelperDatabase(context)
+            val db = helperDatabase.writableDatabase
+
+            if (position == 0) db.delete(TABLE_NAME_TV, "$_ID=?$num1", null)
+            else db.delete(TABLE_NAME_TV, "$_ID=?$position", null)
+            db.execSQL("DELETE FROM $TABLE_NAME_TV WHERE $_ID='$id'")
+            db.close()
+
+            buttonView.startAnimation(animation)
+            if (isChecked) {
+                removeItemTv(position)
+                unFavorite.isChecked = false
+            }
+        }
 
         val movieDialog = Dialog(context)
         holder

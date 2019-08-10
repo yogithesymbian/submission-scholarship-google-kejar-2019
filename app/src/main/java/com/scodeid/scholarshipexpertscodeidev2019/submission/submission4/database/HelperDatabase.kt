@@ -58,6 +58,7 @@ class HelperDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val SQL_CREATE_TABLE_MOVIE =
             "CREATE TABLE ${MovieColumns.TABLE_NAME_MOVIE} (" +
                     "${BaseColumns._ID} INTEGER PRIMARY KEY," +
+                    "${MovieColumns.RELEASE} TEXT," +
                     "${MovieColumns.TITLE} TEXT," +
                     "${MovieColumns.DESCRIPTION} TEXT," +
                     "${MovieColumns.POSTER} TEXT)"

@@ -76,12 +76,12 @@
         
     <string name="activity_movie_catalogue_main_content_trailer"> TRAILER </string>
         
-    <string name="activity_movie_catalogue_main_content_saved"> SIMPAN </string>
+    <string name="activity_movie_catalogue_main_content_saved"> SIMPAN </string><![CDATA[
         
-    <string name="activity_movie_catalogue_main_content_for_you"> Untuk Anda </string>
+
         
-    <string name="activity_movie_catalogue_main_content_coming"> Datang </string>
         
+    ]]>
     <string name="activity_movie_catalogue_main_content_soon"> Segera </string>
 
     <!--
@@ -91,7 +91,7 @@
 
     <!--
         # HINT
-        # fragment_movies_tv_show
+        # fragment_movies_tv_show_recycler
         -->
 
     <string name="fragment_movies_tv_show_hot">VIRAL</string>
@@ -102,7 +102,7 @@
     <string name="fragment_movies_tv_show_detail_type">Tipe</string>
     <string name="fragment_movies_tv_show_detail_creator">Pembuat</string>
 
-    <!-- END OF fragment_movies_tv_show-->
+    <!-- END OF fragment_movies_tv_show_recycler-->
 
     <!--
         # HINT
@@ -201,7 +201,6 @@
     <string name="activity_main_favorite_delete_tap_for_delete">SENTUH UNTUK MENGHAPUS</string>
     <string name="toast_sql_lite_insert_success">berhasil tambah ke favorite</string>
     <string name="toast_sql_lite_insert_fail">tidak berhasil tambah ke favorite</string>
-    <string name="toast_sql_lite_delete_fail">gagal menghapus data</string>
     <string name="dialog_cancel_title">Batal</string>
     <string name="dialog_cancel_msg">Ingin membatalkan perubahan ?</string>
     <string name="dialog_delete_msg">Ingin menghapus item ini ?</string>

@@ -23,7 +23,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.M
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.view.MovieTvShowViewModel
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.ContractDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.HelperDatabase
-import kotlinx.android.synthetic.main.fragment_movies_tv_show.*
+import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.*
 
 class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
@@ -86,7 +86,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies_tv_show, container, false)
+        return inflater.inflate(R.layout.fragment_movies_tv_show_recycler, container, false)
     }
 
 

@@ -63,6 +63,10 @@ class MoviesApiAdapter internal constructor(
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
 
+    init {
+        setHasStableIds(true)
+    }
+
     fun setData(itemsMovie: ArrayList<MoviesApiData>) {
         arrayListMovies.clear()
         arrayListMovies.addAll(itemsMovie)
@@ -129,6 +133,7 @@ class MoviesApiAdapter internal constructor(
 
         val id = arrayListMovies[position].id
         val title = arrayListMovies[position].title
+        val release = arrayListMovies[position].releaseDate
         val overview = arrayListMovies[position].overview
         val poster = POSTER_IMAGE + "w185" + arrayListMovies[position].posterPath
 
@@ -138,13 +143,13 @@ class MoviesApiAdapter internal constructor(
 
         holder.itemView.checkbox_fav_movie.setOnCheckedChangeListener { buttonView, isChecked ->
             buttonView.startAnimation(animation)
-            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(id, title, overview, poster, context,  ::insertFavoriteMovie)
+            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(id, release, title, overview, poster, context,  ::insertFavoriteMovie)
             else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
                     Toast.LENGTH_LONG)
                     .show()
         }
 
-        holder.itemView.text_movies_release.text = arrayListMovies[position].releaseDate
+        holder.itemView.text_movies_release.text = release
         holder.itemView.text_overview.text = overview
         holder.itemView.text_movie_name.text = title
 
@@ -207,5 +212,14 @@ class MoviesApiAdapter internal constructor(
         // end of image clicked
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".submission.submission4.MainFavoriteTvDetailActivity">
+
+    <include layout="@layout/fragment_movies_tv_show_detail_head"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

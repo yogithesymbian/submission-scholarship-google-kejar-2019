@@ -51,10 +51,6 @@ class MovieRoomView (application: Application) : AndroidViewModel(application) {
     fun insert(movieRoomModel: MovieRoomModel) = viewModelScope.launch {
         repository.insert(movieRoomModel)
     }
-    @Suppress("unused")
-    fun deleteSingle(movieRoomModel: MovieRoomModel) = viewModelScope.launch {
-        repository.deleteSingle(movieRoomModel)
-    }
     fun delete(movieRoomModel: MovieRoomModel) = viewModelScope.launch {
         repository.deleteMovie(movieRoomModel)
     }

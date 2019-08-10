@@ -59,9 +59,9 @@ class MainFavoriteMovieActivity : AppCompatActivity(), LoadMovieCallBack {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (data != null) {
-            if (requestCode == MainFavoriteMovieDeleteActivity.REQUEST_UPDATE) {
-                if (resultCode == MainFavoriteMovieDeleteActivity.RESULT_DELETE) {
-                    val position = data.getIntExtra(MainFavoriteMovieDeleteActivity.EXTRA_POSITION, 0)
+            if (requestCode == MainFavoriteMovieDetailActivity.REQUEST_UPDATE) {
+                if (resultCode == MainFavoriteMovieDetailActivity.RESULT_DELETE) {
+                    val position = data.getIntExtra(MainFavoriteMovieDetailActivity.EXTRA_POSITION, 0)
                     favoriteAdapter.removeItemMovies(position)
                     showSnackbarMessage("success delete item")
                 }

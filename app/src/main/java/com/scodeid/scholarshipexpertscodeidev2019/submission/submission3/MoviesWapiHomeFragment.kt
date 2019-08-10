@@ -71,25 +71,37 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
             fragment.arguments = args
             return fragment
         }
+
         // store to database
         fun initFavoriteParam(
-            id: Int, title: String, description: String, poster: String, context: Context,
-            bar: (id: Int, title: String, description: String, poster: String, context: Context) -> Unit
+            id: Int, release: String, title: String, description: String, poster: String, context: Context,
+            bar: (id: Int, release: String, title: String, description: String, poster: String, context: Context) -> Unit
         ) {
-            bar(id, title, description, poster, context)
+            bar(id, release, title, description, poster, context)
         }
+
         @SuppressLint("RestrictedApi")
-        fun insertFavoriteMovie(id: Int,title: String, description: String, poster: String, context: Context) {
+        fun insertFavoriteMovie(
+            id: Int,
+            release: String,
+            title: String,
+            description: String,
+            poster: String,
+            context: Context
+        ) {
 
             println(
                 "\n\t $id" +
-                "\n\t $title" +
+                        "\n\t $release" +
+                        "\n\t $title" +
                         "\n\t $description" +
                         "\n\t $poster" +
-                        "\n\t $context")
+                        "\n\t $context"
+            )
 
 //            val movieRoomModel = MovieRoomModel(
 //                id,
+//                release,
 //                title,
 //                description,
 //                poster)
@@ -102,19 +114,23 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
             // Create a new map of values, where column names are the keys
             val values = ContentValues().apply {
+                put(ContractDatabase.MovieColumns.RELEASE, release)
                 put(ContractDatabase.MovieColumns.TITLE, title)
                 put(ContractDatabase.MovieColumns.DESCRIPTION, description)
                 put(ContractDatabase.MovieColumns.POSTER, poster)
             }
 
-            val insert =  db?.insert(ContractDatabase.MovieColumns.TABLE_NAME_MOVIE, null, values)
+            val insert = db?.insert(ContractDatabase.MovieColumns.TABLE_NAME_MOVIE, null, values)
             if (insert != null) {
                 if (insert > 0) {
-                    Toast.makeText(context,context.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.toast_sql_lite_insert_success),
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
-                }
-                else {
-                    Toast.makeText(context,context.getString(R.string.toast_sql_lite_insert_fail), Toast.LENGTH_SHORT)
+                } else {
+                    Toast.makeText(context, context.getString(R.string.toast_sql_lite_insert_fail), Toast.LENGTH_SHORT)
                         .show()
                 }
             }

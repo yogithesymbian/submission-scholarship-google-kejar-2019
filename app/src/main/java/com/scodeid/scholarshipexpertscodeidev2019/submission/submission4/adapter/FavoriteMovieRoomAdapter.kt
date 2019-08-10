@@ -12,16 +12,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.CustomOnItemClickListener
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieRoomActivity
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieRoomActivity.Companion.deleteFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.MainFavoriteMovieRoomDeleteActivity
-import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.database.FavoriteMovieRoom
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieRoomModel
+import com.scodeid.scholarshipexpertscodeidev2019.submission.submission4.model.MovieRoomView
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_favorite.view.*
 
@@ -53,28 +58,37 @@ class FavoriteMovieRoomAdapter(
     var activity: Activity
 ) : RecyclerView.Adapter<FavoriteMovieRoomAdapter.FavoriteMovieRoomViewHolder>() {
 
-//    lateinit var activity: Activity
+    //    lateinit var activity: Activity
 //    private var listMovieRoom = emptyList<MovieRoomModel>()
     private var listMovieRoom = ArrayList<MovieRoomModel>()
-    private lateinit var favoriteMovieRoom: FavoriteMovieRoom
+    //    private lateinit var favoriteMovieRoom: FavoriteMovieRoom
+    private lateinit var movieRoomView: MovieRoomView
 //    private lateinit var movieRoomDao: MovieRoomDao
 
-    inner class FavoriteMovieRoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class FavoriteMovieRoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val textTitle: TextView = itemView.findViewById(R.id.text_movie_name)
         internal val textDesc: TextView = itemView.findViewById(R.id.text_overview)
+        internal val release: TextView = itemView.findViewById(R.id.text_movies_release)
     }
 
-    fun removeItemMovies(
+    private fun removeItemMovies(
         position: Int
     ) {
-        favoriteMovieRoom.movieRoomDao().deleteMovies(listMovieRoom[position])
-        listMovieRoom.removeAt(position)
+        this.listMovieRoom.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listMovieRoom.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieRoomViewHolder {
-        return FavoriteMovieRoomViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_favorite, parent, false))
+        val fav = FavoriteMovieRoomViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_movies_favorite,
+                parent,
+                false
+            )
+        )
+        movieRoomView = ViewModelProviders.of(parent.context as FragmentActivity).get(MovieRoomView::class.java)
+        return fav
     }
 
     override fun getItemCount(): Int = listMovieRoom.size
@@ -82,12 +96,31 @@ class FavoriteMovieRoomAdapter(
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: FavoriteMovieRoomViewHolder, position: Int) {
         val context = holder.itemView.context
-        holder.textTitle.text = this.listMovieRoom[position].titleMovie
-        holder.textDesc.text = this.listMovieRoom[position].overview
+
+        val id = this.listMovieRoom[position].id
+        val title = this.listMovieRoom[position].titleMovie
+        val overview = this.listMovieRoom[position].overview
+        val poster = listMovieRoom[position].poster
+        val release = listMovieRoom[position].release
+
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
+        val unFavorite = holder.itemView.checkbox_fav_movie_favorite
+        unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+            buttonView.startAnimation(animation)
+            if (isChecked) {
+                removeItemMovies(position)
+                MainFavoriteMovieRoomActivity.initFavoriteParam(id, release, title, overview, poster, context,  ::deleteFavoriteMovie)
+                unFavorite.isChecked = false
+            }
+        }
+
+        holder.textTitle.text = title
+        holder.textDesc.text = overview
+        holder.release.text = release
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieRoom[position].poster)
+                .load(poster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -122,7 +155,7 @@ class FavoriteMovieRoomAdapter(
             }
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieRoom[position].poster)
+                .load(poster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)

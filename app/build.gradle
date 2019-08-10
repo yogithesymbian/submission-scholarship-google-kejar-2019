@@ -72,7 +72,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.core:core-ktx:1.2.0-alpha02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //bug material need downgrade to alpha05 for barLayout on rendering Layout / try invalidate/cache but not long time the render will error if u don't use it
+    //bug material need downgrade to alpha05 for barLayout on rendering Layout / try invalidate/cache but not longer time the render will error if u don't use it
     implementation 'com.google.android.material:material:1.1.0-alpha09'
 
     implementation 'androidx.cardview:cardview:1.0.0'

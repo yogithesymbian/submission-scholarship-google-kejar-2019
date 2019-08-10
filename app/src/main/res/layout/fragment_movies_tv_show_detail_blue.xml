@@ -177,7 +177,9 @@
             app:layout_constraintStart_toStartOf="@+id/text_featured_crew"
             app:layout_constraintTop_toBottomOf="@+id/text_creator_label_who2"
             app:layout_constraintHorizontal_bias="0.0"
-            tools:ignore="SmallSp"/>
+            tools:ignore="SmallSp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include_linearLayout2"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_creator_label_who2"
@@ -229,7 +231,13 @@
 
     <include
             android:id="@+id/include_linearLayout2"
-            layout="@layout/fragment_movies_tv_show_detail_white"/>
+            layout="@layout/fragment_movies_tv_show_detail_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/text_screen_label"
+            android:layout_marginTop="8dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,9 +12,6 @@
         tools:context=".submission.submission4.MainFavoriteTvActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         <FrameLayout
                 android:id="@+id/frame_progress_favorite"
@@ -54,88 +51,82 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:visibility="visible">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_main_favorite_manage_favorite_tv_show"
+                    android:textStyle="bold"
+                    android:gravity="center|top"
+                    android:id="@+id/appCompatTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                        style="@style/TextAppearance.MaterialComponents.Headline6"
-                        android:layout_width="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_favorite_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical"
+                    android:scrollIndicators="start"
+                    android:scrollbarStyle="insideOverlay"
+                    android:scrollbars="none"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/tab_favorite"
+                    tools:ignore="UnusedAttribute"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                    android:layout_marginTop="40dp">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_favorite"
+                    style="@style/Widget.MaterialComponents.TabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="bottom|center"
+                    android:focusable="true"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:visibility="visible"
+                    app:tabMode="fixed"
+                    app:tabGravity="fill"
+                    app:tabPaddingStart="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:ignore="UnusedAttribute">
+
+                <com.google.android.material.tabs.TabItem
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_main_favorite_manage_favorite_tv_show"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:id="@+id/appCompatTextView"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"/>
+                        android:layout_width="wrap_content"
+                        android:text="@string/activity_main_favorite_movies_this_day"
+                        />
 
-                <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tab_favorite"
-                        style="@style/Widget.MaterialComponents.TabLayout"
-                        android:layout_width="match_parent"
+                <com.google.android.material.tabs.TabItem
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_gravity="center"
-                        android:focusable="true"
-                        android:scrollbarStyle="outsideOverlay"
-                        android:visibility="visible"
-                        app:tabMode="fixed"
-                        app:tabGravity="fill"
-                        app:tabPaddingStart="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        tools:ignore="UnusedAttribute">
-
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_main_favorite_movies_this_day"
-                            />
-
-                    <com.google.android.material.tabs.TabItem
-                            android:layout_height="wrap_content"
-                            android:layout_width="wrap_content"
-                            android:text="@string/activity_main_favorite_movies_yesterday"/>
-                </com.google.android.material.tabs.TabLayout>
+                        android:layout_width="wrap_content"
+                        android:text="@string/activity_main_favorite_movies_yesterday"/>
+            </com.google.android.material.tabs.TabLayout>
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_favorite_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:orientation="vertical"
-                        android:scrollIndicators="start"
-                        android:scrollbarStyle="insideOverlay"
-                        android:scrollbars="none"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toTopOf="@+id/tab_favorite"
-                        tools:ignore="UnusedAttribute"
-                        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView">
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

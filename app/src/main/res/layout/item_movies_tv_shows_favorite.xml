@@ -42,8 +42,8 @@
             android:singleLine="true"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="@+id/image_tv_movie"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_tv_movie"
+            app:layout_constraintEnd_toStartOf="@+id/checkbox_fav_tv"
             tools:text="Yogi Kejar 2019 one two three four f"/>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -70,10 +70,13 @@
             tools:text="9"/>
 
     <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/item_movies_tv_shows_free"
             android:textStyle="bold|italic"
             android:textColor="@color/colorPrimaryDark"
@@ -82,7 +85,21 @@
             app:layout_constraintBottom_toBottomOf="@+id/text_tv_rate"
             app:layout_constraintStart_toEndOf="@+id/text_tv_rate"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.82"/>
+            app:layout_constraintHorizontal_bias="0.94"
+            app:layout_constraintVertical_bias="1.0"/>
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkbox_fav_tv"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:background="@drawable/main_checkbox_un_selector_favorite"
+            android:button="@null"
+            android:checked="false"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="@+id/appCompatTextView2"
+            app:layout_constraintStart_toStartOf="@+id/appCompatTextView2"
+            app:layout_constraintTop_toTopOf="@+id/text_tv_movie_name"
+            app:layout_constraintBottom_toBottomOf="@+id/text_tv_movie_name"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

@@ -63,8 +63,6 @@
     <string name="activity_movie_catalogue_main_content_popular">POPULAR</string>
     <string name="activity_movie_catalogue_main_content_trailer">TRAILER</string>
     <string name="activity_movie_catalogue_main_content_saved">SAVED</string>
-    <string name="activity_movie_catalogue_main_content_for_you">For You</string>
-    <string name="activity_movie_catalogue_main_content_coming">Coming</string>
     <string name="activity_movie_catalogue_main_content_soon">Soon</string>
 
     <!--
@@ -74,7 +72,7 @@
 
     <!--
         # HINT
-        # fragment_movies_tv_show
+        # fragment_movies_tv_show_recycler
         -->
 
     <string name="fragment_movies_tv_show_hot">HOT</string>
@@ -85,7 +83,7 @@
     <string name="fragment_movies_tv_show_detail_network">Network</string>
     <string name="fragment_movies_tv_show_detail_type">Type</string>
 
-    <!-- END OF fragment_movies_tv_show-->
+    <!-- END OF fragment_movies_tv_show_recycler-->
 
     <!--
         # HINT
@@ -183,7 +181,6 @@
     <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
     <string name="toast_sql_lite_insert_success">Success add to favorite</string>
     <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
-    <string name="toast_sql_lite_delete_fail">Failed delete data</string>
     <string name="dialog_cancel_title">Cancel</string>
     <string name="dialog_cancel_msg">You want to cancel the change ?</string>
     <string name="dialog_delete_msg">You want to delete the item ?</string>

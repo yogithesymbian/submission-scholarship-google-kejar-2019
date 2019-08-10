@@ -38,13 +38,6 @@
                 tools:ignore="UnusedAttribute"/>
     </FrameLayout>
 
-    <!-- LIST VIEW SUBMISSION 1 VISIBLE GONE NOT USE AT THIS TIME-->
-    <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:smoothScrollbar="true"
-            android:visibility="gone">
-    </ListView>
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_container_home"
@@ -69,6 +62,4 @@
     </androidx.appcompat.widget.ContentFrameLayout>
 
 
-
-    <!--likeViewPager-->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

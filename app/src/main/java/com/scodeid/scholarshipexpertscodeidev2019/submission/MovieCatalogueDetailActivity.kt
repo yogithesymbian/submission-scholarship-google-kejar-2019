@@ -26,6 +26,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.submission.submission3.model.MoviesApiData
 import kotlinx.android.synthetic.main.activity_movie_catalogue_detail.*
+import kotlinx.android.synthetic.main.activity_movie_catalogue_detail_head.*
 
 
 /**
@@ -213,15 +214,6 @@ class MovieCatalogueDetailActivity : Activity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Log.d(TAG_LOG, "onBackPressed Clicked ")
-//        val viewerAddIntent = Intent()
-//        val viewData = 1
-//        viewerAddIntent.putExtra(EXTRA_VIEWER, viewData)
-//        setResult(RESULT_CODE,viewerAddIntent)
-        finish()
-    }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
