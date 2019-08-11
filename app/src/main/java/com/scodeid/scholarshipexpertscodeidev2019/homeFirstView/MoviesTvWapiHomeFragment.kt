@@ -28,8 +28,8 @@ import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.*
 
 class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
-
     companion object {
+
         val TAG_LOG: String = MoviesTvWapiHomeFragment::class.java.simpleName
         var movieTvShowViewModel = MovieTvShowViewModel()
         val adapter = MoviesTvShowApiAdapter(ArrayList())
@@ -92,15 +92,13 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
 
         movieTvShowViewModel.getMoviesTvShow().observe(this, getMovieTvShow)
-        if (adapter.itemCount == 0)
-        {
-            Log.d(TAG_LOG,"adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
+        if (adapter.itemCount == 0) {
+            Log.d(TAG_LOG, "adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
             movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
-        }
-        else // for skip loading cause default is true on loading while back stack of fragment tv home and tv home_detail ,
+        } else // for skip loading cause default is true on loading while back stack of fragment tv home and tv home_detail ,
         {
             // after else on check arrayList.isEmpty()
-            Log.d(TAG_LOG,"adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
+            Log.d(TAG_LOG, "adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
             frame_progress_tv_show.visibility = View.GONE
             card_tv_show.visibility = View.VISIBLE
         }

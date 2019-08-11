@@ -56,9 +56,8 @@ Linux 4.19.0-kali5-amd64
 
 class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
-
-
     companion object {
+
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
         var movieViewModel = MovieViewModel()
         val adapter = MoviesApiAdapter(ArrayList())

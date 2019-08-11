@@ -33,8 +33,8 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         private const val EXTRA_STATE = "extra_state"
         val TAG_LOG: String = MainFavoriteMovieActivity::class.java.simpleName
     }
-    private lateinit var favoriteAdapter: FavoriteAdapter
 
+    private lateinit var favoriteAdapter: FavoriteAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,21 +101,6 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
             super.onChange(selfChange)
             LoadFavMovieAsync(context, context as LoadMovieProvCallBack).execute()
         }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (data != null) {
-            if (requestCode == MainFavoriteMovieDetailActivity.REQUEST_UPDATE) {
-                if (resultCode == MainFavoriteMovieDetailActivity.RESULT_DELETE) {
-                    val position = data.getIntExtra(MainFavoriteMovieDetailActivity.EXTRA_POSITION, 0)
-                    favoriteAdapter.removeItemMovies(position)
-                }
-            }
-
-        }
-
     }
 
     override fun onBackPressed() {

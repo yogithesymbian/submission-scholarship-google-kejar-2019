@@ -552,7 +552,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             super.onBackPressed()
         }
     }
-//
+
+    //
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_movies, menu)
         // search view with
@@ -579,7 +580,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             }
 
                             private fun finish() {
-                                MoviesWapiHomeFragment.movieViewModel.searchMovies(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(
+                                    resources.getString(R.string.app_language),
+                                    query,
+                                    this@MovieCatalogueMainActivity
+                                )
                             }
                         }, 100)
                         return false
@@ -588,7 +593,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
                         MoviesWapiHomeFragment.adapter.filter.filter(newText)
-                        if (MoviesWapiHomeFragment.adapter.itemCount == 0){
+                        if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
 
                         }
                         return false
@@ -613,7 +618,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             }
 
                             private fun finish() {
-                                MoviesTvWapiHomeFragment.movieTvShowViewModel.searchTvShow(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                                MoviesTvWapiHomeFragment.movieTvShowViewModel.searchTvShow(
+                                    resources.getString(R.string.app_language),
+                                    query,
+                                    this@MovieCatalogueMainActivity
+                                )
                             }
                         }, 100)
 
@@ -623,7 +632,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
                         MoviesTvWapiHomeFragment.adapter.filter.filter(newText)
-                        if (MoviesTvWapiHomeFragment.adapter.itemCount == 0){
+                        if (MoviesTvWapiHomeFragment.adapter.itemCount == 0) {
 
                         }
                         return false
@@ -649,7 +658,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             }
 
                             private fun finish() {
-                                MoviesWapiHomeFragment.movieViewModel.searchMovies(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(
+                                    resources.getString(R.string.app_language),
+                                    query,
+                                    this@MovieCatalogueMainActivity
+                                )
                             }
                         }, 100)
                         return false
@@ -658,8 +671,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
                         MoviesWapiHomeFragment.adapter.filter.filter(newText)
-                        if (MoviesWapiHomeFragment.adapter.itemCount == 0){
-                            Log.d(TAG_LOG,"item not found, try tap enter to search online")
+                        if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
+                            Log.d(TAG_LOG, "item not found, try tap enter to search online")
                         }
                         return false
                     }

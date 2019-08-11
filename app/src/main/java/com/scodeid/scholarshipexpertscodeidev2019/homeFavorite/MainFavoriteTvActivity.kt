@@ -93,8 +93,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
             Log.d(TAG_LOG, "LoadAsync onPostExecute")
             if (result != null) {
                 weakReferenceCallBack.get()?.postExecute(result)
-            }
-            else {
+            } else {
                 result?.close()
             }
         }

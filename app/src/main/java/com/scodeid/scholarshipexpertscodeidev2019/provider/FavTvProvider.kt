@@ -109,6 +109,7 @@ class FavTvProvider : ContentProvider() {
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
     companion object {
 
         private const val TV = 3

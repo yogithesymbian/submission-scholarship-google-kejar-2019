@@ -22,12 +22,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author
@@ -101,11 +103,11 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
     @SuppressLint("PrivateResource")
     override fun onBindViewHolder(holder: FavoriteTvViewHolder, position: Int) {
         val context = holder.itemView.context
+        val uri = Uri.parse("$CONTENT_URI_TV/${listTvModel[position].id}")
         holder.textTitle.text = this.listTvModel[position].title
         holder.textDesc.text = this.listTvModel[position].voteAverage.toString()
 
         val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
-        val id = this.listTvModel[position].id
 
         context.let {
             Glide.with(it)
@@ -122,32 +124,23 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
                 object :
                     CustomOnItemClickListener.OnItemClickCallback {
                     override fun onItemClicked(view: View, position: Int) {
+
                         val intent = Intent(activity, MainFavoriteTvDetailActivity::class.java)
-
-                        val uri = Uri.parse("$CONTENT_URI_MOVIE/${listTvModel[position].id}")
                         intent.data = uri
-
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, position)
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_TV, listTvModel[position])
-
                         activity.startActivityForResult(intent, MainFavoriteMovieDetailActivity.REQUEST_UPDATE)
+
                     }
                 })
         )
 
         val unFavorite = holder.itemView.checkbox_fav_tv
         unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
-            //
-//            val helperDatabase = HelperDatabase(context)
-//            val db = helperDatabase.writableDatabase
-//
-//            if (position == 0) db.delete(TABLE_NAME_TV, "$_ID=?$num1", null)
-//            else db.delete(TABLE_NAME_TV, "$_ID=?$position", null)
-//            db.execSQL("DELETE FROM $TABLE_NAME_TV WHERE $_ID='$id'")
-//            db.close()
 
             buttonView.startAnimation(animation)
             if (isChecked) {
+                context.contentResolver.delete(Objects.requireNonNull<Uri>(uri), null, null)
                 removeItemTv(position)
                 unFavorite.isChecked = false
             }

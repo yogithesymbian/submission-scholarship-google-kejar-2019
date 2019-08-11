@@ -14,10 +14,14 @@ import android.os.Handler
 import androidx.annotation.RequiresApi
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.AUTHORITY
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
 import com.scodeid.scholarshipexpertscodeidev2019.helper.HelperModel
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import java.util.*
+
 
 /**
  * @author
@@ -66,6 +70,8 @@ class FavMovieProvider : ContentProvider() {
         cursor = when (uriMatcher.match(uri)) {
             MOVIE -> helperModel.queryProviderMovie()
             MOVIE_ID -> helperModel.queryByIdProviderMovie(uri.lastPathSegment)
+            TV -> helperModel.queryProviderTv()
+            TV_ID -> helperModel.queryByIdProviderTv(uri.lastPathSegment)
             else -> throw IllegalArgumentException("Unknown URI")
         }
         return cursor
@@ -77,8 +83,16 @@ class FavMovieProvider : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues): Uri? {
         helperModel.open()
-        val added: Long = when (uriMatcher.match(uri)) {
-            MOVIE -> helperModel.insertProviderMovie(values)
+        var contentUri = ""
+        val added: Unit = when (uriMatcher.match(uri)) {
+            MOVIE -> {
+                helperModel.insertProviderMovie(values)
+                contentUri = CONTENT_URI_MOVIE.toString()
+            }
+            TV -> {
+                helperModel.insertProviderTv(values)
+                contentUri = CONTENT_URI_MOVIE.toString()
+            }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
         Objects.requireNonNull(context).contentResolver.notifyChange(
@@ -87,7 +101,9 @@ class FavMovieProvider : ContentProvider() {
                 context
             )
         )
-        return Uri.parse("$CONTENT_URI_MOVIE/$added")
+
+        return Uri.parse("$contentUri.toUri()/$added")
+
     }
 
 
@@ -95,10 +111,17 @@ class FavMovieProvider : ContentProvider() {
         helperModel.open()
         val delete: Int = when (uriMatcher.match(uri)) {
             MOVIE_ID -> helperModel.deleteProviderMovie(uri.lastPathSegment)
+            TV_ID -> helperModel.deleteProviderTv(uri.lastPathSegment)
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
         Objects.requireNonNull(context).contentResolver.notifyChange(
             CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
+                Handler(),
+                context
+            )
+        )
+        Objects.requireNonNull(context).contentResolver.notifyChange(
+            CONTENT_URI_TV, MainFavoriteTvActivity.DataObserverTv(
                 Handler(),
                 context
             )
@@ -109,15 +132,23 @@ class FavMovieProvider : ContentProvider() {
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
     companion object {
 
         private const val MOVIE = 1
         private const val MOVIE_ID = 2
+        private const val TV = 3
+        private const val TV_ID = 4
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
         init {
+
             uriMatcher.addURI(AUTHORITY, TABLE_NAME_MOVIE, MOVIE)
             uriMatcher.addURI(AUTHORITY, "$TABLE_NAME_MOVIE/#", MOVIE_ID)
+
+            uriMatcher.addURI(AUTHORITY, TABLE_NAME_TV, TV)
+            uriMatcher.addURI(AUTHORITY, "$TABLE_NAME_TV/#", TV_ID)
+
         }
     }
 
