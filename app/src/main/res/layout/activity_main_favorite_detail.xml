@@ -8,7 +8,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".submission.submission4.MainFavoriteMovieDetailActivity">
+        tools:context=".homeFavorite.MainFavoriteMovieDetailActivity">
 
     <include layout="@layout/activity_movie_catalogue_detail_head"/>
 

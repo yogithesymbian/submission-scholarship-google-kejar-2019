@@ -192,6 +192,7 @@
     <string name="activity_main_favorite_movies_yesterday">Yesterday</string>
     <string name="activity_main_favorite_manage_favorite_movie">Manage Favorite Movie</string>
     <string name="activity_main_favorite_manage_favorite_tv_show">Manage Favorite Tv Show</string>
+    <string name="option_hint_tv">Search TV SHOW</string>
 
 
 </resources>

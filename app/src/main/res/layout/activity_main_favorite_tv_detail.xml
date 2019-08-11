@@ -8,7 +8,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".submission.submission4.MainFavoriteTvDetailActivity">
+        tools:context=".homeFavorite.MainFavoriteTvDetailActivity">
 
     <include layout="@layout/fragment_movies_tv_show_detail_head"/>
 

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/gray90"
-        tools:context=".submission.MovieCatalogueDetailActivity">
+        tools:context=".homeInitView.MovieCatalogueDetailActivity">
 
     <include
             android:id="@+id/include_card_movie_head"

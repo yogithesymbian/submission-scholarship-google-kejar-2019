@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:showIn="@layout/activity_movie_catalogue_main_bar"
-        tools:context=".submission.MovieCatalogueMainActivity"
+        tools:context=".homeInitView.MovieCatalogueMainActivity"
         >
     <FrameLayout
             android:id="@+id/frame_ui_change_progress"

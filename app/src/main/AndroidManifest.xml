@@ -14,19 +14,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".submission.submission4.MainFavoriteMovieRoomDeleteActivity">
+        <activity android:name=".homeFavorite.MainFavoriteMovieRoomDeleteActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteMovieRoomActivity">
+        <activity android:name=".homeFavorite.MainFavoriteMovieRoomActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteTvDetailActivity">
+        <activity android:name=".homeFavorite.MainFavoriteTvDetailActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteTvActivity">
+        <activity android:name=".homeFavorite.MainFavoriteTvActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteMovieDetailActivity">
+        <activity android:name=".homeFavorite.MainFavoriteMovieDetailActivity">
         </activity>
-        <activity android:name=".submission.submission4.MainFavoriteMovieActivity">
+        <activity android:name=".homeFavorite.MainFavoriteMovieActivity">
         </activity>
-        <activity android:name=".submission.notification.NoInternetConnActivity">
+        <activity android:name="com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity">
         </activity>
         <!--
                 _               _         _               ____
@@ -44,7 +44,7 @@
         -->
         <!-- android:label="@string/title_activity_movie_catalogue_main" -->
         <activity
-                android:name=".submission.MovieCatalogueMainActivity"
+                android:name=".homeInitView.MovieCatalogueMainActivity"
                 android:label="@string/app_name_submission_1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -52,10 +52,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".submission.notification.ComingSoonActivity">
+        <activity android:name="com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity">
         </activity>
         <activity
-                android:name=".submission.MovieCatalogueDetailActivity"
+                android:name=".homeInitView.MovieCatalogueDetailActivity"
                 android:label="@string/title_activity_movie_catalogue_detail"
                 android:theme="@style/FullscreenTheme">
         </activity>
