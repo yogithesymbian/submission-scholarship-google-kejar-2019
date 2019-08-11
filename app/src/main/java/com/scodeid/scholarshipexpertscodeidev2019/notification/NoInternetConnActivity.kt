@@ -22,7 +22,7 @@ class NoInternetConnActivity : AppCompatActivity() {
         button_get_notif.setOnClickListener {
             Toast.makeText(
                 this@NoInternetConnActivity,
-                ""+resources.getString(R.string.activity_movie_catalogue_main_content_soon),
+                resources.getString(R.string.activity_movie_catalogue_main_content_soon),
                 Toast.LENGTH_SHORT
             ).show()
         }

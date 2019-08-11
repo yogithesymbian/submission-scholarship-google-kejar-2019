@@ -15,9 +15,10 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
-import com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity
+import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity
 import org.json.JSONObject
 
 /**
@@ -107,27 +108,15 @@ class MovieTvShowViewModel : ViewModel() {
                         val intent = Intent(context, NoInternetConnActivity::class.java)
                         context?.startActivity(intent)
 
-
-                        // received error from server
-                        // later's this scope will have an intent for user knowledge about condition on getAnError { notification package }
                         if (anError?.errorCode != 0) {
 
-                            Log.d(
-                                TAG_LOG,
-                                "onError errorCode : " + anError?.errorCode
-                            ) // error.getErrorCode() - the error code from server
-                            Log.d(
-                                TAG_LOG,
-                                "onError errorBody : " + anError?.errorBody
-                            ) // error.getErrorBody() - the error body from server
-                            Log.d(
-                                TAG_LOG,
-                                "onError errorDetail : " + anError?.errorDetail
-                            ) // error.getErrorDetail() - just an error detail
+                            Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
+                            Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
+                            Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
 
                         } else {
                             // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                            Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                            Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
                         }
                     }
                 })
@@ -142,6 +131,72 @@ class MovieTvShowViewModel : ViewModel() {
 
     fun getMoviesTvShow(): LiveData<ArrayList<MoviesTvShowApiData>> {
         return listMovieTvShowMutableLiveData
+    }
+
+
+    fun searchTvShow(lang: String, query: String,context: Context?) {
+
+            AndroidNetworking.get(ApiEndPoint.SEARCH_TV)
+                .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
+                .addPathParameter("LANGUAGE", lang)
+                .addPathParameter("QUERY_TV_SHOW_NAME", query)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(object : JSONObjectRequestListener {
+                    override fun onResponse(response: JSONObject) {
+                        arrayListMovieTvShow.clear()
+                        val jsonArray = response.optJSONArray("results")
+
+                        if (jsonArray?.length() == 0)
+                        {
+                            Toast.makeText(context,"""${context?.getString(R.string.view_model_search_keyword)}$query ${context?.getString(R.string.view_model_search_info)}""".trimIndent(), Toast.LENGTH_LONG).show()
+                        }
+                        for (i in 0 until jsonArray.length())
+                        {
+                            val jsonObject = jsonArray.optJSONObject(i)
+
+                            arrayListMovieTvShow.add(
+                                MoviesTvShowApiData(
+                                    jsonObject.getString("original_name"),
+                                    arrayListOf(jsonObject.getString("genre_ids")),
+                                    jsonObject.getString("name"),
+                                    jsonObject.getInt("popularity"),
+                                    arrayListOf(jsonObject.getString("origin_country")),
+                                    jsonObject.getInt("vote_count"),
+                                    jsonObject.getString("first_air_date"),
+                                    jsonObject.getString("backdrop_path"),
+                                    jsonObject.getString("original_language"),
+                                    jsonObject.getInt("id"),
+                                    jsonObject.getInt("vote_average"),
+                                    jsonObject.getString("overview"),
+                                    jsonObject.getString("poster_path")
+                                )
+                            )
+
+                            if (jsonArray.length() - 1 == i)
+                            {
+                                listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
+                            }
+                        }
+                    }
+
+                    override fun onError(anError: ANError?) {
+
+                        Log.d("ON_ERROR",anError?.errorDetail.toString())
+                        val intent = Intent(context, NoInternetConnActivity::class.java)
+                        context?.startActivity(intent)
+
+                        if (anError?.errorCode != 0) {
+
+                            Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
+                            Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
+                            Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+
+                        } else {
+                            Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
+                        }
+                    }
+                })
     }
 
 

@@ -16,7 +16,6 @@ class ComingSoonActivity : AppCompatActivity() {
         setContentView(R.layout.activity_coming_soon)
 
         button_back.setOnClickListener {
-            // backActivity
             finish()
             return@setOnClickListener
         }

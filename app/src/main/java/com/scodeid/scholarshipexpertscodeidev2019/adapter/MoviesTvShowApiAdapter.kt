@@ -13,18 +13,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.ItemClickRecyclerSupport
+import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeDetailFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment.Companion.insertFavoriteTv
-import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.view.*
@@ -56,17 +58,19 @@ Linux 4.19.0-kali5-amd64
  */
 
 class MoviesTvShowApiAdapter (
-    private val arrayListMoviesTvShow : ArrayList<MoviesTvShowApiData>
-) : RecyclerView.Adapter<MoviesTvShowApiAdapter.ViewHolder>() {
+    private var arrayListMoviesTvShow : ArrayList<MoviesTvShowApiData>
+) : RecyclerView.Adapter<MoviesTvShowApiAdapter.ViewHolder>(), Filterable {
+
+    private var arrayListMoviesTvShowTemp = ArrayList<MoviesTvShowApiData>()
 
     companion object{
-        //limited recycler view item @later's will use pagination
         const val LIMIT = 10
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
 
     init {
         setHasStableIds(true)
+        arrayListMoviesTvShowTemp = arrayListMoviesTvShow
     }
 
     fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>)
@@ -120,7 +124,6 @@ class MoviesTvShowApiAdapter (
         val mFragmentManager = (context as AppCompatActivity).supportFragmentManager
 
         //check for replace and go
-        // use FragTransaction
         val mFragmentTransaction = mFragmentManager.beginTransaction()
         // replace the container frameLayout
         mFragmentTransaction.replace(R.id.frame_container_tv_show, mMoviesTvShowDetailFragment,  MoviesTvWapiHomeDetailFragment::class.java.simpleName)
@@ -199,6 +202,40 @@ class MoviesTvShowApiAdapter (
             // end of dialog view
         }
         // end of image clicked
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence, results: FilterResults) {
+                arrayListMoviesTvShow = results.values as ArrayList<MoviesTvShowApiData>
+                notifyDataSetChanged()
+            }
+
+            override fun performFiltering(constraint: CharSequence): FilterResults {
+                val charStr = constraint.toString()
+                arrayListMoviesTvShow = if (charStr.isEmpty()) {
+                    arrayListMoviesTvShowTemp //save before result data shown and return this for isEmpty
+                } else {
+
+                    val filterListener = ArrayList<MoviesTvShowApiData>()
+                    for (row in arrayListMoviesTvShow) {
+
+                        val originalTitle = row.originalName.toLowerCase().contains(charStr.toLowerCase())
+                        val title = row.name.toLowerCase().contains(charStr.toLowerCase())
+
+                        if (title || originalTitle) {
+                            filterListener.add(row)
+                        }
+                    }
+                    filterListener // set item from result filter
+                }
+
+                val filterResult = FilterResults()
+                filterResult.values = arrayListMoviesTvShow
+                return filterResult
+            }
+        }
     }
 
     override fun getItemId(position: Int): Long {

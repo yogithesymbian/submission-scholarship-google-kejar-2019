@@ -45,6 +45,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.adapter.MainSectionsPagerAdapt
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
+import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.utils.MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.utils.TV_SHOW
@@ -71,7 +72,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         when (item.itemId) {
             R.id.navigation_home -> {
                 Log.d(TAG_LOG, "Try opening home movie activity")
-                statusActivity = MOVIE //invert logic check onStart
+                // set activity
+                statusActivity = MOVIE
+                // visibility of home
                 Handler().postDelayed(object : Runnable {
                     override fun run() {
                         frame_ui_change_progress.visibility = View.VISIBLE
@@ -83,11 +86,13 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         hideHomeTvShow()
                     }
                 }, 100)
+                // refresh menu
+                invalidateOptionsMenu()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tv_show -> {
                 Log.d(TAG_LOG, "Try opening 2 movie activity")
-                statusActivity = TV_SHOW //invert logic onStart
+                statusActivity = TV_SHOW
                 Handler().postDelayed(object : Runnable {
                     override fun run() {
                         frame_ui_change_progress.visibility = View.VISIBLE
@@ -99,9 +104,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         hideHome()
                     }
                 }, 100)
-
                 handleFragmentApiTvShow()
-
+                invalidateOptionsMenu()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
@@ -114,7 +118,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     override fun run() {
                         this.finish()
                     }
-                    private fun finish(){
+
+                    private fun finish() {
                         if (clicked) {
                             hideActionFavorite(applicationContext)
                             clicked = false
@@ -125,7 +130,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             }
                         }
                     }
-                },100)
+                }, 100)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -154,7 +159,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 mTvHome,
                 MoviesTvWapiHomeFragment::class.java.simpleName
             )
-            //commit()
+
             mFragmentTransaction.commit()
         }
     }
@@ -196,7 +201,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_catalogue_main)
+
         setSupportActionBar(toolbarManual)
+
+
+//        moviesApiAdapter = MoviesApiAdapter(this, arrayListMovie)
 
         if (savedInstanceState != null) {
             val onChangeVisible = savedInstanceState.getString(stateChangeVisible)
@@ -265,12 +274,18 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             )
                         )
                         app_bar_for_drawer.invalidate()
-                        tabs.setBackgroundColor(ResourcesCompat.getColor(resources,
-                            R.color.colorPrimary, theme))
+                        tabs.setBackgroundColor(
+                            ResourcesCompat.getColor(
+                                resources,
+                                R.color.colorPrimary, theme
+                            )
+                        )
                         tabs.invalidate()
 
-                        window.statusBarColor = (ResourcesCompat.getColor(resources,
-                            R.color.colorPrimary, theme))
+                        window.statusBarColor = (ResourcesCompat.getColor(
+                            resources,
+                            R.color.colorPrimary, theme
+                        ))
                         linear_nav_header.setBackgroundColor(
                             ResourcesCompat.getColor(
                                 resources,
@@ -282,8 +297,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         toolbarManual.setLogo(R.drawable.ic_airplay_blue_24dp)
                         toolbarManual.invalidate() // ctrl + click to see what is the invalidate
                         image_option_drawer.borderColor =
-                            (ResourcesCompat.getColor(resources,
-                                R.color.colorPrimary, theme))
+                            (ResourcesCompat.getColor(
+                                resources,
+                                R.color.colorPrimary, theme
+                            ))
                         image_option_drawer.invalidate()
 
                         val tabs = tabs.getTabAt(home - 6)
@@ -447,24 +464,36 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
     }
 
     private fun hideActionFavorite(applicationContext: Context) {
-        fab_fav_movie.startAnimation(AnimationUtils.loadAnimation(applicationContext,
-            R.anim.slide_out
-        ))
+        fab_fav_movie.startAnimation(
+            AnimationUtils.loadAnimation(
+                applicationContext,
+                R.anim.slide_out
+            )
+        )
         fab_fav_movie.visibility = View.GONE
-        fab_fav_tv.startAnimation(AnimationUtils.loadAnimation(applicationContext,
-            R.anim.slide_out
-        ))
+        fab_fav_tv.startAnimation(
+            AnimationUtils.loadAnimation(
+                applicationContext,
+                R.anim.slide_out
+            )
+        )
         fab_fav_tv.visibility = View.GONE
     }
 
     private fun showActionFavorite(applicationContext: Context) {
-        fab_fav_movie.startAnimation(AnimationUtils.loadAnimation(applicationContext,
-            R.anim.slide_in
-        ))
+        fab_fav_movie.startAnimation(
+            AnimationUtils.loadAnimation(
+                applicationContext,
+                R.anim.slide_in
+            )
+        )
         fab_fav_movie.visibility = View.VISIBLE
-        fab_fav_tv.startAnimation(AnimationUtils.loadAnimation(applicationContext,
-            R.anim.slide_in
-        ))
+        fab_fav_tv.startAnimation(
+            AnimationUtils.loadAnimation(
+                applicationContext,
+                R.anim.slide_in
+            )
+        )
         fab_fav_tv.visibility = View.VISIBLE
     }
 
@@ -492,7 +521,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             TAG_LOG,
             "onResume | i did'nt save barColor on instanceSaveState| and onResume will be set randomColor that is feature :D not bug or anymore :v "
         )
-        // some bug maybe come by fragment fixed | relative small so i need limit the fragment loaded
+
         view_pager_container_home.offscreenPageLimit = 3
 
         val tabs = tabs.getTabAt(4 - 6)
@@ -524,40 +553,120 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             super.onBackPressed()
         }
     }
-
+//
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_movies, menu)
         // search view with
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu?.findItem(R.id.option_search)?.actionView as SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.queryHint = resources.getString(R.string.option_hint)
-//
-//        when (statusActivity) {
-//            MOVIE -> {
-//                // movies
-//
-//            }
-//            TV_SHOW -> {
-//                // tv_show
-//                searchView.queryHint = resources.getString(R.string.option_hint_tv)
-//            }
-//        }
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-            override fun onQueryTextSubmit(query: String): Boolean {
-                Log.d(TAG_LOG, "Search MOVIE onQueryTextSubmit")
-                Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
-                    .show()
-                return false
+        when (statusActivity) {
+            MOVIE -> {
+                Log.d(TAG_LOG, "search movie")
+                searchView.queryHint = resources.getString(R.string.option_hint)
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        Log.d(TAG_LOG, "Search MOVIE onQueryTextSubmit")
+                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
+                            .show()
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                            }
+                        }, 100)
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+                        Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
+                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+                        if (MoviesWapiHomeFragment.adapter.itemCount == 0){
+
+                        }
+                        return false
+                    }
+                })
             }
+            TV_SHOW -> {
+                Log.d(TAG_LOG, "search tv")
+                searchView.queryHint = resources.getString(R.string.option_hint_tv)
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-                return false
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        Log.d(TAG_LOG, "Search TV_SHOW onQueryTextSubmit")
+                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
+                            .show()
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesTvWapiHomeFragment.movieTvShowViewModel.searchTvShow(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                            }
+                        }, 100)
+
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+                        Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
+                        MoviesTvWapiHomeFragment.adapter.filter.filter(newText)
+                        if (MoviesTvWapiHomeFragment.adapter.itemCount == 0){
+
+                        }
+                        return false
+                    }
+                })
             }
-        })
+            else -> {
+                Log.d(TAG_LOG, "search movie")
+                searchView.queryHint = resources.getString(R.string.option_hint)
+
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                    override fun onQueryTextSubmit(query: String): Boolean {
+                        Log.d(TAG_LOG, "Search MOVIE onQueryTextSubmit")
+                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
+                            .show()
+
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(resources.getString(R.string.app_language), query, this@MovieCatalogueMainActivity)
+                            }
+                        }, 100)
+                        return false
+                    }
+
+                    override fun onQueryTextChange(newText: String): Boolean {
+                        Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
+                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+                        if (MoviesWapiHomeFragment.adapter.itemCount == 0){
+                            Log.d(TAG_LOG,"item not found, try tap enter to search online")
+                        }
+                        return false
+                    }
+                })
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -568,7 +677,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 drawer_layout.openDrawer(GravityCompat.START)
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 

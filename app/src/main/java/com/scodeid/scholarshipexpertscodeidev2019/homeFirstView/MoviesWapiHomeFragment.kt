@@ -19,12 +19,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MoviesApiAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
-import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
+import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
+import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 
 
@@ -55,14 +55,14 @@ Linux 4.19.0-kali5-amd64
 class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
 
-    private var movieViewModel = MovieViewModel()
-
-    private val adapter = MoviesApiAdapter(ArrayList())
 
     companion object {
         val TAG_LOG: String = MoviesWapiHomeFragment::class.java.simpleName
+        var movieViewModel = MovieViewModel()
+        val adapter = MoviesApiAdapter(ArrayList())
         const val KEY = "keyPojoSubTab"
 //        private lateinit var  movieRoomView : MovieRoomView
+//        val adapter = MoviesApiAdapter(context,ArrayList())
 
         fun newInstanceData(pojoSubTab: MovieTabColorModel): MoviesWapiHomeFragment {
             val fragment = MoviesWapiHomeFragment()
@@ -172,9 +172,11 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         {
             Log.d(TAG_LOG, "recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
             movieViewModel.setMovie(resources.getString(R.string.app_language), context)
+
         } else {
             Log.d(TAG_LOG, "recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
         }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

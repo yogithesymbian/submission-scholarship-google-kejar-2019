@@ -36,7 +36,6 @@ import kotlinx.android.synthetic.main.activity_movie_catalogue_detail_head.*
 class MovieCatalogueDetailActivity : Activity() {
     private val mHideHandler = Handler()
 
-    //    private var delayAsyncDetailMovie: DelayAsyncMovieDetail? = null
     private val mHidePart2Runnable = Runnable {
         // Delayed removal of status and navigation_bottom_movie bar
 
@@ -100,7 +99,7 @@ class MovieCatalogueDetailActivity : Activity() {
 
         verifyIntentFromHomeMovieCatalogue(movieDataParcel.title)
 
-        val string = "" + movieDataParcel.title
+        val string = "$movieDataParcel.title"
         text_tv_movie_name.text = string
 
         //score is vote_average
@@ -110,14 +109,14 @@ class MovieCatalogueDetailActivity : Activity() {
         text_original_name.text = movieDataParcel.originalTitle + "\n"
 
 
-        text_rank_last_today_label_data.text = "-" + "\n"
-        text_rank_last_week_label_data.text = "-" + "\n"
+        text_rank_last_today_label_data.text = "-\n"
+        text_rank_last_week_label_data.text = "-\n"
 
-        text_director_label_who.text = "-" + "\n"
-        text_director_label_who1.text = "-" + "\n"
+        text_director_label_who.text = "-\n"
+        text_director_label_who1.text = "-\n"
 
-        text_screen_label_who.text = "-" + "\n"
-        text_screen_label_who1.text = "-" + "\n"
+        text_screen_label_who.text = "-\n"
+        text_screen_label_who1.text = "-\n"
 
         when (movieDataParcel.originalLang) {
             "en" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language) +"\n"

@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-@file:Suppress("DEPRECATION") //later's will be update soon ya
+@file:Suppress("DEPRECATION")
 
 package com.scodeid.scholarshipexpertscodeidev2019.adapter
 
@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.tabs.TabLayout
+import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonFragment
-import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
 
 
 // section for Home | popular | trailer | saved
@@ -27,23 +27,19 @@ class MainSectionsPagerAdapter(fm: FragmentManager, private val tabs: TabLayout)
             0 -> {
                 Log.d(TAG_LOG,"set color view pager home and return to the fragment (later's) ")
                 MoviesWapiHomeFragment.newInstanceData(MovieTabColorModel("R.color.color0"))
-//                MoviesHomeRecyclerFragment.newInstanceData(MovieTabColorModel("R.color.color0"))
             }
             1 -> {
                 Log.d(TAG_LOG,"set color view pager popular and return to the fragment (later's) ")
                 ComingSoonFragment.newInstanceData(MovieTabColorModel("R.color.color1"))
-//                MoviesHomeRecyclerFragment.newInstanceData(MovieTabColorModel("R.color.color1"))
             }
             2 -> {
                 Log.d(TAG_LOG,"set color view pager trailer and return to the fragment (later's) ")
                 ComingSoonFragment.newInstanceData(MovieTabColorModel("R.color.color2"))
-//  /              MoviesHomeRecyclerFragment.newInstanceData(MovieTabColorModel("R.color.color2"))
             }
             3 -> {
                 Log.d(TAG_LOG,"set color view pager saved and return to the fragment (later's) ")
                 ComingSoonFragment.newInstanceData(MovieTabColorModel("R.color.color3"))
             }
-            // this just for null , but i can't solved without double bang operator at this time just only for this
             else -> return ComingSoonFragment.newInstanceData(MovieTabColorModel("R.color1"))
         }
     }

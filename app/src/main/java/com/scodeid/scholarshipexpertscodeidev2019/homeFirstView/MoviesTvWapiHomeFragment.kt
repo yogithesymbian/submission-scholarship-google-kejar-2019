@@ -19,20 +19,19 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MoviesTvShowApiAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
-import com.scodeid.scholarshipexpertscodeidev2019.view.MovieTvShowViewModel
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
+import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.scholarshipexpertscodeidev2019.view.MovieTvShowViewModel
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.*
 
 class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
-    private var movieTvShowViewModel = MovieTvShowViewModel()
-
-    val adapter = MoviesTvShowApiAdapter(ArrayList())
 
     companion object {
         val TAG_LOG: String = MoviesTvWapiHomeFragment::class.java.simpleName
+        var movieTvShowViewModel = MovieTvShowViewModel()
+        val adapter = MoviesTvShowApiAdapter(ArrayList())
 
         // store to database
         fun initFavoriteTvParam(
@@ -85,7 +84,6 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_movies_tv_show_recycler, container, false)
     }
 

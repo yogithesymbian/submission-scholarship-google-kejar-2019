@@ -6,10 +6,8 @@ I ``` https://www.dicoding.com/users/297307 ``` have learning on ```Dicoding.com
 ![SS](https://1.bp.blogspot.com/-exahMfIV-fQ/XQ8qpDc3ycI/AAAAAAAAAYk/r2EkswGaL0EqjfKuvQjDS3Nc_uFEq9S4QCLcBGAs/s1600/Screenshot_2019-06-23-15-15-44-182_com.scodeid.scholarshipexpertscodeidev2019.png)
 
 ```
-
 sudo mount -o remount, exec /tmp
 sudo mount -o remount, noexec /tmp
-
 ```
 
 ```

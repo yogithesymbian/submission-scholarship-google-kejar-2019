@@ -63,7 +63,6 @@ class MoviesApiAdapter internal constructor(
     private var arrayListMoviesTemp = ArrayList<MoviesApiData>() // for search filter onQueryText
 
     companion object {
-        //limited recycler view item @later's will use pagination
         const val LIMIT = 10
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
@@ -217,12 +216,15 @@ class MoviesApiAdapter internal constructor(
 
                     val filterListener = ArrayList<MoviesApiData>()
                     for (row in arrayListMovies) {
-                        if (row.originalTitle.toLowerCase().contains(charStr.toLowerCase())) {
+
+                        val originalTitle = row.originalTitle.toLowerCase().contains(charStr.toLowerCase())
+                        val title = row.title.toLowerCase().contains(charStr.toLowerCase())
+
+                        if (title || originalTitle) {
                             filterListener.add(row)
                         }
                     }
                     filterListener // set item from result filter
-
                 }
 
                 val filterResult = FilterResults()

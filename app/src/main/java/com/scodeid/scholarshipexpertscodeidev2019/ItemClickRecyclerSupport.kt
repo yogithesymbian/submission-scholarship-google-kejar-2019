@@ -78,18 +78,5 @@ class ItemClickRecyclerSupport constructor(private var mRecyclerView: RecyclerVi
             }
             return recyclerSupport
         }
-//        fun addToFrag(viewNav: NavigationView): ItemClickRecyclerSupport {
-//            var support: ItemClickRecyclerSupport? = viewNav.getTag(R.id.item_click_support) as ItemClickRecyclerSupport?
-//            if (support == null) {
-//                support = ItemClickRecyclerSupport(viewNav)
-//            }
-//            return support
-//        }
-
-//        fun removeFrom(view: RecyclerView): CustomItemClickSupportK? {
-//            val support = view.getTag(R.id.item_click_support) as CustomItemClickSupportK?
-//            support?.detach(view)
-//            return support
-//        }
     }
 }

@@ -42,8 +42,6 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         helperModel = getInstance(applicationContext)
         helperModel.open()
 
-        //{button/add/edit/delete later's}
-
         favoriteAdapter = FavoriteAdapter(this)
         recycler_favorite_movie.adapter = favoriteAdapter
 
@@ -78,11 +76,6 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         super.onBackPressed()
         finish()
     }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-////        helperModel.close()
-//    }
 
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(recycler_favorite_movie, message, Snackbar.LENGTH_SHORT)
