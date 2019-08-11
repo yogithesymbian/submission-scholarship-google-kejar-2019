@@ -99,7 +99,7 @@ class MovieCatalogueDetailActivity : Activity() {
 
         verifyIntentFromHomeMovieCatalogue(movieDataParcel.title)
 
-        val string = "$movieDataParcel.title"
+        val string = movieDataParcel.title
         text_tv_movie_name.text = string
 
         //score is vote_average

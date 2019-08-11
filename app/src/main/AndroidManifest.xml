@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.scodeid.scholarshipexpertscodeidev2019">
-    <!--  -->
+
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- provider -->
+    <permission android:name="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
             android:allowBackup="true"
@@ -14,6 +17,25 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <!-- provider -->
+        <provider
+                android:name=".provider.FavMovieProvider"
+                android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
+                android:exported="true"
+                android:enabled="true"
+                android:readPermission="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
+                android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
+                />
+
+        <provider
+                android:name=".provider.FavTvProvider"
+                android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
+                android:exported="true"
+                android:enabled="true"
+                android:readPermission="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
+                android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
+                />
+        <!-- provider -->
         <activity android:name=".homeFavorite.MainFavoriteMovieRoomDeleteActivity">
         </activity>
         <activity android:name=".homeFavorite.MainFavoriteMovieRoomActivity">

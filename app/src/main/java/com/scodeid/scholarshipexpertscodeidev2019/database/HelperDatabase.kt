@@ -70,4 +70,5 @@ class HelperDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                     "${MovieColumns.VOTE_AVERAGE} INTEGER," +
                     "${MovieColumns.POSTER} TEXT)"
     }
+
 }

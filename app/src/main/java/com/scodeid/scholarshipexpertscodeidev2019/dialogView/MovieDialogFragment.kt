@@ -38,7 +38,4 @@ class MovieDialogFragment : DialogFragment() {
     companion object {
         val TAG_LOG: String = MovieDialogFragment::class.java.simpleName
     }
-
-
-
 }

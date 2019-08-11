@@ -4,34 +4,39 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.database.ContentObserver
+import android.database.Cursor
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieCallBack
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.HelperModel
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.HelperModel.Companion.getInstance
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieModel
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.movieMapCursorToArrayList
+import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieProvCallBack
+import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference
 
 class MainFavoriteMovieActivity : AppCompatActivity(),
-    LoadMovieCallBack {
+    LoadMovieProvCallBack {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
+        val TAG_LOG: String = MainFavoriteMovieActivity::class.java.simpleName
     }
-
-    private lateinit var helperModel: HelperModel
     private lateinit var favoriteAdapter: FavoriteAdapter
 
-    @SuppressLint("Recycle")
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_favorite)
@@ -39,37 +44,78 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         recycler_favorite_movie.layoutManager = LinearLayoutManager(this)
         recycler_favorite_movie.setHasFixedSize(true)
 
-        helperModel = getInstance(applicationContext)
-        helperModel.open()
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+        val myObserver = DataObserver(handler, this)
+        contentResolver.registerContentObserver(CONTENT_URI_MOVIE, true, myObserver)
 
         favoriteAdapter = FavoriteAdapter(this)
         recycler_favorite_movie.adapter = favoriteAdapter
 
         if (savedInstanceState == null) {
-            LoadNotesAsync(
-                helperModel,
+            LoadFavMovieAsync(
+                this,
                 this
             ).execute()
         } else {
-            val movieModels = savedInstanceState.getParcelableArrayList<MovieModel>(EXTRA_STATE)
-            if (movieModels != null) {
-                favoriteAdapter.listMovieModel = movieModels
+            val list = savedInstanceState.getParcelableArrayList<MovieProvModel>(EXTRA_STATE)
+            if (list != null) {
+                favoriteAdapter.setListMovie(list)
             }
         }
 
     }
 
+    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadMovieProvCallBack) :
+        AsyncTask<Void, Void, Cursor>() {
+
+        private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
+
+        private val weakReferenceCallBack: WeakReference<LoadMovieProvCallBack> = WeakReference(loadMovieProvCallBack)
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            weakReferenceCallBack.get()?.preExecute()
+            Log.d(TAG_LOG, "LoadAsync OnPreExecute")
+        }
+
+
+        override fun doInBackground(vararg voids: Void): Cursor? {
+            val context = weakReferenceContext.get()
+            Log.d(TAG_LOG, "LoadAsync doInBackground")
+            return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
+
+        }
+
+        override fun onPostExecute(cursor: Cursor) {
+            super.onPostExecute(cursor)
+            Log.d(TAG_LOG, "LoadAsync onPostExecute")
+            weakReferenceCallBack.get()?.postExecute(cursor)
+        }
+    }
+
+    class DataObserver(handler: Handler, internal val context: Context) : ContentObserver(handler) {
+
+        override fun onChange(selfChange: Boolean) {
+            super.onChange(selfChange)
+            LoadFavMovieAsync(context, context as LoadMovieProvCallBack).execute()
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (data != null) {
             if (requestCode == MainFavoriteMovieDetailActivity.REQUEST_UPDATE) {
                 if (resultCode == MainFavoriteMovieDetailActivity.RESULT_DELETE) {
                     val position = data.getIntExtra(MainFavoriteMovieDetailActivity.EXTRA_POSITION, 0)
                     favoriteAdapter.removeItemMovies(position)
-                    showSnackbarMessage("success delete item")
                 }
             }
+
         }
+
     }
 
     override fun onBackPressed() {
@@ -94,36 +140,22 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         }
     }
 
-    override fun postExecuteMovie(movieModel: ArrayList<MovieModel>) {
-        favoriteAdapter.listMovieModel = movieModel
+    override fun postExecute(cursor: Cursor) {
+
         frame_progress_favorite.visibility = View.GONE
         card_favorite.visibility = View.VISIBLE
+
+        Log.d(TAG_LOG, "onPostExecute")
+        val listNotes = movieMapCursorToArrayList(cursor)
+
+        if (listNotes.size > 0) favoriteAdapter.setListMovie(listNotes)
+        else {
+            favoriteAdapter.setListMovie(java.util.ArrayList())
+            showSnackbarMessage("Item is null")
+        }
     }
 
     override fun onPointerCaptureChanged(hasCapture: Boolean) {
-
-    }
-
-    private class LoadNotesAsync(helperModel: HelperModel, callBack: LoadMovieCallBack) :
-        AsyncTask<Void, Void, ArrayList<MovieModel>>() {
-
-        private val weakReferenceHelper: WeakReference<HelperModel> = WeakReference(helperModel)
-
-        private val weakReferenceCallBack: WeakReference<LoadMovieCallBack> = WeakReference(callBack)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            weakReferenceCallBack.get()?.preExecute()
-        }
-
-        override fun doInBackground(vararg voids: Void): ArrayList<MovieModel>? {
-            return weakReferenceHelper.get()?.getAllMovies()
-        }
-
-        override fun onPostExecute(movieModels: ArrayList<MovieModel>) {
-            super.onPostExecute(movieModels)
-            weakReferenceCallBack.get()?.postExecuteMovie(movieModels)
-        }
 
     }
 }

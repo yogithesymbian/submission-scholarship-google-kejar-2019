@@ -4,6 +4,8 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.database
 
+import android.database.Cursor
+import android.net.Uri
 import android.provider.BaseColumns
 
 /**
@@ -30,7 +32,12 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
  */
 object ContractDatabase {
-    // Table contents are grouped together in an anonymous object.
+
+    // content provider
+    const val AUTHORITY = "com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
+    private const val SCHEME = "content"
+    // ==================
+
     object MovieColumns : BaseColumns {
         // table name
         const val TABLE_NAME_MOVIE = "table_movies"
@@ -44,5 +51,30 @@ object ContractDatabase {
         const val VOTE_AVERAGE = "vote_average"
 
         const val POSTER = "poster"
+
+        // content provider
+        val CONTENT_URI_MOVIE: Uri = Uri.Builder().scheme(SCHEME)
+            .authority(AUTHORITY)
+            .appendPath(TABLE_NAME_MOVIE)
+            .build()
+
+        val CONTENT_URI_TV: Uri = Uri.Builder().scheme(SCHEME)
+            .authority(AUTHORITY)
+            .appendPath(TABLE_NAME_TV)
+            .build()
+        // ==================
+
+
+        fun getColumnString(cursor: Cursor, columnName: String): String {
+            return cursor.getString(cursor.getColumnIndex(columnName))
+        }
+
+        fun getColumnInt(cursor: Cursor, columnName: String): Int {
+            return cursor.getInt(cursor.getColumnIndex(columnName))
+        }
+
+        fun getColumnLong(cursor: Cursor, columnName: String): Long {
+            return cursor.getLong(cursor.getColumnIndex(columnName))
+        }
     }
 }

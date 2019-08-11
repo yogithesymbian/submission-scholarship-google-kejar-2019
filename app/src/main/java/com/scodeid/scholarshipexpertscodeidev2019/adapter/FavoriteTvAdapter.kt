@@ -8,7 +8,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.provider.BaseColumns._ID
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,14 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
-import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvDetailActivity
-import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteAdapter.Companion.num1
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
-import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvModel
+import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
 
@@ -59,22 +58,28 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
     companion object {
         val TAG_LOG: String = FavoriteTvAdapter::class.java.simpleName
     }
+
     // will save all data
-    var listTvModel = ArrayList<TvModel>()
+    var listTvModel = ArrayList<TvProvModel>()
         set(listTv) {
-            if (listTv.size > 0) {
-                this.listTvModel.clear()
-            }
+            if (listTv.size > 0) this.listTvModel.clear()
             this.listTvModel.addAll(listTv)
             notifyDataSetChanged()
         }
+
+
+    fun setListTv(listTv: ArrayList<TvProvModel>) {
+        if (listTv.size > 0) this.listTvModel.clear()
+        this.listTvModel.addAll(listTv)
+        notifyDataSetChanged()
+    }
 
     /**
      * add inside function favorite code developer.google android
      * remove/delete
      */
 
-    private fun removeItemTv(position: Int) {
+    fun removeItemTv(position: Int) {
         this.listTvModel.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listTvModel.size)
@@ -84,7 +89,13 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
      * implement of recycler
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteTvViewHolder {
-        return FavoriteTvViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows_favorite, parent, false))
+        return FavoriteTvViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_movies_tv_shows_favorite,
+                parent,
+                false
+            )
+        )
     }
 
     @SuppressLint("PrivateResource")
@@ -112,23 +123,28 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
                     CustomOnItemClickListener.OnItemClickCallback {
                     override fun onItemClicked(view: View, position: Int) {
                         val intent = Intent(activity, MainFavoriteTvDetailActivity::class.java)
+
+                        val uri = Uri.parse("$CONTENT_URI_MOVIE/${listTvModel[position].id}")
+                        intent.data = uri
+
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, position)
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_TV, listTvModel[position])
-                        activity.startActivityForResult(intent, MainFavoriteTvDetailActivity.REQUEST_UPDATE)
+
+                        activity.startActivityForResult(intent, MainFavoriteMovieDetailActivity.REQUEST_UPDATE)
                     }
                 })
         )
 
         val unFavorite = holder.itemView.checkbox_fav_tv
         unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
-
-            val helperDatabase = HelperDatabase(context)
-            val db = helperDatabase.writableDatabase
-
-            if (position == 0) db.delete(TABLE_NAME_TV, "$_ID=?$num1", null)
-            else db.delete(TABLE_NAME_TV, "$_ID=?$position", null)
-            db.execSQL("DELETE FROM $TABLE_NAME_TV WHERE $_ID='$id'")
-            db.close()
+            //
+//            val helperDatabase = HelperDatabase(context)
+//            val db = helperDatabase.writableDatabase
+//
+//            if (position == 0) db.delete(TABLE_NAME_TV, "$_ID=?$num1", null)
+//            else db.delete(TABLE_NAME_TV, "$_ID=?$position", null)
+//            db.execSQL("DELETE FROM $TABLE_NAME_TV WHERE $_ID='$id'")
+//            db.close()
 
             buttonView.startAnimation(animation)
             if (isChecked) {

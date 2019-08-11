@@ -2,21 +2,17 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.model.favorite
+package com.scodeid.scholarshipexpertscodeidev2019.helper
 
-import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.provider.BaseColumns
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.DESCRIPTION
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.POSTER
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.RELEASE
+import android.provider.BaseColumns._ID
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TITLE
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.VOTE_AVERAGE
 import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
 
 //import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.Companion.DESCRIPTION
@@ -65,9 +61,7 @@ private constructor(context: Context) {
         private lateinit var helperDatabase: HelperDatabase
         private lateinit var INSTANCE: HelperModel
         private lateinit var sqLiteDatabase: SQLiteDatabase
-        /**
-         * INITIALIZE DATABASE LATER'S
-         */
+
         fun getInstance(context: Context): HelperModel {
             synchronized(SQLiteOpenHelper::class.java) {
                 INSTANCE =
@@ -89,7 +83,6 @@ private constructor(context: Context) {
         sqLiteDatabase = helperDatabase.writableDatabase
     }
 
-    @Suppress("Unused")
     fun close() {
         // dunno why get re opened object i was try and catch /final y still get the error at cursor close
         // not properly on close , app not for close , but just throw an error then click back and try delete item is work
@@ -103,72 +96,54 @@ private constructor(context: Context) {
 
     //**************favorite action**************************
 
-    @SuppressLint("Recycle")
-    fun getAllMovies(): ArrayList<MovieModel> {
-        val arrayList = ArrayList<MovieModel>()
-        val cursor = sqLiteDatabase.query(
-            DATABASE_TABLE_MOVIE,
-            null, null, null, null, null,
-            BaseColumns._ID + " ASC", null
-        )
-        cursor.moveToFirst()
-        var movieModel: MovieModel
-        if (cursor.count > 0) {
-            do {
-                movieModel = MovieModel(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(RELEASE)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(DESCRIPTION)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(POSTER))
-                )
-
-                arrayList.add(movieModel)
-                cursor.moveToNext()
-            } while (!cursor.isAfterLast)
-        }
-        cursor.close()
-        return arrayList
-    }
-
-    @SuppressLint("Recycle")
-    fun getAllTv(): ArrayList<TvModel> {
-        val arrayList = ArrayList<TvModel>()
-        val cursor = sqLiteDatabase.query(
-            DATABASE_TABLE_TV,
-            null, null, null, null, null,
-            BaseColumns._ID + " ASC", null
-        )
-        cursor.moveToFirst()
-        var tvModel: TvModel
-        if (cursor.count > 0) {
-            do {
-                tvModel = TvModel(
-                    cursor.getInt(cursor.getColumnIndexOrThrow(BaseColumns._ID)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(TITLE)),
-                    cursor.getInt(cursor.getColumnIndexOrThrow(VOTE_AVERAGE)),
-                    "" + cursor.getString(cursor.getColumnIndexOrThrow(POSTER))
-                )
-
-                arrayList.add(tvModel)
-                cursor.moveToNext()
-            } while (!cursor.isAfterLast)
-        }
-        cursor.close()
-        return arrayList
-    }
-
     // delete data movie
     @Suppress("Unused")
     fun deleteMovie(id: Int): Int {
-        return sqLiteDatabase.delete(TABLE_NAME_MOVIE, BaseColumns._ID + " = '" + id + "'", null)
+        return sqLiteDatabase.delete(TABLE_NAME_MOVIE, "$_ID = '$id'", null)
     }
 
     // delete data TV
     @Suppress("Unused")
     fun deleteTv(id: Int): Int {
-        return sqLiteDatabase.delete(TABLE_NAME_TV, BaseColumns._ID + " = '" + id + "'", null)
+        return sqLiteDatabase.delete(TABLE_NAME_TV, "$_ID = '$id'", null)
     }
 
+    /**
+     * MOVIE_FUNCTION
+     */
+    fun queryByIdProviderMovie(id: String): Cursor {
+        return sqLiteDatabase.query(DATABASE_TABLE_MOVIE, null, "$_ID = ?", arrayOf(id), null, null, null, null)
+    }
+
+    fun queryProviderMovie(): Cursor {
+        return sqLiteDatabase.query(DATABASE_TABLE_MOVIE, null, null, null, null, null, "$_ID ASC")
+    }
+
+    fun insertProviderMovie(values: ContentValues): Long {
+        return sqLiteDatabase.insert(DATABASE_TABLE_MOVIE, null, values)
+    }
+
+    fun deleteProviderMovie(id: String): Int {
+        return sqLiteDatabase.delete(DATABASE_TABLE_MOVIE, "$_ID = ?", arrayOf(id))
+    }
+
+    /**
+     * TV_FUNCTION
+     */
+    fun queryByIdProviderTv(id: String): Cursor {
+        return sqLiteDatabase.query(DATABASE_TABLE_TV, null, "$_ID = ?", arrayOf(id), null, null, null, null)
+    }
+
+    fun queryProviderTv(): Cursor {
+        return sqLiteDatabase.query(DATABASE_TABLE_TV, null, null, null, null, null, "$_ID ASC")
+    }
+
+    fun insertProviderTv(values: ContentValues): Long {
+        return sqLiteDatabase.insert(DATABASE_TABLE_TV, null, values)
+    }
+
+    fun deleteProviderTv(id: String): Int {
+        return sqLiteDatabase.delete(DATABASE_TABLE_TV, "$_ID = ?", arrayOf(id))
+    }
 
 }

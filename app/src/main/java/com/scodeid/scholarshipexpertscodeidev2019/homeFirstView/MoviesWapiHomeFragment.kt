@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
@@ -20,8 +19,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MoviesApiAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.DESCRIPTION
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.POSTER
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.RELEASE
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TITLE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
@@ -107,33 +109,14 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 //                poster)
 //            movieRoomView.insert(movieRoomModel)
 
-            val helperDatabase = HelperDatabase(context)
+            val values = ContentValues()
 
-            // Gets the data repository in write mode
-            val db = helperDatabase.writableDatabase
+            values.put(TITLE, title)
+            values.put(RELEASE, release)
+            values.put(DESCRIPTION, description)
+            values.put(POSTER, poster)
 
-            // Create a new map of values, where column names are the keys
-            val values = ContentValues().apply {
-                put(ContractDatabase.MovieColumns.RELEASE, release)
-                put(ContractDatabase.MovieColumns.TITLE, title)
-                put(ContractDatabase.MovieColumns.DESCRIPTION, description)
-                put(ContractDatabase.MovieColumns.POSTER, poster)
-            }
-
-            val insert = db?.insert(ContractDatabase.MovieColumns.TABLE_NAME_MOVIE, null, values)
-            if (insert != null) {
-                if (insert > 0) {
-                    Toast.makeText(
-                        context,
-                        context.getString(R.string.toast_sql_lite_insert_success),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                } else {
-                    Toast.makeText(context, context.getString(R.string.toast_sql_lite_insert_fail), Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
+            context.contentResolver.insert(CONTENT_URI_MOVIE, values)
         }
         // end of store to database
     }

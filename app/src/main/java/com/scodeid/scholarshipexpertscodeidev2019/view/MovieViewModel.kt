@@ -109,8 +109,8 @@ class MovieViewModel : ViewModel(){
                     override fun onError(anError: ANError?) {
 
                         Log.d("ON_ERROR",anError?.errorDetail.toString())
-                        val intent = Intent(context, NoInternetConnActivity::class.java)
-                        context?.startActivity(intent)
+//                        val intent = Intent(context, NoInternetConnActivity::class.java)
+//                        context?.startActivity(intent)
 
 
                         // received error from server

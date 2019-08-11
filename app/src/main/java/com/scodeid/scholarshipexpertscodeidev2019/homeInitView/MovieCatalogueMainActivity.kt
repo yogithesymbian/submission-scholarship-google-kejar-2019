@@ -402,7 +402,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          */
         fab_fav_movie.setOnClickListener {
             val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieActivity::class.java)
-//            val intent = Intent(this@MovieCatalogueMainActivity, MainFavoriteMovieRoomActivity::class.java)
             startActivity(intent)
         }
         fab_fav_tv.setOnClickListener {

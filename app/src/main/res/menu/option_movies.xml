@@ -11,8 +11,9 @@
             android:id="@+id/option_search"
             android:title="@string/option_search"
             android:icon="@drawable/ic_menu_search_black_24dp"
-            app:showAsAction="collapseActionView|always"
-            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+            app:showAsAction="ifRoom|collapseActionView"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"
+            />
     <!--need set icon then replace with image on layout -->
     <!--i can't use tools cause will show the text-->
     <item
