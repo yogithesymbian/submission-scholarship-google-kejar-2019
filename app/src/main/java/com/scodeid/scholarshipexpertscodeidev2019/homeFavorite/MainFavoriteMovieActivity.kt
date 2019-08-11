@@ -5,7 +5,6 @@
 package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
 
 import android.content.Context
-import android.content.Intent
 import android.database.ContentObserver
 import android.database.Cursor
 import android.os.AsyncTask
@@ -136,7 +135,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         if (listNotes.size > 0) favoriteAdapter.setListMovie(listNotes)
         else {
             favoriteAdapter.setListMovie(java.util.ArrayList())
-            showSnackbarMessage("Item is null")
+//            showSnackbarMessage("Item is null")
         }
     }
 

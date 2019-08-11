@@ -63,7 +63,7 @@ class TvProvModel : Parcelable {
         this.voteAverage =
             ContractDatabase.MovieColumns.getColumnInt(cursor, ContractDatabase.MovieColumns.VOTE_AVERAGE)
         this.posterImage =
-            ContractDatabase.MovieColumns.getColumnString(cursor, ContractDatabase.MovieColumns.DESCRIPTION)
+            ContractDatabase.MovieColumns.getColumnString(cursor, ContractDatabase.MovieColumns.POSTER)
     }
 
     constructor(id: Int, title: String, voteAverage: Int, posterImage: String) {

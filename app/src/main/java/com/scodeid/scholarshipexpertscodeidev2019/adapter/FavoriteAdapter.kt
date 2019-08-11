@@ -57,6 +57,9 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     companion object {
         val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
     }
+    init {
+        setHasStableIds(true)
+    }
 
     // will save all data
     var listMovieModel = ArrayList<MovieProvModel>()
@@ -77,7 +80,7 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
      * remove/delete
      */
 
-    fun removeItemMovies(position: Int) {
+    private fun removeItemMovies(position: Int) {
         this.listMovieModel.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listMovieModel.size)
@@ -175,6 +178,10 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
 
     override fun getItemCount(): Int {
         return this.listMovieModel.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

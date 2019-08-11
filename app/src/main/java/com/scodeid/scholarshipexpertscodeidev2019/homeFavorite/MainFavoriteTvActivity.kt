@@ -5,7 +5,6 @@
 package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
 
 import android.content.Context
-import android.content.Intent
 import android.database.ContentObserver
 import android.database.Cursor
 import android.os.AsyncTask
@@ -68,7 +67,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
     }
 
     private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadTvProvCallBack) :
-        AsyncTask<Void, Void, Cursor?>() {
+        AsyncTask<Void, Void, Cursor>() {
 
         private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
 
@@ -88,14 +87,10 @@ class MainFavoriteTvActivity : AppCompatActivity(),
 
         }
 
-        override fun onPostExecute(result: Cursor?) {
-            super.onPostExecute(result)
+        override fun onPostExecute(cursor: Cursor) {
+            super.onPostExecute(cursor)
             Log.d(TAG_LOG, "LoadAsync onPostExecute")
-            if (result != null) {
-                weakReferenceCallBack.get()?.postExecute(result)
-            } else {
-                result?.close()
-            }
+            weakReferenceCallBack.get()?.postExecute(cursor)
         }
     }
 
@@ -107,20 +102,6 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (data != null) {
-            if (requestCode == MainFavoriteTvDetailActivity.REQUEST_UPDATE) {
-                if (resultCode == MainFavoriteTvDetailActivity.RESULT_DELETE) {
-                    val position = data.getIntExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, 0)
-                    favoriteAdapter.removeItemTv(position)
-                }
-            }
-
-        }
-
-    }
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -155,7 +136,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         if (listNotes.size > 0) favoriteAdapter.setListTv(listNotes)
         else {
             favoriteAdapter.setListTv(java.util.ArrayList())
-            showSnackbarMessage("Item is null")
+//            showSnackbarMessage("Item is null")
         }
     }
 

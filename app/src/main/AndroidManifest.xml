@@ -19,7 +19,7 @@
             tools:ignore="GoogleAppIndexingWarning">
         <!-- provider -->
         <provider
-                android:name=".provider.FavMovieProvider"
+                android:name=".provider.FavoriteProvider"
                 android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
                 android:exported="true"
                 android:enabled="true"
@@ -27,14 +27,6 @@
                 android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
                 />
 
-        <provider
-                android:name=".provider.FavTvProvider"
-                android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
-                android:exported="true"
-                android:enabled="true"
-                android:readPermission="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
-                android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
-                />
         <!-- provider -->
         <activity android:name=".homeFavorite.MainFavoriteMovieRoomDeleteActivity">
         </activity>

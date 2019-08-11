@@ -23,7 +23,6 @@ import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
-import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
@@ -61,6 +60,10 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         val TAG_LOG: String = FavoriteTvAdapter::class.java.simpleName
     }
 
+    init {
+        setHasStableIds(true)
+    }
+
     // will save all data
     var listTvModel = ArrayList<TvProvModel>()
         set(listTv) {
@@ -81,7 +84,7 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
      * remove/delete
      */
 
-    fun removeItemTv(position: Int) {
+    private fun removeItemTv(position: Int) {
         this.listTvModel.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listTvModel.size)
@@ -124,12 +127,13 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
                 object :
                     CustomOnItemClickListener.OnItemClickCallback {
                     override fun onItemClicked(view: View, position: Int) {
-
                         val intent = Intent(activity, MainFavoriteTvDetailActivity::class.java)
                         intent.data = uri
+
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, position)
                         intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_TV, listTvModel[position])
-                        activity.startActivityForResult(intent, MainFavoriteMovieDetailActivity.REQUEST_UPDATE)
+
+                        activity.startActivityForResult(intent, MainFavoriteTvDetailActivity.REQUEST_UPDATE)
 
                     }
                 })
@@ -180,6 +184,10 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
 
     override fun getItemCount(): Int {
         return this.listTvModel.size
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     inner class FavoriteTvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

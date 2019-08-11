@@ -13,15 +13,19 @@ import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.AUTHORITY
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
 import com.scodeid.scholarshipexpertscodeidev2019.helper.HelperModel
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import java.util.*
 
+
 /**
  * @author
- * Created by scode on 11,August,2019
+ * Created by scode on 10,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -44,7 +48,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 @RequiresApi(api = Build.VERSION_CODES.N)
-class FavTvProvider : ContentProvider() {
+class FavoriteProvider : ContentProvider() {
 
     private lateinit var helperModel: HelperModel
 
@@ -63,10 +67,12 @@ class FavTvProvider : ContentProvider() {
     ): Cursor? {
         helperModel.open()
         val cursor: Cursor?
-        when (uriMatcher.match(uri)) {
-            TV -> cursor = helperModel.queryProviderTv()
-            TV_ID -> cursor = helperModel.queryByIdProviderTv(uri.lastPathSegment)
-            else -> cursor = null
+        cursor = when (uriMatcher.match(uri)) {
+            MOVIE -> helperModel.queryProviderMovie()
+            MOVIE_ID -> helperModel.queryByIdProviderMovie(uri.lastPathSegment)
+            TV -> helperModel.queryProviderTv()
+            TV_ID -> helperModel.queryByIdProviderTv(uri.lastPathSegment)
+            else -> throw IllegalArgumentException("Unknown URI")
         }
         return cursor
     }
@@ -77,26 +83,43 @@ class FavTvProvider : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues): Uri? {
         helperModel.open()
-        val added: Long = when (uriMatcher.match(uri)) {
-            TV -> helperModel.insertProviderTv(values)
-            else -> 0
+        var contentUri = ""
+        val added: Unit = when (uriMatcher.match(uri)) {
+            MOVIE -> {
+                helperModel.insertProviderMovie(values)
+                contentUri = CONTENT_URI_MOVIE.toString()
+            }
+            TV -> {
+                helperModel.insertProviderTv(values)
+                contentUri = CONTENT_URI_MOVIE.toString()
+            }
+            else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
         Objects.requireNonNull(context).contentResolver.notifyChange(
-            CONTENT_URI_TV, MainFavoriteTvActivity.DataObserverTv(
+            CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
                 Handler(),
                 context
             )
         )
-        return Uri.parse("$CONTENT_URI_TV/$added")
+
+        return Uri.parse("$contentUri.toUri()/$added")
+
     }
 
 
-    override fun delete(uri: Uri, selection: String, selectionArgs: Array<String>): Int {
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
         helperModel.open()
         val delete: Int = when (uriMatcher.match(uri)) {
+            MOVIE_ID -> helperModel.deleteProviderMovie(uri.lastPathSegment)
             TV_ID -> helperModel.deleteProviderTv(uri.lastPathSegment)
-            else -> 0
+            else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
+        Objects.requireNonNull(context).contentResolver.notifyChange(
+            CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
+                Handler(),
+                context
+            )
+        )
         Objects.requireNonNull(context).contentResolver.notifyChange(
             CONTENT_URI_TV, MainFavoriteTvActivity.DataObserverTv(
                 Handler(),
@@ -112,13 +135,20 @@ class FavTvProvider : ContentProvider() {
 
     companion object {
 
+        private const val MOVIE = 1
+        private const val MOVIE_ID = 2
         private const val TV = 3
         private const val TV_ID = 4
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
         init {
+
+            uriMatcher.addURI(AUTHORITY, TABLE_NAME_MOVIE, MOVIE)
+            uriMatcher.addURI(AUTHORITY, "$TABLE_NAME_MOVIE/#", MOVIE_ID)
+
             uriMatcher.addURI(AUTHORITY, TABLE_NAME_TV, TV)
             uriMatcher.addURI(AUTHORITY, "$TABLE_NAME_TV/#", TV_ID)
+
         }
     }
 

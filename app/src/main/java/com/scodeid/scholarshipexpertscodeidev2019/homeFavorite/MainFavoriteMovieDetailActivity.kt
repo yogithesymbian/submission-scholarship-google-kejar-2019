@@ -62,7 +62,6 @@ class MainFavoriteMovieDetailActivity : AppCompatActivity() {
             val cursor = contentResolver.query(uri, null, null, null, null)
             if (cursor != null) {
                 if (cursor.moveToFirst()) movieProvModel = MovieProvModel(cursor)
-                cursor.close()
             }
         }
 

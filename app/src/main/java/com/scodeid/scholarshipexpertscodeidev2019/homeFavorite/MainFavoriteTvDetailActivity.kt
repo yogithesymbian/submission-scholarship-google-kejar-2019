@@ -7,6 +7,7 @@ package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -25,7 +26,6 @@ class MainFavoriteTvDetailActivity : AppCompatActivity() {
         const val EXTRA_POSITION = "extra_position"
 
         const val REQUEST_UPDATE = 200
-        const val RESULT_DELETE = 301
 
         val TAG_LOG: String = MainFavoriteTvDetailActivity::class.java.simpleName
     }
@@ -40,7 +40,7 @@ class MainFavoriteTvDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_favorite_tv_detail)
 
-        tvProvModel = intent.getParcelableExtra<TvProvModel>(EXTRA_TV)
+        tvProvModel = intent.getParcelableExtra<Parcelable>(EXTRA_TV) as TvProvModel?
 
         if (tvProvModel != null) position = intent.getIntExtra(EXTRA_POSITION, 0)
         else tvProvModel = TvProvModel()
@@ -62,7 +62,6 @@ class MainFavoriteTvDetailActivity : AppCompatActivity() {
             val cursor = contentResolver.query(uri, null, null, null, null)
             if (cursor != null) {
                 if (cursor.moveToFirst()) tvProvModel = TvProvModel(cursor)
-                cursor.close()
             }
         }
 
