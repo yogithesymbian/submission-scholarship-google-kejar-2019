@@ -101,6 +101,12 @@ class FavoriteProvider : ContentProvider() {
                 context
             )
         )
+        Objects.requireNonNull(context).contentResolver.notifyChange(
+            CONTENT_URI_MOVIE, MainFavoriteTvActivity.DataObserverTv(
+                Handler(),
+                context
+            )
+        )
 
         return Uri.parse("$contentUri.toUri()/$added")
 
