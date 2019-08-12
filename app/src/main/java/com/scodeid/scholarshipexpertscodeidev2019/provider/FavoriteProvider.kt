@@ -83,7 +83,7 @@ class FavoriteProvider : ContentProvider() {
 
     override fun insert(uri: Uri, values: ContentValues): Uri? {
         helperModel.open()
-        var contentUri = ""
+        val contentUri: String
         val added: Unit = when (uriMatcher.match(uri)) {
             MOVIE -> {
                 helperModel.insertProviderMovie(values)

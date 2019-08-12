@@ -8,10 +8,12 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
+import android.provider.BaseColumns._ID
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isEmpty
 import androidx.lifecycle.Observer
@@ -28,6 +30,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
+import java.io.IOException
 
 
 /**
@@ -109,13 +112,20 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 //            movieRoomView.insert(movieRoomModel)
 
             val values = ContentValues()
-
+            values.put(_ID, id)
             values.put(TITLE, title)
             values.put(RELEASE, release)
             values.put(DESCRIPTION, description)
             values.put(POSTER, poster)
 
-            context.contentResolver.insert(CONTENT_URI_MOVIE, values)
+            try {
+                context.contentResolver.insert(CONTENT_URI_MOVIE, values)
+                Toast.makeText(context, context.resources.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+                    .show()
+            } catch (e : IOException) {
+                Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
         // end of store to database
     }

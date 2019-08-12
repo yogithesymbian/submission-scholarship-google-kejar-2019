@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +60,8 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
             values.put(POSTER, poster)
 
             context.contentResolver.insert(CONTENT_URI_TV, values)
+            Toast.makeText(context, context.resources.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
