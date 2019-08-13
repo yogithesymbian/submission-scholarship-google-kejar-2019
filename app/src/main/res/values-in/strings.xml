@@ -215,5 +215,6 @@
     <string name="option_hint_tv">cari TV SHOW</string>
     <string name="view_model_search_keyword">Kata Kunci :</string>
     <string name="view_model_search_info">tidak ditemukan</string>
+    <string name="movie_catalogue_main_activity_do_subscribe">you had been setting daily reminder</string>
 </resources>
 

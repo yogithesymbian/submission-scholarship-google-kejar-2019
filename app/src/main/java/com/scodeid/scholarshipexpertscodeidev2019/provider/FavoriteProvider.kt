@@ -20,7 +20,6 @@ import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.Movi
 import com.scodeid.scholarshipexpertscodeidev2019.helper.HelperModel
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
-import java.util.*
 
 
 /**
@@ -95,13 +94,13 @@ class FavoriteProvider : ContentProvider() {
             }
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
-        Objects.requireNonNull(context).contentResolver.notifyChange(
+        context?.contentResolver?.notifyChange(
             CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
                 Handler(),
                 context
             )
         )
-        Objects.requireNonNull(context).contentResolver.notifyChange(
+        context?.contentResolver?.notifyChange(
             CONTENT_URI_MOVIE, MainFavoriteTvActivity.DataObserverTv(
                 Handler(),
                 context
@@ -120,13 +119,13 @@ class FavoriteProvider : ContentProvider() {
             TV_ID -> helperModel.deleteProviderTv(uri.lastPathSegment)
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
-        Objects.requireNonNull(context).contentResolver.notifyChange(
+        context?.contentResolver?.notifyChange(
             CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
                 Handler(),
                 context
             )
         )
-        Objects.requireNonNull(context).contentResolver.notifyChange(
+        context?.contentResolver?.notifyChange(
             CONTENT_URI_TV, MainFavoriteTvActivity.DataObserverTv(
                 Handler(),
                 context

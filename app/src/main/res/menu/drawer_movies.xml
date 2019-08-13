@@ -12,6 +12,11 @@
     <item android:title="@string/menu_drawer_movies_setting">
         <menu>
             <item
+                    android:id="@+id/nav_notification_reminder"
+                    android:icon="@drawable/ic_menu_notifications_black_24dp"
+                    android:title="Daily Reminder"
+                    />
+            <item
                 android:id="@+id/nav_language"
                 android:icon="@drawable/ic_language_black_24dp"
                 android:title="@string/menu_drawer_movies_language"

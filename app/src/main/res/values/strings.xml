@@ -12,13 +12,6 @@
 
     <string name="main_date_year_2019"> © 2018 – 2019</string>
 
-
-    <!--
-    =======================================
-    for submission string
-    image later\u0027s will online load
-    =======================================
-    -->
     <string name="title_home">Home</string>
     <string name="title_dashboard" tools:keep="@string/title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -39,17 +32,6 @@
     <string name="menu_navigation_bottom_movies_tv_show">Tv Show</string>
     <string name="menu_drawer_movies_setting">Setting</string>
     <string name="menu_drawer_movies_language">Language</string>
-
-
-    <!-- for submission 2 localization
-    ________________________________________________________________________
-            _               _         _               ____
-        ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   |___ \
-        / __| | | | \u0027_ \| \u0027_ ` _ \| / __/ __| |/ _ \| \u0027_ \    __) |
-        \__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | |  / __/
-        |___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |_____|
-    _________________________________________________________________________
-    -->
 
     <string name="main_author_name" tools:keep="@string/main_author_name">Yogi Arif Widodo</string>
     <!--
@@ -195,6 +177,34 @@
     <string name="option_hint_tv">Search TV SHOW</string>
     <string name="view_model_search_keyword">Keywords :</string>
     <string name="view_model_search_info">is not found</string>
+
+    <!--setting-->
+    <string name="title_activity_settings_reminder" translatable="false">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header" translatable="false">Messages</string>
+    <string name="sync_header" translatable="false">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title" translatable="false">Your signature</string>
+    <string name="reply_title" translatable="false">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title" translatable="false">Sync email periodically</string>
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
+
+    <!---->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="false">News</string>
+    <string name="notification_channel_id_1" translatable="false">fcm_channel1</string>
+    <string name="notification_channel_id_2" translatable="false">fcm_channel2</string>
+    <string name="notification_channel_name_1" translatable="false">DailyToken</string>
+    <string name="notification_channel_name_2" translatable="false">DailyRelease</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+    <string name="msg_subscribed" translatable="false">Subscribed to </string>
+    <string name="movie_catalogue_main_activity_do_subscribe">you had been setting daily reminder</string>
 
 
 </resources>

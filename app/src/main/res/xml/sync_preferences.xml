@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2019. SCODEID
+  -->
+
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+
+    <SwitchPreferenceCompat
+            app:key="key_daily_reminder"
+            app:title="Daily Token"
+            app:summaryOn="Now you always get token at 07.00 AM"
+            app:summaryOff="Turn on for get a token. Token can be only use at 07.00 AM - 08.00 AM GMT+08"
+            app:defaultValue="false"
+            />
+
+    <SwitchPreferenceCompat
+            app:key="key_daily_reminder_release"
+            app:title="Notification Release Movie Today"
+            app:summaryOn="Now you always get the information"
+            app:summaryOff="Turn on for get information about release movie today, at 08.00 AM GMT+08"
+            app:defaultValue="false"
+            app:dependency="key_daily_reminder"/>
+
+</androidx.preference.PreferenceScreen>

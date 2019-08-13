@@ -15,6 +15,8 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -34,12 +36,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
+import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MainSectionsPagerAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
@@ -47,13 +52,16 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvAct
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
-import com.scodeid.scholarshipexpertscodeidev2019.utils.MOVIE
-import com.scodeid.scholarshipexpertscodeidev2019.utils.TV_SHOW
+import com.scodeid.scholarshipexpertscodeidev2019.setting.SettingsReminderActivity
+import com.scodeid.scholarshipexpertscodeidev2019.utils.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_content.*
 import kotlinx.android.synthetic.main.nav_header_home_movies.*
 
+/**
+ * Build with File->New->Activity->Setting Activity
+ */
 class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
@@ -61,12 +69,17 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         var statusActivity = ""
         private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
     }
+    // for once run if already subscribe the code will not repeat on process
+    private var isSubscribeCh1 : Boolean = false
+    private var isSubscribeCh2 : Boolean = false
+    private var isSubscribeCh11 = ""
+//    private var isSubscribeCh22 : Boolean = false
 
+    var clicked: Boolean = false
 
     /**
      * BOTTOM NAVIGATION
      */
-    var clicked: Boolean = false
     private lateinit var mMainSectionsPagerAdapter: MainSectionsPagerAdapter
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -176,6 +189,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             R.id.nav_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
+            R.id.nav_notification_reminder -> {
+//                startActivity(Intent(this@MovieCatalogueMainActivity, TestingActivity::class.java))
+                startActivity(Intent(this@MovieCatalogueMainActivity, SettingsReminderActivity::class.java))
+            }
         }
         // close the drawer with anim start
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -192,6 +209,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             stateChangeVisible,
             statusActivity
         )
+        outState.putString(
+            isSubscribeCh11,
+            isSubscribeCh1.toString()
+        )
     }
 
     /**
@@ -201,19 +222,65 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_catalogue_main)
-
         setSupportActionBar(toolbarManual)
 
 
-//        moviesApiAdapter = MoviesApiAdapter(this, arrayListMovie)
-
         if (savedInstanceState != null) {
             val onChangeVisible = savedInstanceState.getString(stateChangeVisible)
-            if (onChangeVisible != null) // NPE ? no , i think this good for avoid annotation
-            {
+            if (onChangeVisible != null) {
                 statusActivity = onChangeVisible
             }
+            val onIsSubscribe = savedInstanceState.getString(isSubscribeCh11)
+            if (onIsSubscribe != null) {
+                isSubscribeCh1 = onIsSubscribe.toBoolean()
+                Log.d(TAG_LOG,"Subscribe {instanceState} $isSubscribeCh1")
+            }
+
         }
+        /**
+         * sharedPreference checking on main view
+         * From daily Reminder
+         */
+        val preferenceManager = PreferenceManager(this)
+
+        val channelId1 = getString(R.string.notification_channel_id_1)
+        val channelName1 = getString(R.string.notification_channel_name_1)
+
+        val channelId2 = getString(R.string.notification_channel_id_2)
+        val channelName2 = getString(R.string.notification_channel_name_2)
+
+        Log.d(TAG_LOG,"Subscribe {onCreate} is $isSubscribeCh1")
+
+        isSubscribeCh1 = if (
+            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER, false) ||
+            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER_RELEASE, false)
+        ){
+            Log.d(TAG_LOG,"Subscribe on daily reminder")
+
+            if (!isSubscribeCh1) { //true
+                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
+
+                initForSubscribe(channelId1, channelName1)
+                doSubscribe(SUBSCRIBE_TOPIC_DAILY)
+
+                initForSubscribe(channelId2, channelName2)
+                doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
+
+                true
+            } else {
+                Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
+                true
+            }
+
+        } else {
+            Log.d(TAG_LOG,"Subscribe of daily reminder")
+            doUnSubscribe()
+            false
+        }
+
+        /**
+         * end of sharedPreference check
+         */
 
         /**
          *  NAVIGATION BOTTOM LISTENER
@@ -413,6 +480,46 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          */
 
     }
+    private fun doUnSubscribe() {
+        // un_subscribe with a topic null
+        FirebaseMessaging.getInstance().subscribeToTopic(UN_SUBSCRIBE)
+    }
+
+    private fun doSubscribe(subscribeTopic: String) {
+        // subscribe with a topic
+        FirebaseMessaging.getInstance().subscribeToTopic(subscribeTopic)
+
+        // log the token
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
+            val deviceToken = instanceIdResult.token
+            Log.d(TAG_LOG, """ 
+                ________________________________
+                Subscribe Topic is $subscribeTopic 
+                token is $deviceToken
+                
+            """.trimIndent())
+        }
+    }
+
+    private fun initForSubscribe(channelId: String, channelName: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager.createNotificationChannel(
+                NotificationChannel(
+                    channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW
+                )
+            )
+        }
+
+        if (intent.extras != null) {
+            for (key in intent.extras!!.keySet()) {
+                val value = intent.extras!!.get(key)
+                Log.d(TAG_LOG, "Key: $key Value: $value")
+            }
+        }
+    }
 
     /**
      * End Of OnCreate
@@ -425,7 +532,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         val colorTo = ResourcesCompat.getColor(resources, colorToColor, theme)
 
         val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
-        colorAnimation.duration = 500 // milliseconds
+        colorAnimation.duration = 500
 
         Handler().postDelayed(object : Runnable {
             override fun run() {
@@ -437,12 +544,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     tabs?.setBackgroundColor(animator.animatedValue as Int)
                     tabs?.invalidate()// avoid NPE
                     app_bar_for_drawer?.setBackgroundColor(animator.animatedValue as Int)
-                    app_bar_for_drawer?.invalidate()// avoid NPE
+                    app_bar_for_drawer?.invalidate()
                     window?.statusBarColor = (animator.animatedValue as Int)
                     linear_nav_header?.setBackgroundColor(animator.animatedValue as Int)
-                    linear_nav_header?.invalidate() // avoid NPE
+                    linear_nav_header?.invalidate()
                     image_option_drawer?.borderColor = (animator.animatedValue as Int)
-                    image_option_drawer?.invalidate()// avoid NPE
+                    image_option_drawer?.invalidate()
                 }
                 colorAnimation.start()
             }
@@ -553,7 +660,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         }
     }
 
-    //
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_movies, menu)
         // search view with
