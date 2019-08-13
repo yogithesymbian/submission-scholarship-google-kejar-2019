@@ -38,29 +38,38 @@ class FmDailyReminderService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(messageBody: String?) {
-        val channelId = getString(R.string.default_notification_channel_id)
-        val channelName = getString(R.string.default_notification_channel_name)
+        val channelId = getString(R.string.notification_channel_id_1)
+        val channelName = getString(R.string.notification_channel_name_1)
         val intent = Intent(this, MovieCatalogueMainActivity::class.java)
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
             PendingIntent.FLAG_ONE_SHOT
         )
+
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher_movie)
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
+
         val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             /* Create or update. */
             val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
             notificationBuilder.setChannelId(channelId)
             mNotificationManager.createNotificationChannel(channel)
+
         }
+
         val notification = notificationBuilder.build()
         mNotificationManager.notify(0, notification)
+
     }
 }
