@@ -45,6 +45,6 @@ class ApiEndPoint {
         const val SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_MOVIE_NAME}"
         const val SEARCH_TV = "https://api.themoviedb.org/3/search/tv?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_TV_SHOW_NAME}"
 
-        const val RELEASE_MOVIE = "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&primary_release_date.gte={TODAY_DATE}&primary_release_date.lte={TODAY_DATE}"
+        const val RELEASE_MOVIE = "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&primary_release_date.gte={TODAY_DATE_GTE}&primary_release_date.lte={TODAY_DATE_LTE}"
     }
 }

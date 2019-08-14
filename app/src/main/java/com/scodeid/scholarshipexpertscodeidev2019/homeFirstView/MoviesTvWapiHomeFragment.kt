@@ -98,8 +98,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
         if (adapter.itemCount == 0) {
             Log.d(TAG_LOG, "adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
             movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
-        } else // for skip loading cause default is true on loading while back stack of fragment tv home and tv home_detail ,
-        {
+        } else {
             // after else on check arrayList.isEmpty()
             Log.d(TAG_LOG, "adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
             frame_progress_tv_show.visibility = View.GONE

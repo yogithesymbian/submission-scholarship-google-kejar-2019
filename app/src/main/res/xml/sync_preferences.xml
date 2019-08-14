@@ -10,7 +10,7 @@
             app:key="key_daily_reminder"
             app:title="Daily Token"
             app:summaryOn="Now you always get token at 07.00 AM"
-            app:summaryOff="Turn on for get a token. Token can be only use at 07.00 AM - 08.00 AM GMT+08"
+            app:summaryOff="Have fun back to The yoMovie app with Turn on Daily Token for get a token. Token can be only use at 07.00 AM - 08.00 AM GMT+08"
             app:defaultValue="false"
             />
 

@@ -69,11 +69,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         var statusActivity = ""
         private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
     }
+
     // for once run if already subscribe the code will not repeat on process
-    private var isSubscribeCh1 : Boolean = false
-    private var isSubscribeCh2 : Boolean = false
+    private var isSubscribeCh1: Boolean = false
+    private var isSubscribeCh2: Boolean = false
     private var isSubscribeCh11 = ""
-//    private var isSubscribeCh22 : Boolean = false
+    private var isSubscribeCh22 = ""
 
     var clicked: Boolean = false
 
@@ -213,6 +214,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             isSubscribeCh11,
             isSubscribeCh1.toString()
         )
+        outState.putString(
+            isSubscribeCh22,
+            isSubscribeCh2.toString()
+        )
     }
 
     /**
@@ -226,14 +231,22 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
 
         if (savedInstanceState != null) {
+
             val onChangeVisible = savedInstanceState.getString(stateChangeVisible)
-            if (onChangeVisible != null) {
-                statusActivity = onChangeVisible
-            }
-            val onIsSubscribe = savedInstanceState.getString(isSubscribeCh11)
-            if (onIsSubscribe != null) {
-                isSubscribeCh1 = onIsSubscribe.toBoolean()
-                Log.d(TAG_LOG,"Subscribe {instanceState} $isSubscribeCh1")
+
+            if (onChangeVisible != null) statusActivity = onChangeVisible
+
+            val onIsSubscribe1 = savedInstanceState.getString(isSubscribeCh11)
+            val onIsSubscribe2 = savedInstanceState.getString(isSubscribeCh22)
+
+            if (onIsSubscribe1 != null && onIsSubscribe2 != null) {
+                isSubscribeCh1 = onIsSubscribe1.toBoolean()
+                isSubscribeCh2 = onIsSubscribe2.toBoolean()
+                Log.d(TAG_LOG, """
+                    -
+                    Subscribe {onsaveInstance} is 1:  $isSubscribeCh1
+                    Subscribe {onsaveInstance} is 2:  $isSubscribeCh2
+                """.trimIndent())
             }
 
         }
@@ -249,34 +262,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         val channelId2 = getString(R.string.notification_channel_id_2)
         val channelName2 = getString(R.string.notification_channel_name_2)
 
-        Log.d(TAG_LOG,"Subscribe {onCreate} is $isSubscribeCh1")
+        Log.d(TAG_LOG, "Subscribe {onCreate} is $isSubscribeCh1")
 
-        isSubscribeCh1 = if (
-            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER, false) ||
-            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER_RELEASE, false)
-        ){
-            Log.d(TAG_LOG,"Subscribe on daily reminder")
-
-            if (!isSubscribeCh1) { //true
-                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
-
-                initForSubscribe(channelId1, channelName1)
-                doSubscribe(SUBSCRIBE_TOPIC_DAILY)
-
-                initForSubscribe(channelId2, channelName2)
-                doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
-
-                true
-            } else {
-                Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
-                true
-            }
-
-        } else {
-            Log.d(TAG_LOG,"Subscribe of daily reminder")
-            doUnSubscribe()
-            false
-        }
+        runSetConfigDailyRelease(preferenceManager, channelId2, channelName2)
+        runSetConfigDailyToken(preferenceManager, channelId1, channelName1)
 
         /**
          * end of sharedPreference check
@@ -286,7 +275,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          *  NAVIGATION BOTTOM LISTENER
          */
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
         // make implement work
         val navigationView = findViewById<NavigationView>(R.id.navigationView)
         navigationView.setNavigationItemSelectedListener(this)
@@ -480,24 +468,85 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          */
 
     }
-    private fun doUnSubscribe() {
+
+    private fun runSetConfigDailyRelease(
+        preferenceManager: PreferenceManager,
+        channelId2: String,
+        channelName2: String
+    ) {
+        if (
+            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER_RELEASE, false)
+        ) {
+            Log.d(TAG_LOG, "Subscribe on daily reminder release")
+
+            if (!isSubscribeCh2) { //false
+                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
+
+                initForSubscribe(channelId2, channelName2)
+                doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
+
+                isSubscribeCh2 =  true
+                Log.d(TAG_LOG,"Subscribe after log token set to isSubscribe  $isSubscribeCh2")
+            } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder release")
+
+        } else {
+            Log.d(TAG_LOG, "Subscribe is of -> daily reminder release")
+            doUnSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
+            isSubscribeCh2 = false
+        }
+    }
+
+    private fun runSetConfigDailyToken(
+        preferenceManager: PreferenceManager,
+        channelId1: String,
+        channelName1: String
+    ) {
+       if (
+            preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER, false)
+        ) {
+            Log.d(TAG_LOG, "Subscribe on daily reminder token")
+
+            if (!isSubscribeCh1) { //false
+
+                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
+                initForSubscribe(channelId1, channelName1)
+                doSubscribe(SUBSCRIBE_TOPIC_DAILY)
+                isSubscribeCh1 =  true
+                Log.d(TAG_LOG,"Subscribe after log token set to isSubscribe  $isSubscribeCh1")
+            } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
+
+        } else {
+            Log.d(TAG_LOG, "Subscribe is of -> daily reminder")
+            doUnSubscribe(SUBSCRIBE_TOPIC_DAILY)
+           isSubscribeCh1 = false
+       }
+    }
+
+    private fun doUnSubscribe(subscribeTopic: String) {
         // un_subscribe with a topic null
-        FirebaseMessaging.getInstance().subscribeToTopic(UN_SUBSCRIBE)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(subscribeTopic)
     }
 
     private fun doSubscribe(subscribeTopic: String) {
+
+//        val registrationTokens = arrayListOf(
+//            "",
+//            ""
+//        )
         // subscribe with a topic
         FirebaseMessaging.getInstance().subscribeToTopic(subscribeTopic)
 
         // log the token
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
             val deviceToken = instanceIdResult.token
-            Log.d(TAG_LOG, """ 
+            Log.d(
+                TAG_LOG, """ 
                 ________________________________
                 Subscribe Topic is $subscribeTopic 
                 token is $deviceToken
                 
-            """.trimIndent())
+            """.trimIndent()
+            )
         }
     }
 

@@ -45,7 +45,7 @@ Linux 4.19.0-kali5-amd64
  *
  */
 class MovieViewModel : ViewModel(){
-
+//    RELEASE_MOVIE
     private val listMovieMutableLiveData = MutableLiveData<ArrayList<MoviesApiData>>()
 
     companion object{
