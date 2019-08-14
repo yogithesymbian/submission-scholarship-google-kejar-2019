@@ -19,10 +19,12 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.bumptech.glide.Glide
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
+import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
@@ -32,11 +34,14 @@ import java.text.SimpleDateFormat
 
 class FmDailyReminderService : FirebaseMessagingService() {
 
-    //get token
     companion object{
+
         private val TAG_LOG: String = FmDailyReminderService::class.java.simpleName
         val arrayListMovRelease = ArrayList<MoviesApiData>()
+
         val origTitle = mutableListOf<String>()
+        val imageMovie = mutableListOf<String>()
+
     }
 
     override fun onNewToken(token: String?) {
@@ -52,6 +57,7 @@ class FmDailyReminderService : FirebaseMessagingService() {
         Log.d(TAG_LOG, "message From: ${remoteMessage?.from}")
 
         if (remoteMessage?.from == "/topics/token"){
+            // by default run this function if apps did not response from where topic {sometimes} dunno why
             if (remoteMessage.notification != null) {
                 Log.d(TAG_LOG,"message ${remoteMessage.notification?.body.toString()}")
                 sendNotificationToken(remoteMessage.notification!!.body)
@@ -59,13 +65,18 @@ class FmDailyReminderService : FirebaseMessagingService() {
         }
         else if (remoteMessage?.from == "/topics/release"){
             if (remoteMessage.notification != null) {
-                Log.d(TAG_LOG,"message ${remoteMessage.notification?.body.toString()}")
+                Log.d(TAG_LOG,"""
 
-                val date = System.currentTimeMillis()
+                    message
+                    ${remoteMessage.notification?.imageUrl.toString()}
+                    ${remoteMessage.notification?.body.toString()}
+                    
+                """.trimIndent())
 
-                val yMdFormat = SimpleDateFormat("yyyy-MM-dd")
-
+                val date = System.currentTimeMillis() //currentTime
+                val yMdFormat = SimpleDateFormat("yyyy-MM-dd") // format to
                 val dateNow = yMdFormat.format(date) //2019-08-14
+
                 reqApiMovie(dateNow)
             }
         }
@@ -75,12 +86,13 @@ class FmDailyReminderService : FirebaseMessagingService() {
     }
 
     private fun reqApiMovie(dateNow: String) {
+
         AndroidNetworking.get(ApiEndPoint.RELEASE_MOVIE)
             .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
             .addPathParameter("LANGUAGE", applicationContext.resources.getString(R.string.app_language) )
             .addPathParameter("TODAY_DATE_GTE",dateNow)
             .addPathParameter("TODAY_DATE_LTE",dateNow)
-            .setPriority(Priority.LOW)
+            .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 override fun onResponse(response: JSONObject) {
@@ -116,11 +128,76 @@ class FmDailyReminderService : FirebaseMessagingService() {
                             )
                         )
                         origTitle.add(arrayListMovRelease[i].title)
+                        imageMovie.add(arrayListMovRelease[i].posterPath)
 
                         if (jsonArray.length() - 1 == i)
                         {
-                            Log.d(TAG_LOG, "message req $origTitle")
-                            sendNotificationRelease(origTitle)
+
+                            Log.d(TAG_LOG, """
+                                
+                                message req $origTitle
+                                \n
+                                message image : $imageMovie
+                                
+                                ${POSTER_IMAGE}w185${imageMovie[1]}
+                            """.trimIndent())
+
+                            /**
+                             * ThreadReleaseNotification
+                             */
+                            val myImageGlide = Thread {
+                                Thread.sleep(100)
+
+                                val channelId = getString(R.string.notification_channel_id_2)
+                                val channelName = getString(R.string.notification_channel_name_2)
+                                val messageRelease = origTitle.toString()
+
+                                val intent = Intent(applicationContext, MovieCatalogueMainActivity::class.java)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+                                val pendingIntent = PendingIntent.getActivity(
+                                    applicationContext, 0, intent,
+                                    PendingIntent.FLAG_ONE_SHOT
+                                )
+                                val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                                messageRelease.replace("[","")
+                                messageRelease.replace("]","")
+
+                                val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
+                                    .setSmallIcon(R.drawable.ic_menu_notifications_black_24dp)
+                                    .setContentText("News Release movies : $messageRelease")
+                                    .setAutoCancel(true)
+                                    .setSound(defaultSoundUri)
+                                    .setContentIntent(pendingIntent)
+
+                                val posterToBitmap = Glide.with(applicationContext)
+                                    .asBitmap()
+                                    .load("${POSTER_IMAGE}w185${imageMovie[1]}")
+                                    .submit()
+
+                                val bitmapMovie = posterToBitmap.get()
+
+                                notificationBuilder.setLargeIcon(bitmapMovie)
+                                Glide.with(applicationContext).clear(posterToBitmap)
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    /* Create or update. */
+                                    val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+                                    notificationBuilder.setChannelId(channelId)
+                                    notificationManager.createNotificationChannel(channel)
+                                }
+
+                                val notification = notificationBuilder.build()
+                                notificationManager.notify(0, notification)
+
+                            }
+                            /**
+                             * ThreadReleaseNotification
+                             */
+                            sendNotificationRelease( myImageGlide)
+
                         }
                     }
                 }
@@ -143,49 +220,15 @@ class FmDailyReminderService : FirebaseMessagingService() {
             })
     }
 
-    private fun sendNotificationRelease(messageBody: MutableList<String>) {
-        val messageRelease = messageBody.toString()
-        messageRelease.replace("[","")
-        messageRelease.replace("]","")
-
-        val channelId = getString(R.string.notification_channel_id_2)
-        val channelName = getString(R.string.notification_channel_name_2)
-        val intent = Intent(this, MovieCatalogueMainActivity::class.java)
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT
-        )
-
-        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-
-
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher_movie)
-            .setContentText("News Release movies : $messageRelease")
-            .setAutoCancel(true)
-            .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
-
-        val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            /* Create or update. */
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
-            notificationBuilder.setChannelId(channelId)
-            mNotificationManager.createNotificationChannel(channel)
-
-        }
-
-        val notification = notificationBuilder.build()
-        mNotificationManager.notify(0, notification)
+    private fun sendNotificationRelease(
+        notificationThread: Thread
+    ) {
+        notificationThread.start()
     }
 
     private fun sendNotificationToken(messageBody: String?) {
-        val channelId = getString(R.string.notification_channel_id_1)
-        val channelName = getString(R.string.notification_channel_name_1)
+        val channelId = getString(com.scodeid.scholarshipexpertscodeidev2019.R.string.notification_channel_id_1)
+        val channelName = getString(com.scodeid.scholarshipexpertscodeidev2019.R.string.notification_channel_name_1)
         val intent = Intent(this, ComingSoonActivity::class.java)
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -207,10 +250,10 @@ class FmDailyReminderService : FirebaseMessagingService() {
         val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            /* Create or update. */
-            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+
+            val channelRelease = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
             notificationBuilder.setChannelId(channelId)
-            mNotificationManager.createNotificationChannel(channel)
+            mNotificationManager.createNotificationChannel(channelRelease)
 
         }
 
