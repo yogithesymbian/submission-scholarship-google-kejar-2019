@@ -108,11 +108,6 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         finish()
     }
 
-    private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycler_favorite_tv, message, Snackbar.LENGTH_SHORT)
-            .show()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listTvModel)
@@ -133,10 +128,16 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         Log.d(TAG_LOG, "onPostExecute")
         val listNotes = tvMapCursorToArrayList(cursor)
 
-        if (listNotes.size > 0) favoriteAdapter.setListTv(listNotes)
+        if (listNotes.size > 0) {
+            favoriteAdapter.setListTv(listNotes)
+            image_empty_fav.visibility = View.GONE
+            text_empty_fav.visibility = View.GONE
+        }
         else {
             favoriteAdapter.setListTv(java.util.ArrayList())
-//            showSnackbarMessage("Item is null")
+            image_empty_fav.visibility = View.VISIBLE
+            text_empty_fav.visibility = View.VISIBLE
+            card_favorite.visibility = View.GONE
         }
     }
 

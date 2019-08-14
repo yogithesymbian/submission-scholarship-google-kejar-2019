@@ -83,6 +83,7 @@ private constructor(context: Context) {
         sqLiteDatabase = helperDatabase.writableDatabase
     }
 
+    @Suppress("Unused")
     fun close() {
         // dunno why get re opened object i was try and catch /final y still get the error at cursor close
         // not properly on close , app not for close , but just throw an error then click back and try delete item is work

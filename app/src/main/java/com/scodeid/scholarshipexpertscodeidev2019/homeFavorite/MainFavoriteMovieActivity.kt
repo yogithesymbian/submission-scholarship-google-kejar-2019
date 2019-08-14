@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
@@ -107,11 +106,6 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         finish()
     }
 
-    private fun showSnackbarMessage(message: String) {
-        Snackbar.make(recycler_favorite_movie, message, Snackbar.LENGTH_SHORT)
-            .show()
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listMovieModel)
@@ -132,9 +126,15 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         Log.d(TAG_LOG, "onPostExecute")
         val listNotes = movieMapCursorToArrayList(cursor)
 
-        if (listNotes.size > 0) favoriteAdapter.setListMovie(listNotes)
+        if (listNotes.size > 0) {
+            favoriteAdapter.setListMovie(listNotes)
+            image_empty_fav.visibility = View.GONE
+            text_empty_fav.visibility = View.GONE
+        }
         else {
             favoriteAdapter.setListMovie(java.util.ArrayList())
+            image_empty_fav.visibility = View.VISIBLE
+            text_empty_fav.visibility = View.VISIBLE
 //            showSnackbarMessage("Item is null")
         }
     }

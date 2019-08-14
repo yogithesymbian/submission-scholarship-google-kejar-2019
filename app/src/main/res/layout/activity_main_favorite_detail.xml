@@ -12,7 +12,7 @@
 
     <include
             layout="@layout/activity_movie_catalogue_detail_head"
-            android:id="@+id/include"/>
+            />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

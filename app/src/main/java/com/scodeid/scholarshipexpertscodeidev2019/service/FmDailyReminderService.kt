@@ -227,8 +227,8 @@ class FmDailyReminderService : FirebaseMessagingService() {
     }
 
     private fun sendNotificationToken(messageBody: String?) {
-        val channelId = getString(com.scodeid.scholarshipexpertscodeidev2019.R.string.notification_channel_id_1)
-        val channelName = getString(com.scodeid.scholarshipexpertscodeidev2019.R.string.notification_channel_name_1)
+        val channelId = getString(R.string.notification_channel_id_1)
+        val channelName = getString(R.string.notification_channel_name_1)
         val intent = Intent(this, ComingSoonActivity::class.java)
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

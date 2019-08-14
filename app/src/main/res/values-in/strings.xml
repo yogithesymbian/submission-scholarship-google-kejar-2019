@@ -200,7 +200,6 @@
     <string name="fragment_movies_tv_show_detail_origin_country">Original Kota</string>
     <string name="activity_main_favorite_delete_tap_for_delete">SENTUH UNTUK MENGHAPUS</string>
     <string name="toast_sql_lite_insert_success">berhasil tambah ke favorite</string>
-    <string name="toast_sql_lite_insert_fail">tidak berhasil tambah ke favorite</string>
     <string name="dialog_cancel_title">Batal</string>
     <string name="dialog_cancel_msg">Ingin membatalkan perubahan ?</string>
     <string name="dialog_delete_msg">Ingin menghapus item ini ?</string>
@@ -215,6 +214,7 @@
     <string name="option_hint_tv">cari TV SHOW</string>
     <string name="view_model_search_keyword">Kata Kunci :</string>
     <string name="view_model_search_info">tidak ditemukan</string>
-    <string name="movie_catalogue_main_activity_do_subscribe">you had been setting daily reminder</string>
+    <string name="menu_drawer_movies_daily_reminder">Pengingat Harian</string>
+    <string name="activity_main_favorite_empty">Kosong</string>
 </resources>
 

@@ -87,6 +87,7 @@ class MovieProvModel : Parcelable {
     }
 
     companion object {
+        @Suppress("Unused")
         @JvmField
         val CREATOR: Parcelable.Creator<MovieProvModel> = object : Parcelable.Creator<MovieProvModel> {
             override fun createFromParcel(source: Parcel): MovieProvModel {

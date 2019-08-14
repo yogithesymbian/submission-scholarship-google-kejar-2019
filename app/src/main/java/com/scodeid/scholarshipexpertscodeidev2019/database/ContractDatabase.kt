@@ -73,6 +73,7 @@ object ContractDatabase {
             return cursor.getInt(cursor.getColumnIndex(columnName))
         }
 
+        @Suppress("Unused")
         fun getColumnLong(cursor: Cursor, columnName: String): Long {
             return cursor.getLong(cursor.getColumnIndex(columnName))
         }

@@ -14,7 +14,7 @@
             <item
                     android:id="@+id/nav_notification_reminder"
                     android:icon="@drawable/ic_menu_notifications_black_24dp"
-                    android:title="Daily Reminder"
+                    android:title="@string/menu_drawer_movies_daily_reminder"
                     />
             <item
                 android:id="@+id/nav_language"

@@ -244,8 +244,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 isSubscribeCh2 = onIsSubscribe2.toBoolean()
                 Log.d(TAG_LOG, """
                     -
-                    Subscribe {onsaveInstance} is 1:  $isSubscribeCh1
-                    Subscribe {onsaveInstance} is 2:  $isSubscribeCh2
+                    Subscribe {onSaveInstance} is 1:  $isSubscribeCh1
+                    Subscribe {onSaveInstance} is 2:  $isSubscribeCh2
                 """.trimIndent())
             }
 

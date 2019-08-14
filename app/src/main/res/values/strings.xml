@@ -162,7 +162,6 @@
     <string name="fragment_movies_tv_show_detail_origin_country">Original Country</string>
     <string name="activity_main_favorite_delete_tap_for_delete">TAP FOR DELETE</string>
     <string name="toast_sql_lite_insert_success">Success add to favorite</string>
-    <string name="toast_sql_lite_insert_fail">Failed add to favorite</string>
     <string name="dialog_cancel_title">Cancel</string>
     <string name="dialog_cancel_msg">You want to cancel the change ?</string>
     <string name="dialog_delete_msg">You want to delete the item ?</string>
@@ -182,27 +181,18 @@
     <string name="title_activity_settings_reminder" translatable="false">Settings</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header" translatable="false">Messages</string>
-    <string name="sync_header" translatable="false">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title" translatable="false">Your signature</string>
-    <string name="reply_title" translatable="false">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title" translatable="false">Sync email periodically</string>
-    <string name="attachment_title" translatable="false">Download incoming attachments</string>
-    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails</string>
-    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
 
     <!---->
     <string name="notification_channel_id_1" translatable="false">fcm_channel1</string>
     <string name="notification_channel_id_2" translatable="false">fcm_channel2</string>
     <string name="notification_channel_name_1" translatable="false">DailyToken</string>
     <string name="notification_channel_name_2" translatable="false">DailyRelease</string>
-    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
-    <string name="msg_subscribed" translatable="false">Subscribed to </string>
-    <string name="movie_catalogue_main_activity_do_subscribe">you had been setting daily reminder</string>
+    <string name="menu_drawer_movies_daily_reminder">Daily Reminder</string>
+    <string name="activity_main_favorite_empty">Empty</string>
 
 
 </resources>

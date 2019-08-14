@@ -82,6 +82,8 @@ class TvProvModel : Parcelable {
     }
 
     companion object {
+
+        @Suppress("Unused")
         @JvmField
         val CREATOR: Parcelable.Creator<TvProvModel> = object : Parcelable.Creator<TvProvModel> {
             override fun createFromParcel(source: Parcel): TvProvModel {

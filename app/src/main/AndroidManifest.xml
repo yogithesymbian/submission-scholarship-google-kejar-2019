@@ -24,8 +24,6 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".setting.TestingActivity">
-        </activity>
 
         <!-- firebase cloud message -->
         <meta-data
