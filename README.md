@@ -3,8 +3,24 @@ submission-scholarship-google-kejar-2019
 
 I ``` https://www.dicoding.com/users/297307 ``` have learning on ```Dicoding.com```
 
-![SS](https://1.bp.blogspot.com/-exahMfIV-fQ/XQ8qpDc3ycI/AAAAAAAAAYk/r2EkswGaL0EqjfKuvQjDS3Nc_uFEq9S4QCLcBGAs/s1600/Screenshot_2019-06-23-15-15-44-182_com.scodeid.scholarshipexpertscodeidev2019.png)
+![SS](https://firebasestorage.googleapis.com/v0/b/yochat-1c95c.appspot.com/o/image-dicoding%2Fss1.png?alt=media&token=fbee0a06-b317-42cf-aeed-2c7505964ce5)
 
+![SS](https://firebasestorage.googleapis.com/v0/b/yochat-1c95c.appspot.com/o/image-dicoding%2Fss2.png?alt=media&token=b31301f7-4d58-4c8f-bc14-b8a22df18452)
+
+![SS](https://firebasestorage.googleapis.com/v0/b/yochat-1c95c.appspot.com/o/image-dicoding%2Fss3.png?alt=media&token=2941100f-02b3-4203-98b5-01cf190284df)
+
+
+exercise [private]
+```
+https://github.com/yogithesymbian/scholarship-google-kejar-2019
+```
+
+submission [private]
+```
+https://github.com/yogithesymbian/submission-scholarship-google-kejar-2019
+```
+
+## kapt error
 ```
 sudo mount -o remount, exec /tmp
 sudo mount -o remount, noexec /tmp
