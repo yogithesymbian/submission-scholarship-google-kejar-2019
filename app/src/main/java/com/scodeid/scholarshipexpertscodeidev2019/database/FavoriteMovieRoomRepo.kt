@@ -32,7 +32,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
  */
 
-class FavoriteMovieRoomRepo (private val movieRoomDao: MovieRoomDao) {
+class FavoriteMovieRoomRepo(private val movieRoomDao: MovieRoomDao) {
     val allMovies: LiveData<List<MovieRoomModel>> = movieRoomDao.getAllMovieRoom()
 
 

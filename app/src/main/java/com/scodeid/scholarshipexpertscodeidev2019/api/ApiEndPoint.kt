@@ -29,7 +29,7 @@ Linux 4.19.0-kali5-amd64
  */
 
 class ApiEndPoint {
-    companion object{
+    companion object {
         const val API_KEY_V3_AUTH = "10494fa60da45dee76b53c177ada8d19"
 //        val API_READ_ACCESS_TOKEN_V4_AUTH = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDQ5NGZhNjBkYTQ1ZGVlNzZiNTNjMTc3YWRhOGQxOSIsInN1YiI6IjVkMjcxZmIyNWY2YzQ5MDJjMzVjZDE2ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.f5vy18cwvMcwoC4o1ibEac9FBBRw7Etc5f5tlzGbx-Y"
 
@@ -42,9 +42,12 @@ class ApiEndPoint {
          */
         const val POSTER_IMAGE = "https://image.tmdb.org/t/p/"
 
-        const val SEARCH_MOVIES = "https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_MOVIE_NAME}"
-        const val SEARCH_TV = "https://api.themoviedb.org/3/search/tv?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_TV_SHOW_NAME}"
+        const val SEARCH_MOVIES =
+            "https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_MOVIE_NAME}"
+        const val SEARCH_TV =
+            "https://api.themoviedb.org/3/search/tv?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_TV_SHOW_NAME}"
 
-        const val RELEASE_MOVIE = "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&primary_release_date.gte={TODAY_DATE_GTE}&primary_release_date.lte={TODAY_DATE_LTE}"
+        const val RELEASE_MOVIE =
+            "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&primary_release_date.gte={TODAY_DATE_GTE}&primary_release_date.lte={TODAY_DATE_LTE}"
     }
 }

@@ -62,6 +62,7 @@ class ItemClickRecyclerSupport constructor(private var mRecyclerView: RecyclerVi
     fun setOnItemLongClickListener(listener: OnItemLongClickListener) {
         mOnItemLongClickListener = listener
     }
+
     interface OnItemClickListener {
         fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View)
     }
@@ -72,7 +73,8 @@ class ItemClickRecyclerSupport constructor(private var mRecyclerView: RecyclerVi
 
     companion object {
         fun addTo(view: RecyclerView): ItemClickRecyclerSupport {
-            var recyclerSupport: ItemClickRecyclerSupport? = view.getTag(R.id.item_click_support) as ItemClickRecyclerSupport?
+            var recyclerSupport: ItemClickRecyclerSupport? =
+                view.getTag(R.id.item_click_support) as ItemClickRecyclerSupport?
             if (recyclerSupport == null) {
                 recyclerSupport = ItemClickRecyclerSupport(view)
             }

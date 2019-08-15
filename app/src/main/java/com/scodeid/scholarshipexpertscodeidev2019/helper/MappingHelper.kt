@@ -45,9 +45,12 @@ object MappingHelper {
 
             val id = movieCursor.getInt(movieCursor.getColumnIndexOrThrow(_ID))
             val title = movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))
-            val release = movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.RELEASE))
-            val description = movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.DESCRIPTION))
-            val posterImage = movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))
+            val release =
+                movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.RELEASE))
+            val description =
+                movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.DESCRIPTION))
+            val posterImage =
+                movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))
 
             favMovieList.add(MovieProvModel(id, title, release, description, posterImage))
         }
@@ -61,7 +64,8 @@ object MappingHelper {
 
             val id = tvCursor.getInt(tvCursor.getColumnIndexOrThrow(_ID))
             val title = tvCursor.getString(tvCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))
-            val voteAverage = tvCursor.getInt(tvCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.VOTE_AVERAGE))
+            val voteAverage =
+                tvCursor.getInt(tvCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.VOTE_AVERAGE))
             val posterImage = tvCursor.getString(tvCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))
 
             tvMovieList.add(TvProvModel(id, title, voteAverage, posterImage))

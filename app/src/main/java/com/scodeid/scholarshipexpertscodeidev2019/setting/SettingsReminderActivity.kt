@@ -72,7 +72,7 @@ class SettingsReminderActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("BACK","from setting")
+        Log.d("BACK", "from setting")
     }
 
 

@@ -30,14 +30,15 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 
  */
 
-internal class CustomOnItemClickListener (
+internal class CustomOnItemClickListener(
     private val position: Int,
-    private val onItemClickCallback : OnItemClickCallback
+    private val onItemClickCallback: OnItemClickCallback
 ) : View.OnClickListener {
 
     override fun onClick(v: View) {
         onItemClickCallback.onItemClicked(v, position)
     }
+
     interface OnItemClickCallback {
         fun onItemClicked(view: View, position: Int)
     }

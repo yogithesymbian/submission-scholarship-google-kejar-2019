@@ -242,11 +242,13 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             if (onIsSubscribe1 != null && onIsSubscribe2 != null) {
                 isSubscribeCh1 = onIsSubscribe1.toBoolean()
                 isSubscribeCh2 = onIsSubscribe2.toBoolean()
-                Log.d(TAG_LOG, """
+                Log.d(
+                    TAG_LOG, """
                     -
                     Subscribe {onSaveInstance} is 1:  $isSubscribeCh1
                     Subscribe {onSaveInstance} is 2:  $isSubscribeCh2
-                """.trimIndent())
+                """.trimIndent()
+                )
             }
 
         }
@@ -485,8 +487,8 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 initForSubscribe(channelId2, channelName2)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
 
-                isSubscribeCh2 =  true
-                Log.d(TAG_LOG,"Subscribe after log token set to isSubscribe  $isSubscribeCh2")
+                isSubscribeCh2 = true
+                Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh2")
             } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder release")
 
         } else {
@@ -501,7 +503,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         channelId1: String,
         channelName1: String
     ) {
-       if (
+        if (
             preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER, false)
         ) {
             Log.d(TAG_LOG, "Subscribe on daily reminder token")
@@ -511,15 +513,15 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
                 initForSubscribe(channelId1, channelName1)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY)
-                isSubscribeCh1 =  true
-                Log.d(TAG_LOG,"Subscribe after log token set to isSubscribe  $isSubscribeCh1")
+                isSubscribeCh1 = true
+                Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh1")
             } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
 
         } else {
             Log.d(TAG_LOG, "Subscribe is of -> daily reminder")
             doUnSubscribe(SUBSCRIBE_TOPIC_DAILY)
-           isSubscribeCh1 = false
-       }
+            isSubscribeCh1 = false
+        }
     }
 
     private fun doUnSubscribe(subscribeTopic: String) {

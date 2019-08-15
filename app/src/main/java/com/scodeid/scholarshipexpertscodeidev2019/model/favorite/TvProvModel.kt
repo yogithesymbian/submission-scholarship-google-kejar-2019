@@ -38,9 +38,8 @@ class TvProvModel : Parcelable {
 
     var id: Int = 0
     var title: String? = null
-    var voteAverage :  Int = 0
-    var posterImage : String? = null
-
+    var voteAverage: Int = 0
+    var posterImage: String? = null
 
 
     override fun describeContents(): Int {

@@ -132,8 +132,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
             favoriteAdapter.setListTv(listNotes)
             image_empty_fav.visibility = View.GONE
             text_empty_fav.visibility = View.GONE
-        }
-        else {
+        } else {
             favoriteAdapter.setListTv(java.util.ArrayList())
             image_empty_fav.visibility = View.VISIBLE
             text_empty_fav.visibility = View.VISIBLE

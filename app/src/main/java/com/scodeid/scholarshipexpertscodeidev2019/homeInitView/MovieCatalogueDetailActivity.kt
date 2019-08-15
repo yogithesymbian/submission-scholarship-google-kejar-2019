@@ -103,7 +103,8 @@ class MovieCatalogueDetailActivity : Activity() {
         text_tv_movie_name.text = string
 
         //score is vote_average
-        text_score_label_percent.text =  movieDataParcel.voteAverage.toString()+" "+resources.getString(R.string.activity_movie_catalogue_detail_score)
+        text_score_label_percent.text =
+            movieDataParcel.voteAverage.toString() + " " + resources.getString(R.string.activity_movie_catalogue_detail_score)
         text_overview_desc.text = movieDataParcel.overview
 
         text_original_name.text = movieDataParcel.originalTitle + "\n"
@@ -119,8 +120,10 @@ class MovieCatalogueDetailActivity : Activity() {
         text_screen_label_who1.text = "-\n"
 
         when (movieDataParcel.originalLang) {
-            "en" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language) +"\n"
-            "ja" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language_ja) +"\n"
+            "en" -> text_original_language_label_data.text =
+                getString(R.string.activity_movie_catalogue_detail_language) + "\n"
+            "ja" -> text_original_language_label_data.text =
+                getString(R.string.activity_movie_catalogue_detail_language_ja) + "\n"
             else -> text_original_language_label_data.text = movieDataParcel.originalLang + "\n"
         }
 
@@ -128,19 +131,17 @@ class MovieCatalogueDetailActivity : Activity() {
         text_budget_label_data.text = "-" + "\n"
 
         text_revenue_label_data.text = "-" + "\n"
-        text_genre_label_data.text = " ID : "+movieDataParcel.genreIds.toString().replace("[[","").replace("]]","") + "\n"
+        text_genre_label_data.text =
+            " ID : " + movieDataParcel.genreIds.toString().replace("[[", "").replace("]]", "") + "\n"
         text_keywords_label_data.text = "-"
 
         text_release_label_data.text = movieDataParcel.releaseDate + "\n"
 
         text_vote_count_label_data.text = movieDataParcel.voteCount.toString() + "\n"
         text_popularity_label_data.text = movieDataParcel.popularity.toString() + "\n"
-        if (!movieDataParcel.adult)
-        {
+        if (!movieDataParcel.adult) {
             text_adult_label_data.text = getString(R.string.activity_movie_catalogue_detail_adult_desc) + "\n"
-        }
-        else
-        {
+        } else {
             text_adult_label_data.text = getString(R.string.activity_movie_catalogue_detail_adult_desc_1) + "\n"
         }
 
@@ -150,7 +151,7 @@ class MovieCatalogueDetailActivity : Activity() {
 
         Glide.with(this@MovieCatalogueDetailActivity)
             .asBitmap()
-            .load(POSTER_IMAGE+"w185"+imagePoster)
+            .load(POSTER_IMAGE + "w185" + imagePoster)
             .error(R.color.error_color_material_light)
             .format(DecodeFormat.PREFER_ARGB_8888)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -158,19 +159,19 @@ class MovieCatalogueDetailActivity : Activity() {
 
         Glide.with(this@MovieCatalogueDetailActivity)
             .asBitmap()
-            .load(POSTER_IMAGE+"w342"+imagePosterBack)
+            .load(POSTER_IMAGE + "w342" + imagePosterBack)
             .error(R.color.error_color_material_light)
             .format(DecodeFormat.PREFER_ARGB_8888)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .into(image_backdrop)
 
-        image_related1.setOnClickListener{
+        image_related1.setOnClickListener {
             notificationFeatureWarn()
         }
-        image_related2.setOnClickListener{
+        image_related2.setOnClickListener {
             notificationFeatureWarn()
         }
-        image_related3.setOnClickListener{
+        image_related3.setOnClickListener {
             notificationFeatureWarn()
         }
 
@@ -179,26 +180,26 @@ class MovieCatalogueDetailActivity : Activity() {
          */
 
         button_take_notification.setOnClickListener {
-            Log.d(TAG_LOG,"notification got clicked")
+            Log.d(TAG_LOG, "notification got clicked")
             notificationFeatureWarn()
         }
         button_buy_download.setOnClickListener {
-            Log.d(TAG_LOG,"download got clicked")
+            Log.d(TAG_LOG, "download got clicked")
             notificationFeatureWarn()
         }
         button_stream_watch.setOnClickListener {
-            Log.d(TAG_LOG,"stream got clicked")
+            Log.d(TAG_LOG, "stream got clicked")
             notificationFeatureWarn()
         }
         button_share.setOnClickListener {
-            Log.d(TAG_LOG,"share got clicked")
+            Log.d(TAG_LOG, "share got clicked")
             notificationFeatureWarn()
         }
     }
 
     private fun notificationFeatureWarn() {
 
-        Toast.makeText(this,"We are sorry , button on coming soon", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "We are sorry , button on coming soon", Toast.LENGTH_SHORT)
             .show()
     }
 

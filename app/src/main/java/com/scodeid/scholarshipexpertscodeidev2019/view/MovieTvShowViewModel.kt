@@ -55,9 +55,8 @@ class MovieTvShowViewModel : ViewModel() {
     }
 
     fun setMovieTvShow(lang: String, context: Context?) {
-        if (arrayListMovieTvShow.isEmpty())
-        {
-            Log.d(TAG_LOG,"arrayList TV_SHOW is Empty, request api is in background")
+        if (arrayListMovieTvShow.isEmpty()) {
+            Log.d(TAG_LOG, "arrayList TV_SHOW is Empty, request api is in background")
             Log.d(TAG_LOG, "Language use : $lang")
             AndroidNetworking.get(ApiEndPoint.SERVER_TV_SHOW)
                 .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
@@ -70,7 +69,8 @@ class MovieTvShowViewModel : ViewModel() {
                         val jsonArray = response.optJSONArray("results")
 
                         if (jsonArray?.length() == 0) {
-                            Toast.makeText(context, "result data is empty, Add the data first", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "result data is empty, Add the data first", Toast.LENGTH_LONG)
+                                .show()
                         }
 
                         for (i in 0 until jsonArray.length()) {
@@ -122,8 +122,8 @@ class MovieTvShowViewModel : ViewModel() {
                 })
         }
         // request API
-        else{
-            Log.d(TAG_LOG,"arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
+        else {
+            Log.d(TAG_LOG, "arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
             listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
         }
         // didn't request API
@@ -134,69 +134,70 @@ class MovieTvShowViewModel : ViewModel() {
     }
 
 
-    fun searchTvShow(lang: String, query: String,context: Context?) {
+    fun searchTvShow(lang: String, query: String, context: Context?) {
 
-            AndroidNetworking.get(ApiEndPoint.SEARCH_TV)
-                .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-                .addPathParameter("LANGUAGE", lang)
-                .addPathParameter("QUERY_TV_SHOW_NAME", query)
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(object : JSONObjectRequestListener {
-                    override fun onResponse(response: JSONObject) {
-                        arrayListMovieTvShow.clear()
-                        val jsonArray = response.optJSONArray("results")
+        AndroidNetworking.get(ApiEndPoint.SEARCH_TV)
+            .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
+            .addPathParameter("LANGUAGE", lang)
+            .addPathParameter("QUERY_TV_SHOW_NAME", query)
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    arrayListMovieTvShow.clear()
+                    val jsonArray = response.optJSONArray("results")
 
-                        if (jsonArray?.length() == 0)
-                        {
-                            Toast.makeText(context,"""${context?.getString(R.string.view_model_search_keyword)}$query ${context?.getString(R.string.view_model_search_info)}""".trimIndent(), Toast.LENGTH_LONG).show()
-                        }
-                        for (i in 0 until jsonArray.length())
-                        {
-                            val jsonObject = jsonArray.optJSONObject(i)
+                    if (jsonArray?.length() == 0) {
+                        Toast.makeText(
+                            context,
+                            """${context?.getString(R.string.view_model_search_keyword)}$query ${context?.getString(R.string.view_model_search_info)}""".trimIndent(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.optJSONObject(i)
 
-                            arrayListMovieTvShow.add(
-                                MoviesTvShowApiData(
-                                    jsonObject.getString("original_name"),
-                                    arrayListOf(jsonObject.getString("genre_ids")),
-                                    jsonObject.getString("name"),
-                                    jsonObject.getInt("popularity"),
-                                    arrayListOf(jsonObject.getString("origin_country")),
-                                    jsonObject.getInt("vote_count"),
-                                    jsonObject.getString("first_air_date"),
-                                    jsonObject.getString("backdrop_path"),
-                                    jsonObject.getString("original_language"),
-                                    jsonObject.getInt("id"),
-                                    jsonObject.getInt("vote_average"),
-                                    jsonObject.getString("overview"),
-                                    jsonObject.getString("poster_path")
-                                )
+                        arrayListMovieTvShow.add(
+                            MoviesTvShowApiData(
+                                jsonObject.getString("original_name"),
+                                arrayListOf(jsonObject.getString("genre_ids")),
+                                jsonObject.getString("name"),
+                                jsonObject.getInt("popularity"),
+                                arrayListOf(jsonObject.getString("origin_country")),
+                                jsonObject.getInt("vote_count"),
+                                jsonObject.getString("first_air_date"),
+                                jsonObject.getString("backdrop_path"),
+                                jsonObject.getString("original_language"),
+                                jsonObject.getInt("id"),
+                                jsonObject.getInt("vote_average"),
+                                jsonObject.getString("overview"),
+                                jsonObject.getString("poster_path")
                             )
+                        )
 
-                            if (jsonArray.length() - 1 == i)
-                            {
-                                listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
-                            }
+                        if (jsonArray.length() - 1 == i) {
+                            listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
                         }
                     }
+                }
 
-                    override fun onError(anError: ANError?) {
+                override fun onError(anError: ANError?) {
 
-                        Log.d("ON_ERROR",anError?.errorDetail.toString())
-                        val intent = Intent(context, NoInternetConnActivity::class.java)
-                        context?.startActivity(intent)
+                    Log.d("ON_ERROR", anError?.errorDetail.toString())
+                    val intent = Intent(context, NoInternetConnActivity::class.java)
+                    context?.startActivity(intent)
 
-                        if (anError?.errorCode != 0) {
+                    if (anError?.errorCode != 0) {
 
-                            Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
-                            Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
-                            Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+                        Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
+                        Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
+                        Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
 
-                        } else {
-                            Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
-                        }
+                    } else {
+                        Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
                     }
-                })
+                }
+            })
     }
 
 

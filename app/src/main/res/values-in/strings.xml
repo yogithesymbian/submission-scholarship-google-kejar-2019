@@ -216,5 +216,9 @@
     <string name="view_model_search_info">tidak ditemukan</string>
     <string name="menu_drawer_movies_daily_reminder">Pengingat Harian</string>
     <string name="activity_main_favorite_empty">Kosong</string>
+    <string name="appwidget_text">SAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="image_movies_widget_no_data">Kosong</string>
+    <string name="widget_item_movies_widget_favorite">jendela favorite</string>
 </resources>
 

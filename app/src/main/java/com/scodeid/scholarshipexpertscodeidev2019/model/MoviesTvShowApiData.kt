@@ -32,18 +32,18 @@ Linux 4.19.0-kali5-amd64
  */
 
 @Parcelize
-class MoviesTvShowApiData (
-    val originalName : String,
-    val genreIds : ArrayList<String>,
-    val name : String,
-    val popularity : Int,
-    val originCountry : ArrayList<String>,
-    val voteCount : Int,
-    val firstAirDate : String,
-    val backDropPath : String,
-    val originalLanguage : String,
-    val id : Int,
-    val voteAverage : Int,
-    val overView : String,
-    val posterPath : String
+class MoviesTvShowApiData(
+    val originalName: String,
+    val genreIds: ArrayList<String>,
+    val name: String,
+    val popularity: Int,
+    val originCountry: ArrayList<String>,
+    val voteCount: Int,
+    val firstAirDate: String,
+    val backDropPath: String,
+    val originalLanguage: String,
+    val id: Int,
+    val voteAverage: Int,
+    val overView: String,
+    val posterPath: String
 ) : Parcelable

@@ -44,22 +44,22 @@ abstract class FavoriteMovieRoom : RoomDatabase() {
 
     companion object {
         @Volatile
-        private var INSTANCE : FavoriteMovieRoom? = null
+        private var INSTANCE: FavoriteMovieRoom? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope) : FavoriteMovieRoom {
+        fun getDatabase(context: Context, scope: CoroutineScope): FavoriteMovieRoom {
 
-           return INSTANCE ?: synchronized(this) {
-               val instance = Room.databaseBuilder(
-                   context.applicationContext,
-                   FavoriteMovieRoom::class.java,
-                   "DbMovie.db"
-               )
-                   .fallbackToDestructiveMigration()
-                   .addCallback(FavoriteDatabaseCallBack(scope))
-                   .build()
-               INSTANCE = instance
-               instance
-           }
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    FavoriteMovieRoom::class.java,
+                    "DbMovie.db"
+                )
+                    .fallbackToDestructiveMigration()
+                    .addCallback(FavoriteDatabaseCallBack(scope))
+                    .build()
+                INSTANCE = instance
+                instance
+            }
         }
 
         private class FavoriteDatabaseCallBack(

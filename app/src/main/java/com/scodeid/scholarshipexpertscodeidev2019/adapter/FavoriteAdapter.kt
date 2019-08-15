@@ -57,6 +57,7 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     companion object {
         val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
     }
+
     init {
         setHasStableIds(true)
     }

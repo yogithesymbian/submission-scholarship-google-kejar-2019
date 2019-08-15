@@ -45,9 +45,8 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
         //view
 
         // check bundle
-        if (arguments != null)
-        {
-            Log.d(TAG_LOG,"Bundle Argument != null ")
+        if (arguments != null) {
+            Log.d(TAG_LOG, "Bundle Argument != null ")
             val data = arguments?.getParcelable<MoviesTvShowApiData>(EXTRA_TV_DETAILS)
 
             /**
@@ -56,7 +55,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
 
             Glide.with(this@MoviesTvWapiHomeDetailFragment)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w185"+data?.posterPath)
+                .load(POSTER_IMAGE + "w185" + data?.posterPath)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -64,7 +63,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
 
             Glide.with(this@MoviesTvWapiHomeDetailFragment)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w185"+data?.backDropPath)
+                .load(POSTER_IMAGE + "w185" + data?.backDropPath)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -83,7 +82,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
             Handler().postDelayed(object : Runnable {
                 override fun run() {
                     this.finish()
-                    Log.d(TAG_LOG,"Loading ... for get and load data in background")
+                    Log.d(TAG_LOG, "Loading ... for get and load data in background")
                 }
 
                 @SuppressLint("SetTextI18n")
@@ -97,26 +96,31 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
                     text_creator_label_who1.text = "-"
                     text_creator_label_who2.text = "-"
 
-                    text_status_label_data.text = "-"+ "\n"
+                    text_status_label_data.text = "-" + "\n"
                     text_network_label_data.text = "-" + "\n"
 
                     text_original_name.text = data?.originalName + "\n"
 
-                    text_original_country.text = data?.originCountry.toString().replace("[[","").replace("]]","").replace("","") + "\n"
+                    text_original_country.text =
+                        data?.originCountry.toString().replace("[[", "").replace("]]", "").replace("", "") + "\n"
 
                     when (data?.originalLanguage) {
-                        "en" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language) +"\n"
-                        "ja" -> text_original_language_label_data.text = getString(R.string.activity_movie_catalogue_detail_language_ja) +"\n"
+                        "en" -> text_original_language_label_data.text =
+                            getString(R.string.activity_movie_catalogue_detail_language) + "\n"
+                        "ja" -> text_original_language_label_data.text =
+                            getString(R.string.activity_movie_catalogue_detail_language_ja) + "\n"
                         else -> text_original_language_label_data.text = data?.originalLanguage + "\n"
                     }
 
                     text_genre_label_data.text = "-" + "\n"
-                    text_tv_movie_detail_genre.text = "ID :"+ data?.genreIds.toString().replace("[[","").replace("]]","")
+                    text_tv_movie_detail_genre.text =
+                        "ID :" + data?.genreIds.toString().replace("[[", "").replace("]]", "")
                     text_keywords_label_data.text = "-" + "\n"
                     text_type_label_data.text = "-" + "\n"
 
                     text_rank_last_today_label_data.text = "-" + "\n" // i have a lot layout xml
-                    text_rank_last_week_label_data.text = "-" + "\n" // so i need have break line with this for easy but need annotation SetTextI18n
+                    text_rank_last_week_label_data.text =
+                        "-" + "\n" // so i need have break line with this for easy but need annotation SetTextI18n
 
                     text_vote_count_label_data.text = data?.voteCount.toString() + "\n"
                     text_popularity_label_data.text = data?.popularity.toString() + "\n"

@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat
 
 class FmDailyReminderService : FirebaseMessagingService() {
 
-    companion object{
+    companion object {
 
         private val TAG_LOG: String = FmDailyReminderService::class.java.simpleName
         val arrayListMovRelease = ArrayList<MoviesApiData>()
@@ -56,22 +56,23 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
         Log.d(TAG_LOG, "message From: ${remoteMessage?.from}")
 
-        if (remoteMessage?.from == "/topics/token"){
+        if (remoteMessage?.from == "/topics/token") {
             // by default run this function if apps did not response from where topic {sometimes} dunno why
             if (remoteMessage.notification != null) {
-                Log.d(TAG_LOG,"message ${remoteMessage.notification?.body.toString()}")
+                Log.d(TAG_LOG, "message ${remoteMessage.notification?.body.toString()}")
                 sendNotificationToken(remoteMessage.notification!!.body)
             }
-        }
-        else if (remoteMessage?.from == "/topics/release"){
+        } else if (remoteMessage?.from == "/topics/release") {
             if (remoteMessage.notification != null) {
-                Log.d(TAG_LOG,"""
+                Log.d(
+                    TAG_LOG, """
 
                     message
                     ${remoteMessage.notification?.imageUrl.toString()}
                     ${remoteMessage.notification?.body.toString()}
                     
-                """.trimIndent())
+                """.trimIndent()
+                )
 
                 val date = System.currentTimeMillis() //currentTime
                 val yMdFormat = SimpleDateFormat("yyyy-MM-dd") // format to
@@ -79,9 +80,11 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                 reqApiMovie(dateNow)
             }
-        }
-        else {
-            Log.d(TAG_LOG,"maybe the topic is confused or maybe not found, please contact admin to request token for notification, bug topic fcm")
+        } else {
+            Log.d(
+                TAG_LOG,
+                "maybe the topic is confused or maybe not found, please contact admin to request token for notification, bug topic fcm"
+            )
         }
     }
 
@@ -89,9 +92,9 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
         AndroidNetworking.get(ApiEndPoint.RELEASE_MOVIE)
             .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-            .addPathParameter("LANGUAGE", applicationContext.resources.getString(R.string.app_language) )
-            .addPathParameter("TODAY_DATE_GTE",dateNow)
-            .addPathParameter("TODAY_DATE_LTE",dateNow)
+            .addPathParameter("LANGUAGE", applicationContext.resources.getString(R.string.app_language))
+            .addPathParameter("TODAY_DATE_GTE", dateNow)
+            .addPathParameter("TODAY_DATE_LTE", dateNow)
             .setPriority(Priority.MEDIUM)
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
@@ -100,13 +103,15 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                     val jsonArray = response.optJSONArray("results")
 
-                    if (jsonArray?.length() == 0)
-                    {
-                        Toast.makeText(applicationContext,"result data is empty, Add the data first", Toast.LENGTH_LONG).show()
+                    if (jsonArray?.length() == 0) {
+                        Toast.makeText(
+                            applicationContext,
+                            "result data is empty, Add the data first",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
-                    for (i in 0 until jsonArray.length())
-                    {
+                    for (i in 0 until jsonArray.length()) {
                         val jsonObject = jsonArray.optJSONObject(i)
 
                         arrayListMovRelease.add(
@@ -130,17 +135,18 @@ class FmDailyReminderService : FirebaseMessagingService() {
                         origTitle.add(arrayListMovRelease[i].title)
                         imageMovie.add(arrayListMovRelease[i].posterPath)
 
-                        if (jsonArray.length() - 1 == i)
-                        {
+                        if (jsonArray.length() - 1 == i) {
 
-                            Log.d(TAG_LOG, """
+                            Log.d(
+                                TAG_LOG, """
                                 
                                 message req $origTitle
                                 \n
                                 message image : $imageMovie
                                 
                                 ${POSTER_IMAGE}w185${imageMovie[1]}
-                            """.trimIndent())
+                            """.trimIndent()
+                            )
 
                             /**
                              * ThreadReleaseNotification
@@ -160,10 +166,11 @@ class FmDailyReminderService : FirebaseMessagingService() {
                                     PendingIntent.FLAG_ONE_SHOT
                                 )
                                 val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-                                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                val notificationManager =
+                                    getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-                                messageRelease.replace("[","")
-                                messageRelease.replace("]","")
+                                messageRelease.replace("[", "")
+                                messageRelease.replace("]", "")
 
                                 val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
                                     .setSmallIcon(R.drawable.ic_menu_notifications_black_24dp)
@@ -184,7 +191,11 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                                     /* Create or update. */
-                                    val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+                                    val channel = NotificationChannel(
+                                        channelId,
+                                        channelName,
+                                        NotificationManager.IMPORTANCE_DEFAULT
+                                    )
                                     notificationBuilder.setChannelId(channelId)
                                     notificationManager.createNotificationChannel(channel)
                                 }
@@ -196,7 +207,7 @@ class FmDailyReminderService : FirebaseMessagingService() {
                             /**
                              * ThreadReleaseNotification
                              */
-                            sendNotificationRelease( myImageGlide)
+                            sendNotificationRelease(myImageGlide)
 
                         }
                     }
@@ -204,13 +215,22 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                 override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR",anError?.errorDetail.toString())
+                    Log.d("ON_ERROR", anError?.errorDetail.toString())
 
                     if (anError?.errorCode != 0) {
 
-                        Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}" ) // error.getErrorCode() - the error code from server
-                        Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}") // error.getErrorBody() - the error body from server
-                        Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}") // error.getErrorDetail() - just an error detail
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorCode : ${anError?.errorCode}"
+                        ) // error.getErrorCode() - the error code from server
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorBody : ${anError?.errorBody}"
+                        ) // error.getErrorBody() - the error body from server
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorDetail : ${anError?.errorDetail}"
+                        ) // error.getErrorDetail() - just an error detail
 
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError

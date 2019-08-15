@@ -148,10 +148,20 @@ class MoviesApiAdapter internal constructor(
 
         holder.itemView.checkbox_fav_movie.setOnCheckedChangeListener { buttonView, isChecked ->
             buttonView.startAnimation(animation)
-            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(id, release, title, overview, poster, context,  ::insertFavoriteMovie)
-            else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
-                    Toast.LENGTH_LONG)
-                    .show()
+            if (isChecked) MoviesWapiHomeFragment.initFavoriteParam(
+                id,
+                release,
+                title,
+                overview,
+                poster,
+                context,
+                ::insertFavoriteMovie
+            )
+            else Toast.makeText(
+                context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
+                Toast.LENGTH_LONG
+            )
+                .show()
         }
 
         holder.itemView.text_movies_release.text = release
@@ -193,7 +203,7 @@ class MoviesApiAdapter internal constructor(
 
             movieDialog.window?.attributes?.windowAnimations = R.style.AnimBottomTop
             movieDialog.show()
-        // end of dialog view
+            // end of dialog view
         }
         // end of image clicked
 

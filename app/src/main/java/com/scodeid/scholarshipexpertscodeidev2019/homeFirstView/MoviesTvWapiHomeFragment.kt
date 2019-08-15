@@ -60,7 +60,11 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
             values.put(POSTER, poster)
 
             context.contentResolver.insert(CONTENT_URI_TV, values)
-            Toast.makeText(context, context.resources.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                context.resources.getString(R.string.toast_sql_lite_insert_success),
+                Toast.LENGTH_SHORT
+            )
                 .show()
         }
     }

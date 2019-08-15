@@ -40,10 +40,9 @@ class MovieProvModel : Parcelable {
 
     var id: Int = 0
     var title: String? = null
-    var release :  String? = null
-    var description :  String? = null
-    var posterImage : String? = null
-
+    var release: String? = null
+    var description: String? = null
+    var posterImage: String? = null
 
 
     override fun describeContents(): Int {
@@ -81,7 +80,7 @@ class MovieProvModel : Parcelable {
     private constructor(`in`: Parcel) {
         id = `in`.readInt()
         title = `in`.readString()
-        release= `in`.readString()
+        release = `in`.readString()
         description = `in`.readString()
         posterImage = `in`.readString()
     }

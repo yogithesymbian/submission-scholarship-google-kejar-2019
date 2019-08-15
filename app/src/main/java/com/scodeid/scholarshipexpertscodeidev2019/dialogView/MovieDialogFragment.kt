@@ -28,9 +28,9 @@ class MovieDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG_LOG,"onViewCreated")
+        Log.d(TAG_LOG, "onViewCreated")
 
-        view.button_close.setOnClickListener{
+        view.button_close.setOnClickListener {
             dialog?.cancel()
         }
     }

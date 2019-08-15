@@ -130,8 +130,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
             favoriteAdapter.setListMovie(listNotes)
             image_empty_fav.visibility = View.GONE
             text_empty_fav.visibility = View.GONE
-        }
-        else {
+        } else {
             favoriteAdapter.setListMovie(java.util.ArrayList())
             image_empty_fav.visibility = View.VISIBLE
             text_empty_fav.visibility = View.VISIBLE

@@ -109,7 +109,15 @@ class FavoriteMovieRoomAdapter(
             buttonView.startAnimation(animation)
             if (isChecked) {
                 removeItemMovies(position)
-                MainFavoriteMovieRoomActivity.initFavoriteParam(id, release, title, overview, poster, context,  ::deleteFavoriteMovie)
+                MainFavoriteMovieRoomActivity.initFavoriteParam(
+                    id,
+                    release,
+                    title,
+                    overview,
+                    poster,
+                    context,
+                    ::deleteFavoriteMovie
+                )
                 unFavorite.isChecked = false
             }
         }

@@ -12,9 +12,10 @@ import kotlinx.android.synthetic.main.activity_no_internet_conn.*
 
 class NoInternetConnActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         val TAG_LOG: String = NoInternetConnActivity::class.java.simpleName
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_no_internet_conn)

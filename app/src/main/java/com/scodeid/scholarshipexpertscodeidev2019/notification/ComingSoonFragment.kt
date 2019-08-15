@@ -17,11 +17,10 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFr
 
 class ComingSoonFragment : Fragment() {
 
-    companion object{
+    companion object {
         val TAG_LOG: String = ComingSoonFragment::class.java.simpleName
         const val KEY = "keyPojoSubTab"
-        fun newInstanceData(pojoSubTab: MovieTabColorModel) : MoviesWapiHomeFragment
-        {
+        fun newInstanceData(pojoSubTab: MovieTabColorModel): MoviesWapiHomeFragment {
             val fragment = MoviesWapiHomeFragment()
             val args = Bundle()
             args.putParcelable(KEY, pojoSubTab)
@@ -29,6 +28,7 @@ class ComingSoonFragment : Fragment() {
             return fragment
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,9 +36,10 @@ class ComingSoonFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_coming_soon, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable(""+ KEY)
+        val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable("" + KEY)
         pojoSubTab?.let {
 
             val color0 = "R.color.color0"
@@ -46,10 +47,34 @@ class ComingSoonFragment : Fragment() {
             val color2 = "R.color.color2"
             val color3 = "R.color.color3"
             when {
-                it.colorString == color0 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
-                it.colorString == color1 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabGreen, null))
-                it.colorString == color2 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabPink, null))
-                it.colorString == color3 -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorBarTabPurple, null))
+                it.colorString == color0 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.white,
+                        null
+                    )
+                )
+                it.colorString == color1 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabGreen,
+                        null
+                    )
+                )
+                it.colorString == color2 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabPink,
+                        null
+                    )
+                )
+                it.colorString == color3 -> view.setBackgroundColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.colorBarTabPurple,
+                        null
+                    )
+                )
                 else -> view.setBackgroundColor(ResourcesCompat.getColor(resources, R.color.white, null))
             }
         }

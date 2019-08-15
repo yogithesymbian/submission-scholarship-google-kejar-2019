@@ -120,9 +120,13 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
             try {
                 context.contentResolver.insert(CONTENT_URI_MOVIE, values)
-                Toast.makeText(context, context.resources.getString(R.string.toast_sql_lite_insert_success), Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context,
+                    context.resources.getString(R.string.toast_sql_lite_insert_success),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
-            } catch (e : IOException) {
+            } catch (e: IOException) {
                 Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT)
                     .show()
             }

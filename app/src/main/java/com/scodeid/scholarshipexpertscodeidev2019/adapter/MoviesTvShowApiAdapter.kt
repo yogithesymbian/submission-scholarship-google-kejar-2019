@@ -57,13 +57,13 @@ Linux 4.19.0-kali5-amd64
  *
  */
 
-class MoviesTvShowApiAdapter (
-    private var arrayListMoviesTvShow : ArrayList<MoviesTvShowApiData>
+class MoviesTvShowApiAdapter(
+    private var arrayListMoviesTvShow: ArrayList<MoviesTvShowApiData>
 ) : RecyclerView.Adapter<MoviesTvShowApiAdapter.ViewHolder>(), Filterable {
 
     private var arrayListMoviesTvShowTemp = ArrayList<MoviesTvShowApiData>()
 
-    companion object{
+    companion object {
         const val LIMIT = 10
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
@@ -73,23 +73,26 @@ class MoviesTvShowApiAdapter (
         arrayListMoviesTvShowTemp = arrayListMoviesTvShow
     }
 
-    fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>)
-    {
+    fun setData(itemsMovie: ArrayList<MoviesTvShowApiData>) {
         arrayListMoviesTvShow.clear()
         arrayListMoviesTvShow.addAll(itemsMovie)
         notifyDataSetChanged()
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val view =  ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows, parent, false))
+        val view = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_movies_tv_shows, parent, false))
         val context = parent.context
         ItemClickRecyclerSupport
             .addTo(parent.recycler_view_tv_show)
-            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener{
+            .setOnItemClickListener(object : ItemClickRecyclerSupport.OnItemClickListener {
 
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
                     openingTvShowDetail(arrayListMoviesTvShow[position], context)
-                    Log.d(TAG_LOG,"Try opening something about the detail tv show" +arrayListMoviesTvShow[position].name)
+                    Log.d(
+                        TAG_LOG,
+                        "Try opening something about the detail tv show" + arrayListMoviesTvShow[position].name
+                    )
                 }
 
             })
@@ -126,12 +129,16 @@ class MoviesTvShowApiAdapter (
         //check for replace and go
         val mFragmentTransaction = mFragmentManager.beginTransaction()
         // replace the container frameLayout
-        mFragmentTransaction.replace(R.id.frame_container_tv_show, mMoviesTvShowDetailFragment,  MoviesTvWapiHomeDetailFragment::class.java.simpleName)
+        mFragmentTransaction.replace(
+            R.id.frame_container_tv_show,
+            mMoviesTvShowDetailFragment,
+            MoviesTvWapiHomeDetailFragment::class.java.simpleName
+        )
         // set back stack null to get on back pressed !exit
         mFragmentTransaction.addToBackStack(null)
         // commit the fragment
         mFragmentTransaction.commit()
-        Log.d(TAG_LOG,"Fragment has commit")
+        Log.d(TAG_LOG, "Fragment has commit")
     }
 
 
@@ -156,9 +163,17 @@ class MoviesTvShowApiAdapter (
 
         holder.itemView.checkbox_fav_tv.setOnCheckedChangeListener { buttonView, isChecked ->
             buttonView.startAnimation(animation)
-            if (isChecked) MoviesTvWapiHomeFragment.initFavoriteTvParam(title, voteAverage,  imagePoster, context,  ::insertFavoriteTv)
-            else Toast.makeText(context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
-                Toast.LENGTH_LONG)
+            if (isChecked) MoviesTvWapiHomeFragment.initFavoriteTvParam(
+                title,
+                voteAverage,
+                imagePoster,
+                context,
+                ::insertFavoriteTv
+            )
+            else Toast.makeText(
+                context, "Sorry ,Delete item at this time only on favorite view, you cant do it at here.",
+                Toast.LENGTH_LONG
+            )
                 .show()
         }
 
@@ -168,7 +183,7 @@ class MoviesTvShowApiAdapter (
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w185"+ imagePoster)
+                .load(POSTER_IMAGE + "w185" + imagePoster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -192,7 +207,7 @@ class MoviesTvShowApiAdapter (
 
             Glide.with(it)
                 .asBitmap()
-                .load(POSTER_IMAGE+"w342"+imagePoster)
+                .load(POSTER_IMAGE + "w342" + imagePoster)
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)
@@ -246,6 +261,6 @@ class MoviesTvShowApiAdapter (
         return position
     }
 
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view)
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
 }
