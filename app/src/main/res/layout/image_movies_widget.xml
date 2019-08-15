@@ -15,17 +15,18 @@
         <StackView
                 android:id="@+id/stack_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:loopViews="true" />
 
         <TextView
-                android:id="@+id/banner_text"
+                android:id="@+id/text_banner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@color/colorPrimaryDark"
+                android:padding="@dimen/card_all_radius_16dp"
                 android:text="@string/appwidget_text"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
@@ -34,11 +35,10 @@
     </LinearLayout>
 
     <TextView
-            android:id="@+id/empty_view"
+            android:id="@+id/text_empty"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:background="@color/colorAccent"
             android:text="@string/image_movies_widget_no_data"
             android:textAlignment="center"
             android:textColor="#ffffff"

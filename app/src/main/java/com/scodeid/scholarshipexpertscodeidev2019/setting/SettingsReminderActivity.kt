@@ -78,7 +78,7 @@ class SettingsReminderActivity : AppCompatActivity(),
 
     class SyncFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.sync_preferences, rootKey)
+            setPreferencesFromResource(R.xml.subscribe_notification_preferences, rootKey)
         }
     }
 

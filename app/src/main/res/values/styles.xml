@@ -42,11 +42,10 @@
         <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="colorControlNormal">@android:color/black</item>
     </style>
-    <!--<style name="ToolbarColoredBackArrow" parent="AppTheme">-->
-        <!--<item name="colorControlNormal">@android:color/black</item>-->
-    <!--</style>-->
+
 </resources>

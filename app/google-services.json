@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "358867736600",
+    "firebase_url": "https://yochat-1c95c.firebaseio.com",
+    "project_id": "yochat-1c95c",
+    "storage_bucket": "yochat-1c95c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358867736600:android:bc9fe348e874fe3a",
+        "android_client_info": {
+          "package_name": "com.scodeid.scholarshipexpertscodeidev2019"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358867736600-7osc95nijoj1r0a650l6scnd7qi7l926.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scodeid.scholarshipexpertscodeidev2019",
+            "certificate_hash": "4ad0650fff93887bd0bce51cf82911529c7dab78"
+          }
+        },
+        {
+          "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS3j7PpNh58bQijXPt6r4SuEVRNyaSFlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358867736600:android:52458c157169404e",
+        "android_client_info": {
+          "package_name": "id.scode.backendscodeid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358867736600-em1jivl8dvmkpmdf949iif8lt4gegcd3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.scode.backendscodeid",
+            "certificate_hash": "ff0f93417cbc64b1e06a9ae06243a3c27222be64"
+          }
+        },
+        {
+          "client_id": "358867736600-vgscco82qp2n63jdo86c8qe6sirbehit.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.scode.backendscodeid",
+            "certificate_hash": "4ad0650fff93887bd0bce51cf82911529c7dab78"
+          }
+        },
+        {
+          "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS3j7PpNh58bQijXPt6r4SuEVRNyaSFlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358867736600:android:29294d559faf9dec",
+        "android_client_info": {
+          "package_name": "id.scode.yochat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358867736600-q0g9v8i097e28s35vo5jg87aj9j9796n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.scode.yochat",
+            "certificate_hash": "be7b23c3890ca8ed6456d7ed83687cb6ae58d6ba"
+          }
+        },
+        {
+          "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS3j7PpNh58bQijXPt6r4SuEVRNyaSFlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358867736600-aecorq0ufpe03lmj9btvou2ltdtn9t3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-1548806700490565~5616944290"
+    }
+  ],
+  "configuration_version": "1"
+}

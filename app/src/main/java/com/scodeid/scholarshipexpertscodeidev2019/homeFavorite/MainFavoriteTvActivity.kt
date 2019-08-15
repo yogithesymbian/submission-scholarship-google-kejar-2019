@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteTvAdapter
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV

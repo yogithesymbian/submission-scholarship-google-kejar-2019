@@ -46,6 +46,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
         val myObserver = DataObserver(handler, this)
+
         contentResolver.registerContentObserver(CONTENT_URI_MOVIE, true, myObserver)
 
         favoriteAdapter = FavoriteAdapter(this)

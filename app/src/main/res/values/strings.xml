@@ -193,10 +193,11 @@
     <string name="notification_channel_name_2" translatable="false">DailyRelease</string>
     <string name="menu_drawer_movies_daily_reminder">Daily Reminder</string>
     <string name="activity_main_favorite_empty">Empty</string>
-    <string name="appwidget_text">SAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="image_movies_widget_no_data">No Data</string>
+    <string name="appwidget_text">FAVORITE MOVIE</string>
+    <string name="image_movies_widget_no_data">Favorite Empty</string>
     <string name="widget_item_movies_widget_favorite">widget favorite</string>
+    <string name="activity_no_internet_conn_favorite_movie">Favorite Movie</string>
+    <string name="activity_no_internet_conn_favorite_tv">Favorite Tv</string>
 
 
 </resources>

@@ -54,6 +54,7 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
+
     companion object {
         val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
     }

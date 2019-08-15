@@ -4,15 +4,22 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.os.Binder
 import android.os.Bundle
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.bumptech.glide.Glide
+import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
 import java.util.*
+
+
+
 
 /**
  * @author
@@ -37,57 +44,94 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
 
  */
 
-class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService.RemoteViewsFactory {
 
-    private val mWidgetItems = ArrayList<Bitmap>()
-
+    private var cursor: Cursor? = null
+    private var bitmapMovie = ArrayList<Bitmap>()
 
     override fun onCreate() {
-
+        // ...
     }
 
+    @SuppressLint("Recycle")
     override fun onDataSetChanged() {
-        //        if (cursor != null){
-        //            cursor.close();
-        //        }
-        //
-        //        final long identityToken = Binder.clearCallingIdentity();
-        //
-        //        // querying ke database
-        //        cursor = mContext.getContentResolver().query(CONTENT_URI, null, null, null, null);
 
-        //        Binder.restoreCallingIdentity(identityToken);
+        Log.d(TAG_LOG, "ON_DATA_SET_CHANGE_WIDGET")
 
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.ic_poster_robinhood_background))
+        val threadQuerying = object : Thread() {
+            override fun run() {
 
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.star_wars_logo))
-//
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.storm_trooper))
-//
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.starwars))
-//
-//        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.falcon))
+                val identityToken = Binder.clearCallingIdentity()
+                if(cursor != null){
+                    cursor?.close()
+                }
+                cursor = context.contentResolver.query(
+                    ContractDatabase.MovieColumns.CONTENT_URI_MOVIE,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+
+                Binder.restoreCallingIdentity(identityToken)
+
+            }
+        }
+
+        threadQuerying.start()
+        try {threadQuerying.join()} catch (e: InterruptedException) {}
+
+        /**
+         * set ArrayList BitMap
+         */
+        if (cursor != null) {
+            if (cursor?.moveToFirst()!!) {
+                do {
+                    val getImages =
+                        "${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))}"
+                    Log.d(
+                        TAG_LOG,
+                        """ \n
+                            title is ${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))}
+                            image is $getImages
+                            
+                        """.trimIndent()
+                    )
+
+                    val posterToBitmap = Glide.with(context)
+                        .asBitmap()
+                        .load(getImages)
+                        .submit()
+                    bitmapMovie.add(posterToBitmap.get())
+
+                } while (cursor?.moveToNext()!!)
+            }
+        }
+
     }
 
     override fun onDestroy() {
-
+        cursor?.close()
     }
 
     override fun getCount(): Int {
-        return mWidgetItems.size
+        return cursor?.count!!
     }
 
     override fun getViewAt(position: Int): RemoteViews {
-        val rv = RemoteViews(mContext.packageName, R.layout.widget_item_movies)
-        rv.setImageViewBitmap(R.id.imageView, mWidgetItems[position])
 
+        val remoteViews = RemoteViews(context.packageName, com.scodeid.scholarshipexpertscodeidev2019.R.layout.widget_item_movies)
+
+        remoteViews.setImageViewBitmap(com.scodeid.scholarshipexpertscodeidev2019.R.id.imageView, bitmapMovie[position])
         val extras = Bundle()
-        extras.putInt(ImageMoviesWidget.EXTRA_ITEM, position)
+        extras.putInt(StackImageMovies.EXTRA_ITEM, position)
+
         val fillInIntent = Intent()
         fillInIntent.putExtras(extras)
-        rv.setOnClickFillInIntent(R.id.imageView, fillInIntent)
 
-        return rv
+        remoteViews.setOnClickFillInIntent(com.scodeid.scholarshipexpertscodeidev2019.R.id.imageView, fillInIntent)
+        return remoteViews
 
     }
 
@@ -100,10 +144,15 @@ class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsServic
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return position.toLong()
     }
 
     override fun hasStableIds(): Boolean {
         return false
     }
+
+    companion object {
+        const val TAG_LOG: String = "RemoteViews"
+    }
 }
+

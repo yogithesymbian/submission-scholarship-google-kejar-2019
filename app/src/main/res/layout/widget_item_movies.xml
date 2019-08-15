@@ -7,13 +7,16 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            tools:srcCompat="@drawable/ic_poster_robinhood_background"
-            android:contentDescription="@string/widget_item_movies_widget_favorite"/>
+
+
+        <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/widget_item_movies_widget_favorite"
+                tools:srcCompat="@drawable/ic_poster_robinhood_background"
+                />
+
 
 </LinearLayout>

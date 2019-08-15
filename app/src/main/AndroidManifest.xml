@@ -4,7 +4,8 @@
           package="com.scodeid.scholarshipexpertscodeidev2019">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> <!-- provider -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!-- provider -->
     <permission
             android:name="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
             android:protectionLevel="normal"/>
@@ -22,14 +23,17 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
         <service
-                android:name=".widget.StackWidgetService"
+                android:name=".service.StackService"
                 android:enabled="true"
                 android:exported="true"
                 android:permission="android.permission.BIND_REMOTEVIEWS"
                 >
         </service>
 
-        <receiver android:name=".widget.ImageMoviesWidget">
+        <receiver
+                android:name=".widget.StackImageMovies"
+
+                >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -69,10 +73,11 @@
         <provider
                 android:name=".provider.FavoriteContentProvider"
                 android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
-                android:enabled="true"
                 android:exported="true"
                 android:readPermission="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
-                android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"/> <!-- provider -->
+                android:writePermission="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
+                />
+        <!-- provider -->
         <activity android:name=".homeFavorite.MainFavoriteMovieRoomDeleteActivity">
         </activity>
         <activity android:name=".homeFavorite.MainFavoriteMovieRoomActivity">

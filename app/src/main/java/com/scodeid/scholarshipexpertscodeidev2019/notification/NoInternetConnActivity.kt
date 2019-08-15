@@ -4,10 +4,13 @@
 
 package com.scodeid.scholarshipexpertscodeidev2019.notification
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import kotlinx.android.synthetic.main.activity_no_internet_conn.*
 
 class NoInternetConnActivity : AppCompatActivity() {
@@ -27,6 +30,11 @@ class NoInternetConnActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+        button_fav_mv_act.setOnClickListener { startActivity(Intent(this@NoInternetConnActivity, MainFavoriteMovieActivity::class.java)) }
+
+        button_fav_tv_act.setOnClickListener { startActivity(Intent(this@NoInternetConnActivity, MainFavoriteTvActivity::class.java)) }
+
     }
 
 }
