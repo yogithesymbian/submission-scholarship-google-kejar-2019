@@ -221,5 +221,6 @@
     <string name="widget_item_movies_widget_favorite">jendela favorite</string>
     <string name="activity_no_internet_conn_favorite_movie">Favorite Movie</string>
     <string name="activity_no_internet_conn_favorite_tv">Favorite Tv</string>
+    <string name="activity_movie_catalogue_main_content_no_videos_try_enter_for_search_online">Tidak ada  Video, Silahan enter untuk pencarian online</string>
 </resources>
 

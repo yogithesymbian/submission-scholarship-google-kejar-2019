@@ -2,6 +2,8 @@
  * Copyright (c) 2019. SCODEID
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.scodeid.scholarshipexpertscodeidev2019.homeFirstView
 
 import android.annotation.SuppressLint

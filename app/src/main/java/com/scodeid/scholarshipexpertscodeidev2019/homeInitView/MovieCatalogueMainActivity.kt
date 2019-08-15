@@ -531,10 +531,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
     private fun doSubscribe(subscribeTopic: String) {
 
-//        val registrationTokens = arrayListOf(
-//            "",
-//            ""
-//        )
         // subscribe with a topic
         FirebaseMessaging.getInstance().subscribeToTopic(subscribeTopic)
 
@@ -604,7 +600,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 }
                 colorAnimation.start()
             }
-        }, 100) //10sec
+        }, 100)
     }
 
     /**
@@ -751,7 +747,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
                         MoviesWapiHomeFragment.adapter.filter.filter(newText)
                         if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
-
+                            text_no_videos.visibility = View.VISIBLE
+                            view_pager_container_home.visibility = View.GONE
+                        }
+                        else {
+                            text_no_videos.visibility = View.GONE
+                            view_pager_container_home.visibility = View.VISIBLE
                         }
                         return false
                     }
@@ -790,7 +791,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
                         MoviesTvWapiHomeFragment.adapter.filter.filter(newText)
                         if (MoviesTvWapiHomeFragment.adapter.itemCount == 0) {
-
+                            text_no_videos.visibility = View.VISIBLE
+                            frame_container_tv_show.visibility = View.GONE
+                        }
+                        else {
+                            text_no_videos.visibility = View.GONE
+                            frame_container_tv_show.visibility = View.VISIBLE
                         }
                         return false
                     }
@@ -829,7 +835,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
                         MoviesWapiHomeFragment.adapter.filter.filter(newText)
                         if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
-                            Log.d(TAG_LOG, "item not found, try tap enter to search online")
+                            text_no_videos.visibility = View.VISIBLE
+                            view_pager_container_home.visibility = View.GONE
+                        }
+                        else{
+                            text_no_videos.visibility = View.GONE
+                            view_pager_container_home.visibility = View.VISIBLE
                         }
                         return false
                     }

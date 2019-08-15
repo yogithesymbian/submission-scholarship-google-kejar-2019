@@ -2,6 +2,8 @@
  * Copyright (c) 2019. SCODEID
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.scodeid.scholarshipexpertscodeidev2019.adapter
 
 import android.annotation.SuppressLint
@@ -20,8 +22,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
+import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieRoomActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieRoomActivity.Companion.deleteFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieRoomDeleteActivity

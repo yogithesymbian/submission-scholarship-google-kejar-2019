@@ -12,6 +12,18 @@
         tools:showIn="@layout/activity_movie_catalogue_main_bar"
         tools:context=".homeInitView.MovieCatalogueMainActivity"
         >
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_no_videos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/activity_movie_catalogue_main_content_no_videos_try_enter_for_search_online"
+            android:textAllCaps="false"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
     <FrameLayout
             android:id="@+id/frame_ui_change_progress"
             android:layout_width="match_parent"
@@ -60,6 +72,7 @@
             tools:ignore="UnusedAttribute">
 
     </androidx.appcompat.widget.ContentFrameLayout>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
