@@ -15,10 +15,8 @@ import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bumptech.glide.Glide
+import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
-import java.util.*
-
-
 
 
 /**
@@ -49,6 +47,7 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
 
     private var cursor: Cursor? = null
     private var bitmapMovie = ArrayList<Bitmap>()
+    private var title = ArrayList<String>()
 
     override fun onCreate() {
         // ...
@@ -63,9 +62,11 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
             override fun run() {
 
                 val identityToken = Binder.clearCallingIdentity()
-                if(cursor != null){
+
+                if (cursor != null) {
                     cursor?.close()
                 }
+                // i choose query to favorite movies
                 cursor = context.contentResolver.query(
                     ContractDatabase.MovieColumns.CONTENT_URI_MOVIE,
                     null,
@@ -80,7 +81,10 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
         }
 
         threadQuerying.start()
-        try {threadQuerying.join()} catch (e: InterruptedException) {}
+        try {
+            threadQuerying.join()
+        } catch (e: Throwable) {
+        }
 
         /**
          * set ArrayList BitMap
@@ -90,10 +94,12 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
                 do {
                     val getImages =
                         "${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))}"
+                    val titleImage =
+                        "${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))}"
                     Log.d(
                         TAG_LOG,
                         """ \n
-                            title is ${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))}
+                            title is $titleImage
                             image is $getImages
                             
                         """.trimIndent()
@@ -104,6 +110,7 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
                         .load(getImages)
                         .submit()
                     bitmapMovie.add(posterToBitmap.get())
+                    title.add(titleImage)
 
                 } while (cursor?.moveToNext()!!)
             }
@@ -121,16 +128,24 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
 
     override fun getViewAt(position: Int): RemoteViews {
 
-        val remoteViews = RemoteViews(context.packageName, com.scodeid.scholarshipexpertscodeidev2019.R.layout.widget_item_movies)
+        val remoteViews =
+            RemoteViews(context.packageName, R.layout.widget_item_movies)
 
-        remoteViews.setImageViewBitmap(com.scodeid.scholarshipexpertscodeidev2019.R.id.imageView, bitmapMovie[position])
+        remoteViews.setImageViewBitmap(R.id.imageView, bitmapMovie[position])
         val extras = Bundle()
-        extras.putInt(StackImageMovies.EXTRA_ITEM, position)
+        extras.putInt(
+            StackImageMovies.EXTRA_ITEM,
+            position
+        )
+        extras.putString(
+            StackImageMovies.EXTRA_TITLE,
+            title[position]
+        )
 
         val fillInIntent = Intent()
         fillInIntent.putExtras(extras)
 
-        remoteViews.setOnClickFillInIntent(com.scodeid.scholarshipexpertscodeidev2019.R.id.imageView, fillInIntent)
+        remoteViews.setOnClickFillInIntent(R.id.imageView, fillInIntent)
         return remoteViews
 
     }

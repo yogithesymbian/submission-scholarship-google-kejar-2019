@@ -61,7 +61,8 @@ class StackImageMovies : AppWidgetProvider() {
         if (intent.action != null) {
             if (intent.action == TOAST_ACTION) {
                 val indexImage = intent.getIntExtra(EXTRA_ITEM, 0)
-                Toast.makeText(context, "Touched View $indexImage", Toast.LENGTH_SHORT)
+                val titleImage = intent.getStringExtra(EXTRA_TITLE)
+                Toast.makeText(context, "$indexImage : $titleImage", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -71,6 +72,7 @@ class StackImageMovies : AppWidgetProvider() {
 
         private const val TOAST_ACTION = "com.scodeid.scholarshipexpertscodeidev2019.TOAST_ACTION"
         internal const val EXTRA_ITEM = "com.scodeid.scholarshipexpertscodeidev2019.EXTRA_ITEM"
+        const val EXTRA_TITLE = "extra_title"
 
         internal fun updateAppWidget(
             context: Context, appWidgetManager: AppWidgetManager,
