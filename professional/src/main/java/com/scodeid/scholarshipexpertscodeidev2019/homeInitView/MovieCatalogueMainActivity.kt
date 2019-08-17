@@ -303,7 +303,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          * From daily Reminder
          */
         val preferenceManager = PreferenceManager(this)
-
         val channelId1 = getString(R.string.notification_channel_id_1)
         val channelName1 = getString(R.string.notification_channel_name_1)
 
