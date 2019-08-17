@@ -225,5 +225,6 @@
     <string name="movie_catalogue_main_activity_release_movie">Harian Release Sudah di Aktifkan</string>
     <string name="movie_catalogue_main_activity_daily_token_movie">Daily Token Has been Enable</string>
     <string name="movie_catalogue_main_activity_json_response_movie">data kosong</string>
+    <string name="drawer_movies_menu_light_dark_theme">Putih | Gelap Tema</string>
 </resources>
 

@@ -202,6 +202,7 @@
     <string name="movie_catalogue_main_activity_release_movie">Daily Release Has been Enable</string>
     <string name="movie_catalogue_main_activity_daily_token_movie">Daily Token Has been Enable</string>
     <string name="movie_catalogue_main_activity_json_response_movie">result data is empty, Add the data first</string>
+    <string name="drawer_movies_menu_light_dark_theme">Light | Dark Theme</string>
 
 
 </resources>

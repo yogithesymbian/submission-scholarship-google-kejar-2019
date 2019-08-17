@@ -196,18 +196,38 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
      * END OF FRAGMENT API TV SHOW
      */
 
-
-    /**
-     * Listener Drawer Nav
-     */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_language -> {
                 startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
             }
             R.id.nav_notification_reminder -> {
-//                startActivity(Intent(this@MovieCatalogueMainActivity, TestingActivity::class.java))
                 startActivity(Intent(this@MovieCatalogueMainActivity, SettingsReminderActivity::class.java))
+            }
+            R.id.nav_theme -> {
+                // coming soon will apply , @coming_soon
+                debuggingMyScode(TAG_LOG,"lightDark is clicked and it.${item.isChecked}")
+                if (!item.isChecked) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        changeColorBarMovie(
+                            R.color.darkTheme,
+                            R.color.darkTheme
+                        )
+                    }
+                    else
+                        toastAllActivity(this, "Error code 159120 / www.scode.id/159120.asp ")
+                }
+                else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        changeColorBarMovie(
+                            R.color.lightTheme,
+                            R.color.lightTheme
+                        )
+                    }
+                    else
+                        toastAllActivity(this, "Error code 159120 / www.scode.id/159120.asp ")
+                }
+
             }
         }
         // close the drawer with anim start

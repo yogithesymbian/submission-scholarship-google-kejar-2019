@@ -18,6 +18,8 @@
     <color name="colorBarTabGreen">#01875f</color>
     <color name="colorBarTabPink">#ff4081</color>
     <color name="colorBarTabPurple">#6f74dd</color>
+    <color name="darkTheme">#FA000000</color>
+    <color name="lightTheme">#FAFFFFFF</color>
 
 
     <!--for colorPrimary White-->
