@@ -10,7 +10,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.provider.BaseColumns
 import androidx.annotation.RequiresApi
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
+import com.scodeid.yomoviecommon.database.ContractDatabase
 
 /**
  * @author

@@ -8,7 +8,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns
 
 /**
  * @author

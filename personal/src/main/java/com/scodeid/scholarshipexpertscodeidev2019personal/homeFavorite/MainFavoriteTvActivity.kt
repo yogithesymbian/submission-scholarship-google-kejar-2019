@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
+package com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite
 
 import android.content.Context
 import android.database.ContentObserver
@@ -15,42 +15,42 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteAdapter
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
-import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.movieMapCursorToArrayList
-import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieProvCallBack
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
+import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteTvAdapter
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
+import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.tvMapCursorToArrayList
+import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadTvProvCallBack
+import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
+import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
-import kotlinx.android.synthetic.main.activity_main_favorite.*
+import kotlinx.android.synthetic.main.activity_main_favorite_tv.*
 import java.lang.ref.WeakReference
 
-class MainFavoriteMovieActivity : AppCompatActivity(),
-    LoadMovieProvCallBack {
+class MainFavoriteTvActivity : AppCompatActivity(),
+    LoadTvProvCallBack {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
-        val TAG_LOG: String = MainFavoriteMovieActivity::class.java.simpleName
+        val TAG_LOG: String = MainFavoriteTvActivity::class.java.simpleName
     }
 
-    private lateinit var favoriteAdapter: FavoriteAdapter
+    private lateinit var favoriteAdapter: FavoriteTvAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_favorite)
+        setContentView(R.layout.activity_main_favorite_tv)
 
-        recycler_favorite_movie.layoutManager = LinearLayoutManager(this)
-        recycler_favorite_movie.setHasFixedSize(true)
+        recycler_favorite_tv.layoutManager = LinearLayoutManager(this)
+        recycler_favorite_tv.setHasFixedSize(true)
 
-        val handlerThread = HandlerThread("DataObserver")
+        val handlerThread = HandlerThread("DataObserverTv")
         handlerThread.start()
         val handler = Handler(handlerThread.looper)
-        val myObserver = DataObserver(handler, this)
+        val myObserver = DataObserverTv(handler, this)
+        contentResolver.registerContentObserver(CONTENT_URI_TV, true, myObserver)
 
-        contentResolver.registerContentObserver(CONTENT_URI_MOVIE, true, myObserver)
-
-        favoriteAdapter = FavoriteAdapter(this)
-        recycler_favorite_movie.adapter = favoriteAdapter
+        favoriteAdapter = FavoriteTvAdapter(this)
+        recycler_favorite_tv.adapter = favoriteAdapter
 
         if (savedInstanceState == null) {
             LoadFavMovieAsync(
@@ -58,20 +58,20 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
                 this
             ).execute()
         } else {
-            val list = savedInstanceState.getParcelableArrayList<MovieProvModel>(EXTRA_STATE)
+            val list = savedInstanceState.getParcelableArrayList<TvProvModel>(EXTRA_STATE)
             if (list != null) {
-                favoriteAdapter.setListMovie(list)
+                favoriteAdapter.setListTv(list)
             }
         }
 
     }
 
-    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadMovieProvCallBack) :
+    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadTvProvCallBack) :
         AsyncTask<Void, Void, Cursor>() {
 
         private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
 
-        private val weakReferenceCallBack: WeakReference<LoadMovieProvCallBack> = WeakReference(loadMovieProvCallBack)
+        private val weakReferenceCallBack: WeakReference<LoadTvProvCallBack> = WeakReference(loadMovieProvCallBack)
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -83,7 +83,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         override fun doInBackground(vararg voids: Void): Cursor? {
             val context = weakReferenceContext.get()
             debuggingMyScode(TAG_LOG, "LoadAsync doInBackground")
-            return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
+            return context?.contentResolver?.query(CONTENT_URI_TV, null, null, null, null)
 
         }
 
@@ -94,13 +94,14 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         }
     }
 
-    class DataObserver(handler: Handler, internal val context: Context) : ContentObserver(handler) {
+    class DataObserverTv(handler: Handler, internal val context: Context) : ContentObserver(handler) {
 
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            LoadFavMovieAsync(context, context as LoadMovieProvCallBack).execute()
+            LoadFavMovieAsync(context, context as LoadTvProvCallBack).execute()
         }
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()
@@ -109,7 +110,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listMovieModel)
+        outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listTvModel)
     }
 
     override fun preExecute() {
@@ -125,17 +126,17 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         card_favorite.visibility = View.VISIBLE
 
         debuggingMyScode(TAG_LOG, "onPostExecute")
-        val listNotes = movieMapCursorToArrayList(cursor)
+        val listNotes = tvMapCursorToArrayList(cursor)
 
         if (listNotes.size > 0) {
-            favoriteAdapter.setListMovie(listNotes)
+            favoriteAdapter.setListTv(listNotes)
             image_empty_fav.visibility = View.GONE
             text_empty_fav.visibility = View.GONE
         } else {
-            favoriteAdapter.setListMovie(java.util.ArrayList())
+            favoriteAdapter.setListTv(java.util.ArrayList())
             image_empty_fav.visibility = View.VISIBLE
             text_empty_fav.visibility = View.VISIBLE
-//            showSnackbarMessage("Item is null")
+            card_favorite.visibility = View.GONE
         }
     }
 

@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteTvAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.tvMapCursorToArrayList
 import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadTvProvCallBack
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel

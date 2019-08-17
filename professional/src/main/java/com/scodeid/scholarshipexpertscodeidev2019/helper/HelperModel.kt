@@ -11,14 +11,14 @@ import android.database.SQLException
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns._ID
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
 import com.scodeid.scholarshipexpertscodeidev2019.database.HelperDatabase
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
 
-//import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.Companion.DESCRIPTION
-//import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.Companion.POSTER
-//import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.Companion.TITLE
-//import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.TABLE_MOVIES
+//import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.Companion.DESCRIPTION
+//import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.Companion.POSTER
+//import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.Companion.TITLE
+//import com.scodeid.yomoviecommon.database.ContractDatabase.TABLE_MOVIES
 
 /**
  * @author

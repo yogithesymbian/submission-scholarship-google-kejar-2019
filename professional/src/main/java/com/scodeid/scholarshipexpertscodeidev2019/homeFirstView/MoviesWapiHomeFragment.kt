@@ -22,11 +22,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MoviesApiAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.DESCRIPTION
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.POSTER
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.RELEASE
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TITLE
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.DESCRIPTION
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.POSTER
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.RELEASE
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TITLE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.yomoviecommon.utils.debuggingMyScode

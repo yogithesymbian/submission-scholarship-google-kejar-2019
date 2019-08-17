@@ -15,7 +15,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bumptech.glide.Glide
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
+import com.scodeid.yomoviecommon.database.ContractDatabase
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 
 

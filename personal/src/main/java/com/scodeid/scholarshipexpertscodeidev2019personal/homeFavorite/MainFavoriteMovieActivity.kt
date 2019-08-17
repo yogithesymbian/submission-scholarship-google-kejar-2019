@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.homeFavorite
+package com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite
 
 import android.content.Context
 import android.database.ContentObserver
@@ -20,6 +20,7 @@ import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_
 import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.movieMapCursorToArrayList
 import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieProvCallBack
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
+import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference

@@ -10,9 +10,9 @@ import android.os.Parcel
 import android.os.Parcelable
 import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.getColumnInt
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.getColumnString
+import com.scodeid.yomoviecommon.database.ContractDatabase
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.getColumnInt
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.getColumnString
 
 /**
  * @author

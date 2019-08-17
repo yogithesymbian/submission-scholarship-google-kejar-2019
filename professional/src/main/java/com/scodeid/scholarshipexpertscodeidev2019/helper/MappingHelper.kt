@@ -8,9 +8,9 @@ import android.database.Cursor
 import android.os.Build
 import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
-import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
+import com.scodeid.yomoviecommon.database.ContractDatabase
 import java.util.*
 
 /**

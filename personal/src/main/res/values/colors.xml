@@ -3,8 +3,17 @@
   ~ Copyright (c) 2019. SCODEID
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="white80" tools:keep="@color/white80">#CCffffff</color>
+    <color name="white70" tools:keep="@color/white70">#B3FFFFFF</color>
+    <color name="white" tools:keep="@color/white">#FFFFFF</color>
+    <color name="black80" tools:keep="@color/black80">#CC000000</color>
+    <color name="black70" tools:keep="@color/black70">#B3000000</color>
+    <color name="black" tools:keep="@color/black">#000000</color>
+    <color name="gray90" tools:keep="@color/gray90">#EEEEEE</color>
+    <color name="gray100" tools:keep="@color/gray100">#F5F5F5</color>
 </resources>

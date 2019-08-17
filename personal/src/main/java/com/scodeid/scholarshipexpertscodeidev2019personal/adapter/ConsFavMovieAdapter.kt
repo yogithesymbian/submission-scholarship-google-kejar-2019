@@ -2,35 +2,30 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.adapter
+package com.scodeid.scholarshipexpertscodeidev2019personal.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
-import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieDetailActivity
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
+import androidx.annotation.RequiresApi
+import com.scodeid.scholarshipexpertscodeidev2019personal.R
+import com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite.MainFavoriteMovieDetailActivity
+import com.scodeid.yomoviecommon.database.ContractDatabase
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
-import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_favorite.view.*
 import java.util.*
 
 /**
  * @author
- * Created by scode on 30,July,2019
+ * Created by scode on 18,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -43,20 +38,19 @@ import java.util.*
  * JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
  * Linux 4.19.0-kali5-amd64
  * ==============================================================
-_               _         _               _  _
-___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
-/ __| | | | '_ \| '_ ` _ \| / __/ __| |/ _ \| '_ \  | || |_
-\__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | | |__   _|
-|___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_|    |_|
-
+_               _         _               ____
+___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
+/ __| | | | '_ \| '_ ` _ \| / __/ __| |/ _ \| '_ \  |___ \
+\__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | |  ___) |
+|___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |____/
 
  */
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+class ConsFavMovieAdapter(var activity: Activity) : RecyclerView.Adapter<ConsFavMovieAdapter.FavoriteViewHolder>() {
 
 
     companion object {
-        val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
+        val TAG_LOG: String = ConsFavMovieAdapter::class.java.simpleName
     }
 
     init {
@@ -106,7 +100,7 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
         val context = holder.itemView.context
         val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
 
-        val uri = Uri.parse("$CONTENT_URI_MOVIE/${listMovieModel[position].id}")
+        val uri = Uri.parse("${ContractDatabase.MovieColumns.CONTENT_URI_MOVIE}/${listMovieModel[position].id}")
 
         holder.release.text = this.listMovieModel[position].release
         holder.textTitle.text = this.listMovieModel[position].title
