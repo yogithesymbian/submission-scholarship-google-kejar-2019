@@ -12,7 +12,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.androidnetworking.AndroidNetworking
@@ -28,6 +27,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POST
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 
@@ -46,7 +46,7 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         super.onNewToken(token)
-        Log.d(TAG_LOG, "Refreshed token: " + token!!)
+        debuggingMyScode(TAG_LOG, "Refreshed token: " + token!!)
     }
 
     // receive notif
@@ -54,17 +54,17 @@ class FmDailyReminderService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
         super.onMessageReceived(remoteMessage)
 
-        Log.d(TAG_LOG, "message From: ${remoteMessage?.from}")
+        debuggingMyScode(TAG_LOG, "message From: ${remoteMessage?.from}")
 
         if (remoteMessage?.from == "/topics/token") {
             // by default run this function if apps did not response from where topic {sometimes} dunno why
             if (remoteMessage.notification != null) {
-                Log.d(TAG_LOG, "message ${remoteMessage.notification?.body.toString()}")
+                debuggingMyScode(TAG_LOG, "message ${remoteMessage.notification?.body.toString()}")
                 sendNotificationToken(remoteMessage.notification!!.body)
             }
         } else if (remoteMessage?.from == "/topics/release") {
             if (remoteMessage.notification != null) {
-                Log.d(
+                debuggingMyScode(
                     TAG_LOG, """
 
                     message
@@ -81,7 +81,7 @@ class FmDailyReminderService : FirebaseMessagingService() {
                 reqApiMovie(dateNow)
             }
         } else {
-            Log.d(
+            debuggingMyScode(
                 TAG_LOG,
                 "maybe the topic is confused or maybe not found, please contact admin to request token for notification, bug topic fcm"
             )
@@ -137,7 +137,7 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                         if (jsonArray.length() - 1 == i) {
 
-                            Log.d(
+                            debuggingMyScode(
                                 TAG_LOG, """
                                 
                                 message req $origTitle
@@ -215,26 +215,26 @@ class FmDailyReminderService : FirebaseMessagingService() {
 
                 override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR", anError?.errorDetail.toString())
+                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
 
                     if (anError?.errorCode != 0) {
 
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorCode : ${anError?.errorCode}"
                         ) // error.getErrorCode() - the error code from server
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorBody : ${anError?.errorBody}"
                         ) // error.getErrorBody() - the error body from server
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorDetail : ${anError?.errorDetail}"
                         ) // error.getErrorDetail() - just an error detail
 
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        debuggingMyScode(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
                     }
                 }
             })

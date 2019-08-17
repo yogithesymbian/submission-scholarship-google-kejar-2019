@@ -25,12 +25,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -102,7 +100,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                Log.d(TAG_LOG, "Try opening home movie activity")
+                debuggingMyScode(TAG_LOG, "Try opening home movie activity")
                 // set activity
                 statusActivity = MOVIE
                 // visibility of home
@@ -122,7 +120,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tv_show -> {
-                Log.d(TAG_LOG, "Try opening 2 movie activity")
+                debuggingMyScode(TAG_LOG, "Try opening 2 movie activity")
                 statusActivity = TV_SHOW
                 Handler().postDelayed(object : Runnable {
                     override fun run() {
@@ -140,7 +138,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                Log.d(TAG_LOG, "Try opening 3 movie activity")
+                debuggingMyScode(TAG_LOG, "Try opening 3 movie activity")
                 startActivity(Intent(this@MovieCatalogueMainActivity, ComingSoonActivity::class.java))
                 return@OnNavigationItemSelectedListener true
             }
@@ -259,7 +257,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             if (onIsSubscribe1 != null && onIsSubscribe2 != null) {
                 isSubscribeCh1 = onIsSubscribe1.toBoolean()
                 isSubscribeCh2 = onIsSubscribe2.toBoolean()
-                Log.d(
+                debuggingMyScode(
                     TAG_LOG, """
                     -
                     Subscribe {onSaveInstance} is 1:  $isSubscribeCh1
@@ -281,7 +279,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         val channelId2 = getString(R.string.notification_channel_id_2)
         val channelName2 = getString(R.string.notification_channel_name_2)
 
-        Log.d(TAG_LOG, "Subscribe {onCreate} is $isSubscribeCh1")
+        debuggingMyScode(TAG_LOG, "Subscribe {onCreate} is $isSubscribeCh1")
 
         runSetConfigDailyRelease(preferenceManager, channelId2, channelName2)
         runSetConfigDailyToken(preferenceManager, channelId1, channelName1)
@@ -338,7 +336,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                 when (position) {
                     home -> {
-                        Log.d(TAG_LOG, "Home Tab Got Clicked")
+                        debuggingMyScode(TAG_LOG, "Home Tab Got Clicked")
 
                         app_bar_for_drawer.setBackgroundColor(
                             ResourcesCompat.getColor(
@@ -381,7 +379,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         tabs?.select()
                     }
                     popular -> {
-                        Log.d(TAG_LOG, "Popular Tab Got Clicked")
+                        debuggingMyScode(TAG_LOG, "Popular Tab Got Clicked")
                         /**
                          * animation change color bar layout
                          */
@@ -399,7 +397,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         tabs?.select()
                     }
                     trailer -> {
-                        Log.d(TAG_LOG, "Trailer Tab Got Clicked")
+                        debuggingMyScode(TAG_LOG, "Trailer Tab Got Clicked")
 
                         /**
                          * animation change color bar layout
@@ -418,7 +416,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                         tabs?.select()
                     }
                     saved -> {
-                        Log.d(TAG_LOG, "Saved Tab Got Clicked")
+                        debuggingMyScode(TAG_LOG, "Saved Tab Got Clicked")
 
                         /**
                          * animation change color bar layout
@@ -499,10 +497,10 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         if (
             preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER_RELEASE, false)
         ) {
-            Log.d(TAG_LOG, "Subscribe on daily reminder release")
+            debuggingMyScode(TAG_LOG, "Subscribe on daily reminder release")
 
             if (!isSubscribeCh2) { //false
-                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
+                debuggingMyScode(TAG_LOG, "Subscribe try subscribe and log the token")
 
                 initForSubscribe(channelId2, channelName2)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
@@ -513,11 +511,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 reqApiMovie(dateNow, this@MovieCatalogueMainActivity)
 
                 isSubscribeCh2 = true
-                Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh2")
-            } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder release")
+                debuggingMyScode(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh2")
+            } else debuggingMyScode(TAG_LOG, "Subscribe you already have subscribe daily reminder release")
 
         } else {
-            Log.d(TAG_LOG, "Subscribe is of -> daily reminder release")
+            debuggingMyScode(TAG_LOG, "Subscribe is of -> daily reminder release")
             doUnSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
             notificationReceiver.unSubscribeNotification(this, NotificationReceiver.TYPE_RELEASE_MOVIE)
             isSubscribeCh2 = false
@@ -542,11 +540,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     val jsonArray = response.optJSONArray("results")
 
                     if (jsonArray?.length() == 0) {
-                        Toast.makeText(
-                            applicationContext,
-                            "result data is empty, Add the data first",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        toastAllActivity(applicationContext, getString(R.string.movie_catalogue_main_activity_json_response_movie))
                     }
 
                     for (i in 0 until jsonArray.length()) {
@@ -575,7 +569,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                         if (jsonArray.length() - 1 == i) {
 
-                            Log.d(
+                            debuggingMyScode(
                                 TAG_LOG, """
                                 
                                 message req $origTitle
@@ -601,32 +595,33 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                                 movieCatalogueMainActivity, NotificationReceiver.TYPE_RELEASE_MOVIE,
                                 TIME_DAILY_RELEASE, origTitle.toString()
                             )
+                            toastAllActivity(movieCatalogueMainActivity, getString(R.string.movie_catalogue_main_activity_release_movie))
                         }
                     }
                 }
 
                 override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR", anError?.errorDetail.toString())
+                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
 
                     if (anError?.errorCode != 0) {
 
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorCode : ${anError?.errorCode}"
                         ) // error.getErrorCode() - the error code from server
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorBody : ${anError?.errorBody}"
                         ) // error.getErrorBody() - the error body from server
-                        Log.d(
+                        debuggingMyScode(
                             TAG_LOG,
                             "onError errorDetail : ${anError?.errorDetail}"
                         ) // error.getErrorDetail() - just an error detail
 
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                        debuggingMyScode(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
                     }
                 }
             })
@@ -641,11 +636,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         if (
             preferenceManager.sharedPreferences.getBoolean(KEY_DAILY_REMINDER, false)
         ) {
-            Log.d(TAG_LOG, "Subscribe on daily reminder token")
+            debuggingMyScode(TAG_LOG, "Subscribe on daily reminder token")
 
             if (!isSubscribeCh1) { //false
 
-                Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
+                debuggingMyScode(TAG_LOG, "Subscribe try subscribe and log the token")
                 initForSubscribe(channelId1, channelName1)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY)
 
@@ -654,13 +649,14 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     this, NotificationReceiver.TYPE_TOKEN_BACK_APP,
                     TIME_DAILY_TOKEN, repeatMessage
                 )
+                toastAllActivity(this, getString(R.string.movie_catalogue_main_activity_release_movie))
 
                 isSubscribeCh1 = true
-                Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh1")
-            } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
+                debuggingMyScode(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh1")
+            } else debuggingMyScode(TAG_LOG, "Subscribe you already have subscribe daily reminder")
 
         } else {
-            Log.d(TAG_LOG, "Subscribe is of -> daily reminder")
+            debuggingMyScode(TAG_LOG, "Subscribe is of -> daily reminder")
             doUnSubscribe(SUBSCRIBE_TOPIC_DAILY)
             notificationReceiver.unSubscribeNotification(this, NotificationReceiver.TYPE_TOKEN_BACK_APP)
             isSubscribeCh1 = false
@@ -680,7 +676,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         // log the token
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
             val deviceToken = instanceIdResult.token
-            Log.d(
+            debuggingMyScode(
                 TAG_LOG, """ 
                 ________________________________
                 Subscribe Topic is $subscribeTopic 
@@ -706,7 +702,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         if (intent.extras != null) {
             for (key in intent.extras!!.keySet()) {
                 val value = intent.extras!!.get(key)
-                Log.d(TAG_LOG, "Key: $key Value: $value")
+                debuggingMyScode(TAG_LOG, "Key: $key Value: $value")
             }
         }
     }
@@ -800,20 +796,20 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG_LOG, "onStart")
+        debuggingMyScode(TAG_LOG, "onStart")
 
         if (statusActivity == TV_SHOW) {
-            Log.d(TAG_LOG, "Status activity $TV_SHOW")
+            debuggingMyScode(TAG_LOG, "Status activity $TV_SHOW")
             hideHome()
         } else if (statusActivity == MOVIE) {
-            Log.d(TAG_LOG, "Status activity $MOVIE")
+            debuggingMyScode(TAG_LOG, "Status activity $MOVIE")
             hideHomeTvShow()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(
+        debuggingMyScode(
             TAG_LOG,
             "onResume | i did'nt save barColor on instanceSaveState| and onResume will be set randomColor that is feature :D not bug or anymore :v "
         )
@@ -837,7 +833,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
          * if need memory got killed and back to the onCreate
          * if user return to activity back to the onResume
          */
-        Log.d(TAG_LOG, "onPause")
+        debuggingMyScode(TAG_LOG, "onPause")
         val toggle: ActionBarDrawerToggle? = null
         toggle?.let { drawer_layout.removeDrawerListener(it) }
     }
@@ -859,15 +855,14 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
         when (statusActivity) {
             MOVIE -> {
-                Log.d(TAG_LOG, "search movie")
+                debuggingMyScode(TAG_LOG, "search movie")
                 searchView.queryHint = resources.getString(R.string.option_hint)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        Log.d(TAG_LOG, "Search MOVIE onQueryTextSubmit")
-                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
-                            .show()
+                        debuggingMyScode(TAG_LOG, "Search MOVIE onQueryTextSubmit")
+                        toastAllActivity(this@MovieCatalogueMainActivity, query)
                         Handler().postDelayed(object : Runnable {
                             override fun run() {
                                 frame_ui_change_progress.visibility = View.VISIBLE
@@ -887,7 +882,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
+                        debuggingMyScode(TAG_LOG,"Search MOVIE onQueryTextChange")
                         //                        HALO
                         // i create 2 feature
 //                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
@@ -925,15 +920,14 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 })
             }
             TV_SHOW -> {
-                Log.d(TAG_LOG, "search tv")
+                debuggingMyScode(TAG_LOG, "search tv")
                 searchView.queryHint = resources.getString(R.string.option_hint_tv)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        Log.d(TAG_LOG, "Search TV_SHOW onQueryTextSubmit")
-                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
-                            .show()
+                        debuggingMyScode(TAG_LOG,"Search TV_SHOW onQueryTextSubmit")
+                        toastAllActivity(this@MovieCatalogueMainActivity, query)
                         Handler().postDelayed(object : Runnable {
                             override fun run() {
                                 frame_ui_change_progress.visibility = View.VISIBLE
@@ -954,7 +948,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
+                        debuggingMyScode(TAG_LOG,"Search TV_SHOW onQueryTextChange")
 //                        HALO
 //                        i create 2 feature
 //                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
@@ -992,15 +986,14 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 })
             }
             else -> {
-                Log.d(TAG_LOG, "search movie")
+                debuggingMyScode(TAG_LOG,"search movie")
                 searchView.queryHint = resources.getString(R.string.option_hint)
 
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
                     override fun onQueryTextSubmit(query: String): Boolean {
-                        Log.d(TAG_LOG, "Search MOVIE onQueryTextSubmit")
-                        Toast.makeText(this@MovieCatalogueMainActivity, query, Toast.LENGTH_SHORT)
-                            .show()
+                        debuggingMyScode(TAG_LOG, "Search MOVIE onQueryTextSubmit")
+                        toastAllActivity(this@MovieCatalogueMainActivity, query)
 
                         Handler().postDelayed(object : Runnable {
                             override fun run() {
@@ -1021,7 +1014,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     }
 
                     override fun onQueryTextChange(newText: String): Boolean {
-                        Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
+                        debuggingMyScode(TAG_LOG, "Search MOVIE onQueryTextChange")
 //                        HALO
 //                        i create 2 feature
 //                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
@@ -1066,7 +1059,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.option_drawer -> {
-                Log.d(TAG_LOG, "Option Drawer got clicked")
+                debuggingMyScode(TAG_LOG, "Option Drawer got clicked")
                 drawer_layout.openDrawer(GravityCompat.START)
             }
         }

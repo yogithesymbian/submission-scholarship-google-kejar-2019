@@ -16,7 +16,6 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -25,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_movie_catalogue_detail.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_detail_head.*
 
@@ -180,19 +180,19 @@ class MovieCatalogueDetailActivity : Activity() {
          */
 
         button_take_notification.setOnClickListener {
-            Log.d(TAG_LOG, "notification got clicked")
+            debuggingMyScode(TAG_LOG, "notification got clicked")
             notificationFeatureWarn()
         }
         button_buy_download.setOnClickListener {
-            Log.d(TAG_LOG, "download got clicked")
+            debuggingMyScode(TAG_LOG, "download got clicked")
             notificationFeatureWarn()
         }
         button_stream_watch.setOnClickListener {
-            Log.d(TAG_LOG, "stream got clicked")
+            debuggingMyScode(TAG_LOG, "stream got clicked")
             notificationFeatureWarn()
         }
         button_share.setOnClickListener {
-            Log.d(TAG_LOG, "share got clicked")
+            debuggingMyScode(TAG_LOG, "share got clicked")
             notificationFeatureWarn()
         }
     }
@@ -207,7 +207,7 @@ class MovieCatalogueDetailActivity : Activity() {
 
         if (movieName == movieName) {
             // check with log
-            Log.d(TAG_LOG, "Intent From Home Like mockito/junit succeed")
+            debuggingMyScode(TAG_LOG, "Intent From Home Like mockito/junit succeed")
         } else {
             // exit / onBackPressed
             finish()

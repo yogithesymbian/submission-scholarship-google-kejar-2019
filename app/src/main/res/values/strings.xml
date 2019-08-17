@@ -199,6 +199,9 @@
     <string name="activity_no_internet_conn_favorite_movie">Favorite Movie</string>
     <string name="activity_no_internet_conn_favorite_tv">Favorite Tv</string>
     <string name="activity_movie_catalogue_main_content_no_videos_try_enter_for_search_online">No Videos, try enter for search online</string>
+    <string name="movie_catalogue_main_activity_release_movie">Daily Release Has been Enable</string>
+    <string name="movie_catalogue_main_activity_daily_token_movie">Daily Token Has been Enable</string>
+    <string name="movie_catalogue_main_activity_json_response_movie">result data is empty, Add the data first</string>
 
 
 </resources>

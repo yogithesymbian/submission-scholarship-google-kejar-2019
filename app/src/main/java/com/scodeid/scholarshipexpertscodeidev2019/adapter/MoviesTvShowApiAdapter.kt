@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +27,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHome
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment.Companion.insertFavoriteTv
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.view.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
@@ -88,7 +88,7 @@ class MoviesTvShowApiAdapter(
 
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
                     openingTvShowDetail(arrayListMoviesTvShow[position], context)
-                    Log.d(
+                    debuggingMyScode(
                         TAG_LOG,
                         "Try opening something about the detail tv show" + arrayListMoviesTvShow[position].name
                     )
@@ -100,7 +100,7 @@ class MoviesTvShowApiAdapter(
             .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener {
 
                 override fun onItemLongClicked(recyclerView: RecyclerView, position: Int, v: View): Boolean {
-                    Log.d(TAG_LOG, "Try onLongClick itemMovies")
+                    debuggingMyScode(TAG_LOG, "Try onLongClick itemMovies")
                     Toast.makeText(context, arrayListMoviesTvShow[position].name, Toast.LENGTH_SHORT)
                         .show()
                     return true
@@ -137,7 +137,7 @@ class MoviesTvShowApiAdapter(
         mFragmentTransaction.addToBackStack(null)
         // commit the fragment
         mFragmentTransaction.commit()
-        Log.d(TAG_LOG, "Fragment has commit")
+        debuggingMyScode(TAG_LOG, "Fragment has commit")
     }
 
 
@@ -187,7 +187,7 @@ class MoviesTvShowApiAdapter(
 
         holder
             .itemView.image_tv_movie.setOnClickListener {
-            Log.d(TAG_LOG + "Bind", "image ${holder.itemView.image_tv_movie} got clicked and Try opening dialog view")
+            debuggingMyScode(TAG_LOG + "Bind", "image ${holder.itemView.image_tv_movie} got clicked and Try opening dialog view")
 
             /**
              * DIALOG view movie catalogue

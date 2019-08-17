@@ -11,7 +11,6 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +20,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.Movi
 import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.movieMapCursorToArrayList
 import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieProvCallBack
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference
 
@@ -76,20 +76,20 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         override fun onPreExecute() {
             super.onPreExecute()
             weakReferenceCallBack.get()?.preExecute()
-            Log.d(TAG_LOG, "LoadAsync OnPreExecute")
+            debuggingMyScode(TAG_LOG, "LoadAsync OnPreExecute")
         }
 
 
         override fun doInBackground(vararg voids: Void): Cursor? {
             val context = weakReferenceContext.get()
-            Log.d(TAG_LOG, "LoadAsync doInBackground")
+            debuggingMyScode(TAG_LOG, "LoadAsync doInBackground")
             return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
 
         }
 
         override fun onPostExecute(cursor: Cursor) {
             super.onPostExecute(cursor)
-            Log.d(TAG_LOG, "LoadAsync onPostExecute")
+            debuggingMyScode(TAG_LOG, "LoadAsync onPostExecute")
             weakReferenceCallBack.get()?.postExecute(cursor)
         }
     }
@@ -124,7 +124,7 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         frame_progress_favorite.visibility = View.GONE
         card_favorite.visibility = View.VISIBLE
 
-        Log.d(TAG_LOG, "onPostExecute")
+        debuggingMyScode(TAG_LOG, "onPostExecute")
         val listNotes = movieMapCursorToArrayList(cursor)
 
         if (listNotes.size > 0) {

@@ -9,7 +9,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POST
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_tv_shows.view.*
 import java.util.*
@@ -153,7 +153,7 @@ class FavoriteTvAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteT
         val movieDialog = Dialog(context)
         holder
             .itemView.image_tv_movie.setOnClickListener {
-            Log.d(
+            debuggingMyScode(
                 TAG_LOG + "Bind",
                 "image ${holder.itemView.image_tv_movie} got clicked and Try opening dialog view"
             )

@@ -11,7 +11,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
 import android.provider.BaseColumns._ID
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.Movi
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TITLE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 import java.io.IOException
@@ -168,18 +168,18 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         if (recycler_view_home.isEmpty()) // i didn't make state just use isEmpty for simplify that mean data ever load on else in model
         {
-            Log.d(TAG_LOG, "recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
+            debuggingMyScode(TAG_LOG, "recycler adapter movies isEmpty , try request api [arrayList.MOVIE]")
             movieViewModel.setMovie(resources.getString(R.string.app_language), context)
 
         } else {
-            Log.d(TAG_LOG, "recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
+            debuggingMyScode(TAG_LOG, "recycler adapter movies is already have item , didn't try request api [arrayList.MOVIE]")
         }
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        Log.d(TAG_LOG, "onViewCreated is running")
+        debuggingMyScode(TAG_LOG, "onViewCreated is running")
         val pojoSubTab: MovieTabColorModel? = arguments?.getParcelable("" + KEY)
         pojoSubTab?.let {
 

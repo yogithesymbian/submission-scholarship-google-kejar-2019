@@ -10,7 +10,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +28,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieRoomDeleteActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieRoomModel
 import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieRoomView
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_favorite.view.*
 
@@ -153,7 +153,7 @@ class FavoriteMovieRoomAdapter(
         val movieDialog = Dialog(context)
         holder
             .itemView.image_movie.setOnClickListener {
-            Log.d(
+            debuggingMyScode(
                 FavoriteAdapter.TAG_LOG + "Bind",
                 "image ${holder.itemView.image_movie} got clicked and Try opening dialog view"
             )

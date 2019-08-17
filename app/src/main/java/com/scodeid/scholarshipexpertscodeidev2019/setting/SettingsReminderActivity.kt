@@ -5,11 +5,11 @@
 package com.scodeid.scholarshipexpertscodeidev2019.setting
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.scodeid.scholarshipexpertscodeidev2019.R
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -72,7 +72,7 @@ class SettingsReminderActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.d("BACK", "from setting")
+        debuggingMyScode("BACK", "from setting")
     }
 
 

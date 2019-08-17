@@ -11,7 +11,6 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.Movi
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.TITLE
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase.MovieColumns.VOTE_AVERAGE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import com.scodeid.scholarshipexpertscodeidev2019.view.MovieTvShowViewModel
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_recycler.*
 
@@ -102,11 +102,11 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
         movieTvShowViewModel.getMoviesTvShow().observe(this, getMovieTvShow)
         if (adapter.itemCount == 0) {
-            Log.d(TAG_LOG, "adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
+            debuggingMyScode(TAG_LOG, "adapter tv_show fragment count is 0 , try request api [arrayList.TV_SHOW]")
             movieTvShowViewModel.setMovieTvShow(resources.getString(R.string.app_language), context)
         } else {
             // after else on check arrayList.isEmpty()
-            Log.d(TAG_LOG, "adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
+            debuggingMyScode(TAG_LOG, "adapter tv_show fragment is already have item , didn't try request api [arrayList.TV_SHOW]")
             frame_progress_tv_show.visibility = View.GONE
             card_tv_show.visibility = View.VISIBLE
         }
@@ -116,7 +116,7 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG_LOG, "onViewCreated")
+        debuggingMyScode(TAG_LOG, "onViewCreated")
 
         movieTvShowHandle() // load data and set
 

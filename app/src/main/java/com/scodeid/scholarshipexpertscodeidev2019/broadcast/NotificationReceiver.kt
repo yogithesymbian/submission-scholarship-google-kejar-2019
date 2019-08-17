@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -23,10 +22,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMai
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity.Companion.bitmap
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity.Companion.posterToBitmap
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
-import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_ID_RELEASE
-import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_ID_TOKEN
-import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_NAME_RELEASE
-import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_NAME_TOKEN
+import com.scodeid.scholarshipexpertscodeidev2019.utils.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -109,15 +105,15 @@ class NotificationReceiver : BroadcastReceiver() {
             channelId = CHANNEL_DAILY_ID_TOKEN
             channelName = CHANNEL_DAILY_NAME_TOKEN
             intent = Intent(context, ComingSoonActivity::class.java)
-            Log.d(TAG_LOG, "1 $channelId")
+            debuggingMyScode(TAG_LOG, "1 $channelId")
         } else {
             channelId = CHANNEL_DAILY_ID_RELEASE
             channelName = CHANNEL_DAILY_NAME_RELEASE
             intent = Intent(context, MovieCatalogueMainActivity::class.java)
-            Log.d(TAG_LOG, "2 $channelId")
+            debuggingMyScode(TAG_LOG, "2 $channelId")
         }
 
-        Log.d(TAG_LOG, channelId)
+        debuggingMyScode(TAG_LOG, channelId)
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
@@ -168,7 +164,7 @@ class NotificationReceiver : BroadcastReceiver() {
         intent.putExtra(EXTRA_TYPE, type)
 
         val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        Log.d(TAG_LOG, "${Integer.parseInt(timeArray[0])}:${Integer.parseInt(timeArray[1])}")
+        debuggingMyScode(TAG_LOG, "${Integer.parseInt(timeArray[0])}:${Integer.parseInt(timeArray[1])}")
         val calendarNotification = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
             set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
@@ -190,7 +186,6 @@ class NotificationReceiver : BroadcastReceiver() {
             pendingIntent
         )
 
-        Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
     }
 
     fun unSubscribeNotification(context: Context, type: String) {

@@ -8,7 +8,6 @@ package com.scodeid.scholarshipexpertscodeidev2019.homeFirstView
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_blue.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_head.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_white.*
@@ -41,12 +41,12 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
     @SuppressLint("PrivateResource")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG_LOG, "onViewCreated")
+        debuggingMyScode(TAG_LOG, "onViewCreated")
         //view
 
         // check bundle
         if (arguments != null) {
-            Log.d(TAG_LOG, "Bundle Argument != null ")
+            debuggingMyScode(TAG_LOG, "Bundle Argument != null ")
             val data = arguments?.getParcelable<MoviesTvShowApiData>(EXTRA_TV_DETAILS)
 
             /**
@@ -82,7 +82,7 @@ class MoviesTvWapiHomeDetailFragment : Fragment() {
             Handler().postDelayed(object : Runnable {
                 override fun run() {
                     this.finish()
-                    Log.d(TAG_LOG, "Loading ... for get and load data in background")
+                    debuggingMyScode(TAG_LOG, "Loading ... for get and load data in background")
                 }
 
                 @SuppressLint("SetTextI18n")

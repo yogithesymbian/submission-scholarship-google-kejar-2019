@@ -11,12 +11,12 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.os.Binder
 import android.os.Bundle
-import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.bumptech.glide.Glide
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.database.ContractDatabase
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 
 
 /**
@@ -56,7 +56,7 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
     @SuppressLint("Recycle")
     override fun onDataSetChanged() {
 
-        Log.d(TAG_LOG, "ON_DATA_SET_CHANGE_WIDGET")
+        debuggingMyScode(TAG_LOG, "ON_DATA_SET_CHANGE_WIDGET")
 
         val threadQuerying = object : Thread() {
             override fun run() {
@@ -96,7 +96,7 @@ class StackRemoteViewsFactory(private val context: Context) : RemoteViewsService
                         "${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))}"
                     val titleImage =
                         "${cursor?.getString(cursor!!.getColumnIndexOrThrow(ContractDatabase.MovieColumns.TITLE))}"
-                    Log.d(
+                    debuggingMyScode(
                         TAG_LOG,
                         """ \n
                             title is $titleImage

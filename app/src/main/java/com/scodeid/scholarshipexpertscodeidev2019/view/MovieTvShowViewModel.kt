@@ -6,7 +6,6 @@ package com.scodeid.scholarshipexpertscodeidev2019.view
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +18,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import org.json.JSONObject
 
 /**
@@ -56,8 +56,8 @@ class MovieTvShowViewModel : ViewModel() {
 
     fun setMovieTvShow(lang: String, context: Context?) {
         if (arrayListMovieTvShow.isEmpty()) {
-            Log.d(TAG_LOG, "arrayList TV_SHOW is Empty, request api is in background")
-            Log.d(TAG_LOG, "Language use : $lang")
+            debuggingMyScode(TAG_LOG, "arrayList TV_SHOW is Empty, request api is in background")
+            debuggingMyScode(TAG_LOG, "Language use : $lang")
             AndroidNetworking.get(ApiEndPoint.SERVER_TV_SHOW)
                 .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
                 .addPathParameter("LANGUAGE", lang)
@@ -104,26 +104,26 @@ class MovieTvShowViewModel : ViewModel() {
 
                     override fun onError(anError: ANError?) {
 
-                        Log.d("ON_ERROR", anError?.errorDetail.toString())
+                        debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
                         val intent = Intent(context, NoInternetConnActivity::class.java)
                         context?.startActivity(intent)
 
                         if (anError?.errorCode != 0) {
 
-                            Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
-                            Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
-                            Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+                            debuggingMyScode(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
+                            debuggingMyScode(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
+                            debuggingMyScode(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
 
                         } else {
                             // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                            Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
+                            debuggingMyScode(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
                         }
                     }
                 })
         }
         // request API
         else {
-            Log.d(TAG_LOG, "arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
+            debuggingMyScode(TAG_LOG, "arrayList is Not Empty , TRY request api is reject by arrayList.isEmpty")
             listMovieTvShowMutableLiveData.postValue(arrayListMovieTvShow)
         }
         // didn't request API
@@ -183,14 +183,14 @@ class MovieTvShowViewModel : ViewModel() {
 
                 override fun onError(anError: ANError?) {
 
-                    Log.d("ON_ERROR", anError?.errorDetail.toString())
+                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
                     val intent = Intent(context, NoInternetConnActivity::class.java)
 
                     if (anError?.errorCode != 0) {
 
-                        Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
-                        Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
-                        Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+                        debuggingMyScode(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
+                        debuggingMyScode(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
+                        debuggingMyScode(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
                         if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}") {
                             // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
                             // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
@@ -200,7 +200,7 @@ class MovieTvShowViewModel : ViewModel() {
 
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
+                        debuggingMyScode(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
 
                         context?.startActivity(intent)
                     }

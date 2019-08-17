@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +26,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFr
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment.Companion.insertFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.view.*
 import kotlinx.android.synthetic.main.item_movies.view.*
@@ -91,7 +91,7 @@ class MoviesApiAdapter internal constructor(
                 override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
 
                     openingDetailMovie(arrayListMovies[position], context)
-                    Log.d(TAG_LOG, "Try opening something about the detail movies")
+                    debuggingMyScode(TAG_LOG, "Try opening something about the detail movies")
                 }
 
             })
@@ -100,7 +100,7 @@ class MoviesApiAdapter internal constructor(
             .setOnItemLongClickListener(object : ItemClickRecyclerSupport.OnItemLongClickListener {
 
                 override fun onItemLongClicked(recyclerView: RecyclerView, position: Int, v: View): Boolean {
-                    Log.d(TAG_LOG, "Try onLongClick itemMovies")
+                    debuggingMyScode(TAG_LOG, "Try onLongClick itemMovies")
                     Toast.makeText(context, arrayListMovies[position].title, Toast.LENGTH_SHORT)
                         .show()
                     return true
@@ -175,7 +175,7 @@ class MoviesApiAdapter internal constructor(
 
         holder
             .itemView.image_movie.setOnClickListener {
-            Log.d(
+            debuggingMyScode(
                 TAG_LOG + "Bind",
                 "image ${holder.itemView.image_movie} and the video is ${arrayListMovies[position].video} got clicked and Try opening dialog view"
             )
