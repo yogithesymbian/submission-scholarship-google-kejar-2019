@@ -122,9 +122,4 @@ class MoviesTvWapiHomeFragment : androidx.fragment.app.Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d(tag, "onResume Tabs")
-        recycler_view_tv_show.adapter = adapter
-    }
 }

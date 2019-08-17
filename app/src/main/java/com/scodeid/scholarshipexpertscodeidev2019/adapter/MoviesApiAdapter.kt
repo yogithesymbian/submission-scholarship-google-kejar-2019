@@ -63,7 +63,6 @@ class MoviesApiAdapter internal constructor(
     private var arrayListMoviesTemp = ArrayList<MoviesApiData>() // for search filter onQueryText
 
     companion object {
-        const val LIMIT = 10
         val TAG_LOG: String = MoviesApiAdapter::class.java.simpleName
     }
 
@@ -126,11 +125,7 @@ class MoviesApiAdapter internal constructor(
     }
 
     override fun getItemCount(): Int {
-        return if (arrayListMovies.size > LIMIT) {
-            LIMIT
-        } else {
-            arrayListMovies.size
-        }
+        return arrayListMovies.size
     }
 
     @SuppressLint("PrivateResource")

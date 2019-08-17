@@ -20,6 +20,7 @@ import android.app.NotificationManager
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -38,7 +39,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.common.Priority
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -47,10 +53,13 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MainSectionsPagerAdapter
+import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
+import com.scodeid.scholarshipexpertscodeidev2019.broadcast.NotificationReceiver
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
+import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.setting.SettingsReminderActivity
 import com.scodeid.scholarshipexpertscodeidev2019.utils.*
@@ -58,6 +67,8 @@ import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_content.*
 import kotlinx.android.synthetic.main.nav_header_home_movies.*
+import org.json.JSONObject
+import java.text.SimpleDateFormat
 
 /**
  * Build with File->New->Activity->Setting Activity
@@ -68,6 +79,12 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         var stateChangeVisible = ""
         var statusActivity = ""
         private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
+        val arrayListMovRelease = ArrayList<MoviesApiData>()
+
+        val origTitle = mutableListOf<String>()
+        val imageMovie = mutableListOf<String>()
+        lateinit var bitmap: Bitmap
+        lateinit var posterToBitmap: FutureTarget<Bitmap>
     }
 
     // for once run if already subscribe the code will not repeat on process
@@ -471,6 +488,9 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
     }
 
+    private val notificationReceiver = NotificationReceiver()
+
+    @SuppressLint("SimpleDateFormat")
     private fun runSetConfigDailyRelease(
         preferenceManager: PreferenceManager,
         channelId2: String,
@@ -486,6 +506,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                 initForSubscribe(channelId2, channelName2)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
+                val date = System.currentTimeMillis() //currentTime
+                val yMdFormat = SimpleDateFormat("yyyy-MM-dd") // format to
+                val dateNow = yMdFormat.format(date) //2019-08-14
+
+                reqApiMovie(dateNow, this@MovieCatalogueMainActivity)
 
                 isSubscribeCh2 = true
                 Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh2")
@@ -494,9 +519,119 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         } else {
             Log.d(TAG_LOG, "Subscribe is of -> daily reminder release")
             doUnSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
+            notificationReceiver.unSubscribeNotification(this, NotificationReceiver.TYPE_RELEASE_MOVIE)
             isSubscribeCh2 = false
         }
     }
+
+    private fun reqApiMovie(
+        dateNow: String?,
+        movieCatalogueMainActivity: MovieCatalogueMainActivity
+    ) {
+        AndroidNetworking.get(ApiEndPoint.RELEASE_MOVIE)
+            .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
+            .addPathParameter("LANGUAGE", applicationContext.resources.getString(R.string.app_language))
+            .addPathParameter("TODAY_DATE_GTE", dateNow)
+            .addPathParameter("TODAY_DATE_LTE", dateNow)
+            .setPriority(Priority.MEDIUM)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    arrayListMovRelease.clear()
+
+                    val jsonArray = response.optJSONArray("results")
+
+                    if (jsonArray?.length() == 0) {
+                        Toast.makeText(
+                            applicationContext,
+                            "result data is empty, Add the data first",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                    for (i in 0 until jsonArray.length()) {
+                        val jsonObject = jsonArray.optJSONObject(i)
+
+                        arrayListMovRelease.add(
+                            MoviesApiData(
+                                jsonObject.getInt("vote_count"),
+                                jsonObject.getInt("id"),
+                                jsonObject.getBoolean("video"),
+                                jsonObject.getInt("vote_average"),
+                                jsonObject.getString("title"),
+                                jsonObject.getInt("popularity"),
+                                jsonObject.optString("poster_path"),
+                                jsonObject.getString("original_language"),
+                                jsonObject.getString("original_title"),
+                                arrayListOf(jsonObject.getString("genre_ids")),
+                                jsonObject.optString("backdrop_path"),
+                                jsonObject.getBoolean("adult"),
+                                jsonObject.getString("overview"),
+                                jsonObject.getString("release_date")
+                            )
+                        )
+                        origTitle.add(arrayListMovRelease[i].title)
+                        imageMovie.add(arrayListMovRelease[i].posterPath)
+
+                        if (jsonArray.length() - 1 == i) {
+
+                            Log.d(
+                                TAG_LOG, """
+                                
+                                message req $origTitle
+                                \n
+                                message image : $imageMovie
+                                
+                                ${ApiEndPoint.POSTER_IMAGE}w185${imageMovie[1]}
+                            """.trimIndent()
+                            )
+                            val myImageGlide = Thread {
+                                Thread.sleep(100)
+
+                                posterToBitmap = Glide.with(this@MovieCatalogueMainActivity)
+                                    .asBitmap()
+                                    .load("${ApiEndPoint.POSTER_IMAGE}w185${imageMovie[1]}")
+                                    .submit()
+
+                                bitmap = posterToBitmap.get()
+                            }
+                            myImageGlide.start()
+
+                            notificationReceiver.setRepeatingNotification(
+                                movieCatalogueMainActivity, NotificationReceiver.TYPE_RELEASE_MOVIE,
+                                TIME_DAILY_RELEASE, origTitle.toString()
+                            )
+                        }
+                    }
+                }
+
+                override fun onError(anError: ANError?) {
+
+                    Log.d("ON_ERROR", anError?.errorDetail.toString())
+
+                    if (anError?.errorCode != 0) {
+
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorCode : ${anError?.errorCode}"
+                        ) // error.getErrorCode() - the error code from server
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorBody : ${anError?.errorBody}"
+                        ) // error.getErrorBody() - the error body from server
+                        Log.d(
+                            TAG_LOG,
+                            "onError errorDetail : ${anError?.errorDetail}"
+                        ) // error.getErrorDetail() - just an error detail
+
+                    } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                        Log.d(TAG_LOG, "onError errorDetail : " + anError.errorDetail)
+                    }
+                }
+            })
+    }
+
 
     private fun runSetConfigDailyToken(
         preferenceManager: PreferenceManager,
@@ -513,6 +648,13 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 Log.d(TAG_LOG, "Subscribe try subscribe and log the token")
                 initForSubscribe(channelId1, channelName1)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY)
+
+                val repeatMessage = "Daily Movie Token : #9u81*"
+                notificationReceiver.setRepeatingNotification(
+                    this, NotificationReceiver.TYPE_TOKEN_BACK_APP,
+                    TIME_DAILY_TOKEN, repeatMessage
+                )
+
                 isSubscribeCh1 = true
                 Log.d(TAG_LOG, "Subscribe after log token set to isSubscribe  $isSubscribeCh1")
             } else Log.d(TAG_LOG, "Subscribe you already have subscribe daily reminder")
@@ -520,6 +662,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         } else {
             Log.d(TAG_LOG, "Subscribe is of -> daily reminder")
             doUnSubscribe(SUBSCRIBE_TOPIC_DAILY)
+            notificationReceiver.unSubscribeNotification(this, NotificationReceiver.TYPE_TOKEN_BACK_APP)
             isSubscribeCh1 = false
         }
     }
@@ -745,12 +888,35 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
-                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+                        //                        HALO
+                        // i create 2 feature
+//                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
+//                        onQueryTextChange : USING RECYCLER LIST
+
+//                        BUT AT THIS TIME I HAVE CHANGED TO USING ENDPOINT SEARCH ONLINE FOR BOTH FEATURE
+//                        ON QUERY TEXT CHANGE AND  ON QUERY TEXT SUBMIT !!
+//                        PLEASE SEE MY CODE ON YESTERDAY !!
+
+//                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(
+                                    resources.getString(R.string.app_language),
+                                    newText,
+                                    this@MovieCatalogueMainActivity
+                                )
+                            }
+                        }, 100)
                         if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
                             text_no_videos.visibility = View.VISIBLE
                             view_pager_container_home.visibility = View.GONE
-                        }
-                        else {
+                        } else {
                             text_no_videos.visibility = View.GONE
                             view_pager_container_home.visibility = View.VISIBLE
                         }
@@ -789,12 +955,35 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search TV_SHOW onQueryTextChange")
-                        MoviesTvWapiHomeFragment.adapter.filter.filter(newText)
+//                        HALO
+//                        i create 2 feature
+//                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
+//                        onQueryTextChange : USING RECYCLER LIST
+
+//                        BUT AT THIS TIME I HAVE CHANGED TO USING ENDPOINT SEARCH ONLINE FOR BOTH FEATURE
+//                        ON QUERY TEXT CHANGE AND  ON QUERY TEXT SUBMIT !!
+//                        PLEASE SEE MY CODE ON YESTERDAY !!
+
+//                        MoviesTvWapiHomeFragment.adapter.filter.filter(newText)
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesTvWapiHomeFragment.movieTvShowViewModel.searchTvShow(
+                                    resources.getString(R.string.app_language),
+                                    newText,
+                                    this@MovieCatalogueMainActivity
+                                )
+                            }
+                        }, 100)
                         if (MoviesTvWapiHomeFragment.adapter.itemCount == 0) {
                             text_no_videos.visibility = View.VISIBLE
                             frame_container_tv_show.visibility = View.GONE
-                        }
-                        else {
+                        } else {
                             text_no_videos.visibility = View.GONE
                             frame_container_tv_show.visibility = View.VISIBLE
                         }
@@ -833,12 +1022,36 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                     override fun onQueryTextChange(newText: String): Boolean {
                         Log.d(TAG_LOG, "Search MOVIE onQueryTextChange")
-                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+//                        HALO
+//                        i create 2 feature
+//                        onQueryTextSubmit : USING ENDPOINT SEARCH ONLINE
+//                        onQueryTextChange : USING RECYCLER LIST
+
+//                        BUT AT THIS TIME I HAVE CHANGED TO USING ENDPOINT SEARCH ONLINE FOR BOTH FEATURE
+//                        ON QUERY TEXT CHANGE AND  ON QUERY TEXT SUBMIT !!
+//                        PLEASE SEE MY CODE ON YESTERDAY !!
+
+//                        MoviesWapiHomeFragment.adapter.filter.filter(newText)
+
+                        Handler().postDelayed(object : Runnable {
+                            override fun run() {
+                                frame_ui_change_progress.visibility = View.VISIBLE
+                                this.finish()
+                                frame_ui_change_progress.visibility = View.GONE
+                            }
+
+                            private fun finish() {
+                                MoviesWapiHomeFragment.movieViewModel.searchMovies(
+                                    resources.getString(R.string.app_language),
+                                    newText,
+                                    this@MovieCatalogueMainActivity
+                                )
+                            }
+                        }, 100)
                         if (MoviesWapiHomeFragment.adapter.itemCount == 0) {
                             text_no_videos.visibility = View.VISIBLE
                             view_pager_container_home.visibility = View.GONE
-                        }
-                        else{
+                        } else {
                             text_no_videos.visibility = View.GONE
                             view_pager_container_home.visibility = View.VISIBLE
                         }

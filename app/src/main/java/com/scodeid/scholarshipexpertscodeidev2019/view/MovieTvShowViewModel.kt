@@ -79,18 +79,18 @@ class MovieTvShowViewModel : ViewModel() {
                             arrayListMovieTvShow.add(
                                 MoviesTvShowApiData(
                                     jsonObject.getString("original_name"),
-                                    arrayListOf(jsonObject.getString("genre_ids")),
-                                    jsonObject.getString("name"),
-                                    jsonObject.getInt("popularity"),
-                                    arrayListOf(jsonObject.getString("origin_country")),
-                                    jsonObject.getInt("vote_count"),
-                                    jsonObject.getString("first_air_date"),
-                                    jsonObject.getString("backdrop_path"),
-                                    jsonObject.getString("original_language"),
                                     jsonObject.getInt("id"),
-                                    jsonObject.getInt("vote_average"),
+                                    jsonObject.getString("name"),
+                                    jsonObject.getDouble("popularity"),
+                                    jsonObject.getInt("vote_count"),
+                                    jsonObject.getDouble("vote_average"),
+                                    jsonObject.optString("first_air_date"),
+                                    jsonObject.getString("poster_path"),
+                                    arrayListOf(jsonObject.getString("genre_ids")),
+                                    jsonObject.getString("original_language"),
+                                    jsonObject.getString("backdrop_path"),
                                     jsonObject.getString("overview"),
-                                    jsonObject.getString("poster_path")
+                                    arrayListOf(jsonObject.getString("origin_country"))
                                 )
                             )
 
@@ -160,18 +160,18 @@ class MovieTvShowViewModel : ViewModel() {
                         arrayListMovieTvShow.add(
                             MoviesTvShowApiData(
                                 jsonObject.getString("original_name"),
-                                arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.getString("name"),
-                                jsonObject.getInt("popularity"),
-                                arrayListOf(jsonObject.getString("origin_country")),
-                                jsonObject.getInt("vote_count"),
-                                jsonObject.getString("first_air_date"),
-                                jsonObject.getString("backdrop_path"),
-                                jsonObject.getString("original_language"),
                                 jsonObject.getInt("id"),
-                                jsonObject.getInt("vote_average"),
+                                jsonObject.getString("name"),
+                                jsonObject.getDouble("popularity"),
+                                jsonObject.getInt("vote_count"),
+                                jsonObject.getDouble("vote_average"),
+                                jsonObject.optString("first_air_date"),
+                                jsonObject.getString("poster_path"),
+                                arrayListOf(jsonObject.getString("genre_ids")),
+                                jsonObject.getString("original_language"),
+                                jsonObject.getString("backdrop_path"),
                                 jsonObject.getString("overview"),
-                                jsonObject.getString("poster_path")
+                                arrayListOf(jsonObject.getString("origin_country"))
                             )
                         )
 
@@ -185,16 +185,24 @@ class MovieTvShowViewModel : ViewModel() {
 
                     Log.d("ON_ERROR", anError?.errorDetail.toString())
                     val intent = Intent(context, NoInternetConnActivity::class.java)
-                    context?.startActivity(intent)
 
                     if (anError?.errorCode != 0) {
 
                         Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
                         Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
                         Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+                        if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}") {
+                            // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
+                            // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
+                        } else {
+                            context?.startActivity(intent)
+                        }
 
                     } else {
+                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
                         Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
+
+                        context?.startActivity(intent)
                     }
                 }
             })

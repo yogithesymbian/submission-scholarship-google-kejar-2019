@@ -198,17 +198,22 @@ class MovieViewModel : ViewModel() {
 
                     Log.d("ON_ERROR", anError?.errorDetail.toString())
                     val intent = Intent(context, NoInternetConnActivity::class.java)
-                    context?.startActivity(intent)
-
                     if (anError?.errorCode != 0) {
 
                         Log.d(TAG_LOG, "onError errorCode : ${anError?.errorCode}")
                         Log.d(TAG_LOG, "onError errorBody : ${anError?.errorBody}")
                         Log.d(TAG_LOG, "onError errorDetail : ${anError?.errorDetail}")
+                        if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}"){
+                            // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
+                            // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
+                        }
+                        else {
+                            context?.startActivity(intent)
+                        }
 
                     } else {
-
                         Log.d(TAG_LOG, "onError errorDetail : ${anError.errorDetail}")
+                        context?.startActivity(intent)
                     }
                 }
             })

@@ -37,3 +37,11 @@ const val KEY_DAILY_REMINDER_RELEASE = "key_daily_reminder_release"
 // Invalid topic name:  does not match the allowed format [a-zA-Z0-9-_.~%]{1,900}
 const val SUBSCRIBE_TOPIC_DAILY = "token"
 const val SUBSCRIBE_TOPIC_DAILY_RELEASE = "release"
+
+const val TIME_DAILY_TOKEN = "16:54"
+const val TIME_DAILY_RELEASE = "16:55"
+
+const val CHANNEL_DAILY_ID_TOKEN = "Channel_1"
+const val CHANNEL_DAILY_ID_RELEASE = "Channel_2"
+const val CHANNEL_DAILY_NAME_TOKEN = "Token channel1"
+const val CHANNEL_DAILY_NAME_RELEASE = "Release channel1"

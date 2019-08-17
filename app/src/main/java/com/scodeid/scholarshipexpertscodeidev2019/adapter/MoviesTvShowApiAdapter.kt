@@ -64,7 +64,6 @@ class MoviesTvShowApiAdapter(
     private var arrayListMoviesTvShowTemp = ArrayList<MoviesTvShowApiData>()
 
     companion object {
-        const val LIMIT = 10
         val TAG_LOG: String = MoviesTvShowApiAdapter::class.java.simpleName
     }
 
@@ -143,11 +142,7 @@ class MoviesTvShowApiAdapter(
 
 
     override fun getItemCount(): Int {
-        return if (arrayListMoviesTvShow.size > LIMIT) {
-            LIMIT
-        } else {
-            arrayListMoviesTvShow.size
-        }
+        return arrayListMoviesTvShow.size
     }
 
     @SuppressLint("PrivateResource")
@@ -165,7 +160,7 @@ class MoviesTvShowApiAdapter(
             buttonView.startAnimation(animation)
             if (isChecked) MoviesTvWapiHomeFragment.initFavoriteTvParam(
                 title,
-                voteAverage,
+                voteAverage.toInt(),
                 imagePoster,
                 context,
                 ::insertFavoriteTv
