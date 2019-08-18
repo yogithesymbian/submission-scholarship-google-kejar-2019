@@ -4,10 +4,12 @@
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#1976d2</color>
-    <color name="colorPrimaryDark">#004ba0</color>
-    <color name="colorAccent">#1976d2</color>
-    <color name="colorAccentSecondary" tools:keep="@color/colorAccentSecondary">#801976d2</color>
+    <color name="colorPrimary">#F62710</color>
+    <color name="colorPrimaryDark">#F62740</color>
+    <color name="colorAccent">#F62729</color>
+    <color name="colorAccentSecondary" tools:keep="@color/colorAccentSecondary">#F62729</color>
+
+    <color name="colorCardPersonal">#F62729</color>
 
     <color name="white80" tools:keep="@color/white80">#CCffffff</color>
     <color name="white70" tools:keep="@color/white70">#B3FFFFFF</color>

@@ -4,4 +4,6 @@
 
 <resources>
     <string name="app_name">yoMovie Personal</string>
+    <string name="activity_main_tv_show" translatable="false">TV SHOW</string>
+    <string name="activity_main_movie" translatable="false">MOVIE</string>
 </resources>

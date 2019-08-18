@@ -11,7 +11,7 @@
         tools:context=".homeFavorite.MainFavoriteMovieDetailActivity">
 
     <include
-            layout="@layout/activity_movie_catalogue_detail_head"
+            layout="@layout/activity_main_favorite_detail_head"
             />
 
 

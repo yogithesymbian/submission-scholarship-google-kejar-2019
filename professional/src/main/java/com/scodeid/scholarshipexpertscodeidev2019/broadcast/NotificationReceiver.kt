@@ -82,8 +82,8 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val origTitleForBodyMsg = mutableListOf<String>()
         val imageMovie = mutableListOf<String>()
-        private var bitmap: Bitmap? = null
-        private var posterToBitmap: FutureTarget<Bitmap>? = null
+        private var bitmap: Bitmap? = null // i use in other class since , at this time is not @maintenance
+        private var posterToBitmap: FutureTarget<Bitmap>? = null // @maintenance
     }
 
     private val timeFormat = "HH:mm"

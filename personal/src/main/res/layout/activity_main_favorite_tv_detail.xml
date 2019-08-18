@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".homeFavorite.MainFavoriteTvDetailActivity">
 
-    <include layout="@layout/fragment_movies_tv_show_detail_head"/>
+    <include layout="@layout/activity_main_favorite_tv_detail_head"/>
 
 
 

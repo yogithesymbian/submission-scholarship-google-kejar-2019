@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.yomoviecommon.model.favorite.TvProvModel
 import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
-import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_head.*
+import kotlinx.android.synthetic.main.activity_main_favorite_tv_detail_head.*
 
 class MainFavoriteTvDetailActivity : AppCompatActivity() {
 

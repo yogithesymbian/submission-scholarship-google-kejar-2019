@@ -138,6 +138,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:tabIndicatorColor="@color/colorCardPersonal"
+                app:tabTextColor="@color/colorCardPersonal"
+                app:tabIconTint="@color/colorCardPersonal"
                 tools:ignore="UnusedAttribute">
 
             <com.google.android.material.tabs.TabItem

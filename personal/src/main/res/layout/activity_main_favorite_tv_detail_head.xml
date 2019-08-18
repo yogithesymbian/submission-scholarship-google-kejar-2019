@@ -47,7 +47,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccent"
+                android:background="@color/colorCardPersonal"
                 >
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -164,8 +164,9 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_play_circle_filled_color_primary_48dp"
+                android:backgroundTint="@color/colorCardPersonal"
                 android:layout_marginBottom="16dp"
-                />
+                tools:targetApi="lollipop"/>
 
         <com.google.android.material.button.MaterialButton
                 style="@style/Widget.MaterialComponents.Button.TextButton"
