@@ -22,15 +22,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MoviesApiAdapter
+import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
+import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.DESCRIPTION
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.POSTER
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.RELEASE
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TITLE
-import com.scodeid.scholarshipexpertscodeidev2019.model.MovieTabColorModel
-import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
-import com.scodeid.scholarshipexpertscodeidev2019.view.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.*
 import java.io.IOException
 
@@ -89,7 +89,7 @@ class MoviesWapiHomeFragment : androidx.fragment.app.Fragment() {
         @SuppressLint("RestrictedApi")
         fun insertFavoriteMovie(
             id: Int,
-            release: String,
+            release: String?,
             title: String,
             description: String,
             poster: String,

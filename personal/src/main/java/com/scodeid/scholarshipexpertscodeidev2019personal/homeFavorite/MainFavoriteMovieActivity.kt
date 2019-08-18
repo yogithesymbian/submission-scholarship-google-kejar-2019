@@ -71,12 +71,21 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         AsyncTask<Void, Void, Cursor>() {
 
         private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
+
         private val weakReferenceCallBack: WeakReference<LoadMovieProvCallBack> = WeakReference(loadMovieProvCallBack)
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            weakReferenceCallBack.get()?.preExecute()
+            debuggingMyScode(TAG_LOG, "LoadAsync OnPreExecute")
+        }
+
 
         override fun doInBackground(vararg voids: Void): Cursor? {
             val context = weakReferenceContext.get()
             debuggingMyScode(TAG_LOG, "LoadAsync doInBackground")
             return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
+
         }
 
         override fun onPostExecute(cursor: Cursor) {
@@ -117,16 +126,17 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
         card_favorite.visibility = View.VISIBLE
 
         debuggingMyScode(TAG_LOG, "onPostExecute")
-        val listMovieArray = movieMapCursorToArrayList(cursor)
+        val listNotes = movieMapCursorToArrayList(cursor)
 
-        if (listMovieArray.size > 0) {
-            favoriteAdapter.setListMovie(listMovieArray)
+        if (listNotes.size > 0) {
+            favoriteAdapter.setListMovie(listNotes)
             image_empty_fav.visibility = View.GONE
             text_empty_fav.visibility = View.GONE
         } else {
             favoriteAdapter.setListMovie(java.util.ArrayList())
             image_empty_fav.visibility = View.VISIBLE
             text_empty_fav.visibility = View.VISIBLE
+//            showSnackbarMessage("Item is null")
         }
     }
 

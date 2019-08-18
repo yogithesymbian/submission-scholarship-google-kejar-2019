@@ -11,10 +11,10 @@
 
     <!-- provider -->
     <permission
-            android:name="com.scodeid.scholarshipexpertscodeidev2019personal.READ_DATABASE"
+            android:name="com.scodeid.scholarshipexpertscodeidev2019.READ_DATABASE"
             android:protectionLevel="normal"/>
     <permission
-            android:name="com.scodeid.scholarshipexpertscodeidev2019personal.WRITE_DATABASE"
+            android:name="com.scodeid.scholarshipexpertscodeidev2019.WRITE_DATABASE"
             android:protectionLevel="normal"/>
 
 
