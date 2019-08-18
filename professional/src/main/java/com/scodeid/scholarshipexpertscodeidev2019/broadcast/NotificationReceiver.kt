@@ -22,7 +22,10 @@ import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMai
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity.Companion.bitmap
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity.Companion.posterToBitmap
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
-import com.scodeid.scholarshipexpertscodeidev2019.utils.*
+import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_ID_RELEASE
+import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_ID_TOKEN
+import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_NAME_RELEASE
+import com.scodeid.scholarshipexpertscodeidev2019.utils.CHANNEL_DAILY_NAME_TOKEN
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -76,7 +79,7 @@ class NotificationReceiver : BroadcastReceiver() {
         val notifId = if (type.equals(TYPE_RELEASE_MOVIE, ignoreCase = true)) ID_RELEASE_MOVIE else ID_TOKEN_BACK_APP
 
         showToast(context, title, message)
-        message?.let { showNotification(context, title, it, notifId) }
+        message?.let { showNotification(context, title, message, notifId) }
 
     }
 
