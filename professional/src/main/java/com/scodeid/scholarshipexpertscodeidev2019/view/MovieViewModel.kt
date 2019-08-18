@@ -19,6 +19,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
+import com.scodeid.yomoviecommon.utils.toastAllActivity
 import org.json.JSONObject
 
 /**
@@ -107,7 +108,7 @@ class MovieViewModel : ViewModel() {
                     }
 
                     override fun onError(anError: ANError?) {
-
+                        val intent = Intent(context, NoInternetConnActivity::class.java)
                         debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
 //                        val intent = Intent(context, NoInternetConnActivity::class.java)
 //                        context?.startActivity(intent)
@@ -129,6 +130,15 @@ class MovieViewModel : ViewModel() {
                                 TAG_LOG,
                                 "onError errorDetail : ${anError?.errorDetail}"
                             ) // error.getErrorDetail() - just an error detail
+                            if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}"){
+                                // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
+                                // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
+                            }
+                            else if(anError?.errorCode == 503 && anError.errorBody == "be right back")
+                                toastAllActivity(context!!,context.getString(R.string.error_503_request_api_toast))
+                            else
+                                context?.startActivity(intent)
+
 
                         } else {
                             // error.getErrorDetail() : connectionError, parseError, requestCancelledError
@@ -204,9 +214,8 @@ class MovieViewModel : ViewModel() {
                 }
 
                 override fun onError(anError: ANError?) {
-
-                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
                     val intent = Intent(context, NoInternetConnActivity::class.java)
+                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
                     if (anError?.errorCode != 0) {
 
                         debuggingMyScode(
@@ -225,9 +234,10 @@ class MovieViewModel : ViewModel() {
                             // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
                             // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
                         }
-                        else {
+                        else if(anError?.errorCode == 503 && anError.errorBody == "be right back")
+                            toastAllActivity(context!!,context.getString(R.string.error_503_request_api_toast))
+                        else
                             context?.startActivity(intent)
-                        }
 
                     } else {
                         debuggingMyScode(

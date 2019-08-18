@@ -18,14 +18,14 @@ import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.scholarshipexpertscodeidev2019personal.adapter.ConsFavMovieAdapter
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
 import com.scodeid.yomoviecommon.helper.MappingHelper.movieMapCursorToArrayList
-import com.scodeid.yomoviecommon.interfaceFavorite.LoadMovieProvCallBack
+import com.scodeid.yomoviecommon.interfaceFavorite.LoadConsFavMovie
 import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference
 
 class MainFavoriteMovieActivity : AppCompatActivity(),
-    LoadMovieProvCallBack {
+    LoadConsFavMovie {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
@@ -67,59 +67,6 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
 
     }
 
-    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadMovieProvCallBack) :
-        AsyncTask<Void, Void, Cursor>() {
-
-        private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
-
-        private val weakReferenceCallBack: WeakReference<LoadMovieProvCallBack> = WeakReference(loadMovieProvCallBack)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            weakReferenceCallBack.get()?.preExecute()
-            debuggingMyScode(TAG_LOG, "LoadAsync OnPreExecute")
-        }
-
-
-        override fun doInBackground(vararg voids: Void): Cursor? {
-            val context = weakReferenceContext.get()
-            debuggingMyScode(TAG_LOG, "LoadAsync doInBackground")
-            return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
-
-        }
-
-        override fun onPostExecute(cursor: Cursor) {
-            super.onPostExecute(cursor)
-            debuggingMyScode(TAG_LOG, "LoadAsync onPostExecute")
-            weakReferenceCallBack.get()?.postExecute(cursor)
-        }
-    }
-
-    class DataObserver(handler: Handler, internal val context: Context) : ContentObserver(handler) {
-
-        override fun onChange(selfChange: Boolean) {
-            super.onChange(selfChange)
-            LoadFavMovieAsync(context, context as LoadMovieProvCallBack).execute()
-        }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listMovieModel)
-    }
-
-    override fun preExecute() {
-        runOnUiThread {
-            frame_progress_favorite.visibility = View.VISIBLE
-            card_favorite.visibility = View.GONE
-        }
-    }
-
     override fun postExecute(cursor: Cursor) {
 
         frame_progress_favorite.visibility = View.GONE
@@ -136,8 +83,46 @@ class MainFavoriteMovieActivity : AppCompatActivity(),
             favoriteAdapter.setListMovie(java.util.ArrayList())
             image_empty_fav.visibility = View.VISIBLE
             text_empty_fav.visibility = View.VISIBLE
-//            showSnackbarMessage("Item is null")
         }
+    }
+
+
+    private class LoadFavMovieAsync(context: Context, LoadConsFavMovie: LoadConsFavMovie) :
+        AsyncTask<Void, Void, Cursor>() {
+
+        private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
+
+        private val weakReferenceCallBack: WeakReference<LoadConsFavMovie> = WeakReference(LoadConsFavMovie)
+
+        override fun doInBackground(vararg voids: Void): Cursor? {
+            val context = weakReferenceContext.get()
+            debuggingMyScode(TAG_LOG, "LoadAsync doInBackground")
+            return context?.contentResolver?.query(CONTENT_URI_MOVIE, null, null, null, null)
+        }
+
+        override fun onPostExecute(cursor: Cursor) {
+            super.onPostExecute(cursor)
+            debuggingMyScode(TAG_LOG, "LoadAsync onPostExecute")
+            weakReferenceCallBack.get()?.postExecute(cursor)
+        }
+    }
+
+    class DataObserver(handler: Handler, internal val context: Context) : ContentObserver(handler) {
+
+        override fun onChange(selfChange: Boolean) {
+            super.onChange(selfChange)
+            LoadFavMovieAsync(context, context as LoadConsFavMovie).execute()
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listMovieModel)
     }
 
     override fun onPointerCaptureChanged(hasCapture: Boolean) {

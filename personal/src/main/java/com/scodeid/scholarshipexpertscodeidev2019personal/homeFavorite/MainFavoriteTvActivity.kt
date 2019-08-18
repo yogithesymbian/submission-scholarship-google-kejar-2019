@@ -18,14 +18,14 @@ import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.scholarshipexpertscodeidev2019personal.adapter.ConsFavTvAdapter
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.yomoviecommon.helper.MappingHelper.tvMapCursorToArrayList
-import com.scodeid.yomoviecommon.interfaceFavorite.LoadTvProvCallBack
+import com.scodeid.yomoviecommon.interfaceFavorite.LoadConsFavTv
 import com.scodeid.yomoviecommon.model.favorite.TvProvModel
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite_tv.*
 import java.lang.ref.WeakReference
 
 class MainFavoriteTvActivity : AppCompatActivity(),
-    LoadTvProvCallBack {
+    LoadConsFavTv {
 
     companion object {
         private const val EXTRA_STATE = "extra_state"
@@ -65,19 +65,12 @@ class MainFavoriteTvActivity : AppCompatActivity(),
 
     }
 
-    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadTvProvCallBack) :
+    private class LoadFavMovieAsync(context: Context, loadMovieProvCallBack: LoadConsFavTv) :
         AsyncTask<Void, Void, Cursor>() {
 
         private val weakReferenceContext: WeakReference<Context> = WeakReference(context)
 
-        private val weakReferenceCallBack: WeakReference<LoadTvProvCallBack> = WeakReference(loadMovieProvCallBack)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            weakReferenceCallBack.get()?.preExecute()
-            debuggingMyScode(TAG_LOG, "LoadAsync OnPreExecute")
-        }
-
+        private val weakReferenceCallBack: WeakReference<LoadConsFavTv> = WeakReference(loadMovieProvCallBack)
 
         override fun doInBackground(vararg voids: Void): Cursor? {
             val context = weakReferenceContext.get()
@@ -97,7 +90,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
 
         override fun onChange(selfChange: Boolean) {
             super.onChange(selfChange)
-            LoadFavMovieAsync(context, context as LoadTvProvCallBack).execute()
+            LoadFavMovieAsync(context, context as LoadConsFavTv).execute()
         }
     }
 
@@ -110,13 +103,6 @@ class MainFavoriteTvActivity : AppCompatActivity(),
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_STATE, favoriteAdapter.listTvModel)
-    }
-
-    override fun preExecute() {
-        runOnUiThread {
-            frame_progress_favorite.visibility = View.VISIBLE
-            card_favorite.visibility = View.GONE
-        }
     }
 
     override fun postExecute(cursor: Cursor) {

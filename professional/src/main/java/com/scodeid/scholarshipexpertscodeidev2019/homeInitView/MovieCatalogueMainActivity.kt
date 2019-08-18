@@ -195,9 +195,13 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             mFragmentTransaction.commit()
         }
     }
-    /**
-     * END OF FRAGMENT API TV SHOW
-     */
+
+    var isThemeChecked: Boolean = false // stateTheme
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val checkAble = menu?.findItem(R.id.nav_theme)
+        checkAble?.isChecked = isThemeChecked // set default onPrepare is false checked
+        return true
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -213,27 +217,24 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                     TAG_LOG,
                     "lightDark is clicked and it.${item.isChecked}"
                 )
-                if (!item.isChecked) {
+                if (isThemeChecked == !item.isChecked) { //true | on checked
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         changeColorBarMovie(
                             R.color.darkTheme,
                             R.color.darkTheme
                         )
-                    }
-                    else
+                    } else
                         toastAllActivity(
                             this,
                             "Error code 159120 / www.scode.id/159120.asp "
                         )
-                }
-                else {
+                } else { // false | off checked
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         changeColorBarMovie(
                             R.color.lightTheme,
                             R.color.lightTheme
                         )
-                    }
-                    else
+                    } else
                         toastAllActivity(
                             this,
                             "Error code 159120 / www.scode.id/159120.asp "
@@ -1120,5 +1121,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         }
         return super.onOptionsItemSelected(item)
     }
+
 
 }

@@ -13,14 +13,14 @@ import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.core.net.toUri
+import com.scodeid.scholarshipexpertscodeidev2019.helper.HelperModel
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
+import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import com.scodeid.yomoviecommon.database.ContractDatabase.AUTHORITY
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TABLE_NAME_MOVIE
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.TABLE_NAME_TV
-import com.scodeid.scholarshipexpertscodeidev2019.helper.HelperModel
-import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
-import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 
 
 /**
@@ -122,6 +122,7 @@ class FavoriteContentProvider : ContentProvider() {
             TV_ID -> helperModel.deleteProviderTv(uri.lastPathSegment)
             else -> throw IllegalArgumentException("Unknown URI: $uri")
         }
+//        Can't create handler inside thread that has not called Looper.prepare()
         context?.contentResolver?.notifyChange(
             CONTENT_URI_MOVIE, MainFavoriteMovieActivity.DataObserver(
                 Handler(),

@@ -211,6 +211,8 @@
     <string name="activity_main_favorite_movies_yesterday">Kemarin</string>
     <string name="activity_main_favorite_manage_favorite_movie">Kelola Favorit Movie</string>
     <string name="activity_main_favorite_manage_favorite_tv_show">Kelola Favorit Tv Show</string>
+    <string name="activity_main_favorite_manage_favorite_movie_personal">Kelola Favorit Movie { free }</string>
+    <string name="activity_main_favorite_manage_favorite_tv_show_personal">Kelola Favorit Tv Show{ free }</string>
     <string name="option_hint_tv">cari TV SHOW</string>
     <string name="view_model_search_keyword">Kata Kunci :</string>
     <string name="view_model_search_info">tidak ditemukan</string>
@@ -227,5 +229,6 @@
     <string name="movie_catalogue_main_activity_json_response_movie">data kosong</string>
     <string name="drawer_movies_menu_light_dark_theme">Putih | Gelap Tema</string>
     <string name="error_503_be_right_back_https_image_tmdb_org">503 Kembali lagi, https://image.tmdb.org</string>
+    <string name="error_503_request_api_toast">servis tidak tersedia, kembali lain waktu 503 </string>
 </resources>
 

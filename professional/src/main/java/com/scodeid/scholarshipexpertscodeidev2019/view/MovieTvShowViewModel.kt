@@ -19,6 +19,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.NoInternetConnActivity
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
+import com.scodeid.yomoviecommon.utils.toastAllActivity
 import org.json.JSONObject
 
 /**
@@ -109,7 +110,6 @@ class MovieTvShowViewModel : ViewModel() {
 
                         debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
                         val intent = Intent(context, NoInternetConnActivity::class.java)
-                        context?.startActivity(intent)
 
                         if (anError?.errorCode != 0) {
 
@@ -125,6 +125,15 @@ class MovieTvShowViewModel : ViewModel() {
                                 TAG_LOG,
                                 "onError errorDetail : ${anError?.errorDetail}"
                             )
+                            if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}"){
+                                // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
+                                // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
+                            }
+                            else if(anError?.errorCode == 503 && anError.errorBody == "be right back"){
+                                toastAllActivity(context!!,context.getString(R.string.error_503_request_api_toast))
+                            }
+                            else
+                                context?.startActivity(intent)
 
                         } else {
                             // error.getErrorDetail() : connectionError, parseError, requestCancelledError
@@ -221,9 +230,11 @@ class MovieTvShowViewModel : ViewModel() {
                         if (anError?.errorCode == 422 && anError.errorBody == "{\"errors\":[\"query must be provided\"]}") {
                             // nothing IF USER FIRST CLICK SEARCH WILL REAL TIME ON REQUEST API IS NULL WORD/QUERY
                             // SO I MADE SPECIAL RESPONSE STRING FOR THIS AND NOT REDIRECT TO NO INTERNET CONNECTION
-                        } else {
-                            context?.startActivity(intent)
                         }
+                        else if(anError?.errorCode == 503 && anError.errorBody == "be right back")
+                            toastAllActivity(context!!,context.getString(R.string.error_503_request_api_toast))
+                        else
+                            context?.startActivity(intent)
 
                     } else {
                         // error.getErrorDetail() : connectionError, parseError, requestCancelledError

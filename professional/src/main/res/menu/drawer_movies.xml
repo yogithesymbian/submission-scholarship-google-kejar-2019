@@ -18,6 +18,7 @@
                     android:title="@string/drawer_movies_menu_light_dark_theme"
                     android:icon="@drawable/ic_dashboard_black_24dp"
                     android:checked="false"
+                    android:checkable="true"
                     app:actionViewClass="android.widget.Switch"
                     app:showAsAction="always" />
 

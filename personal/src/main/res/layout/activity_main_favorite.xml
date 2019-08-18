@@ -60,7 +60,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/activity_main_favorite_manage_favorite_movie"
+                        android:text="@string/activity_main_favorite_manage_favorite_movie_personal"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:id="@+id/appCompatTextView"
