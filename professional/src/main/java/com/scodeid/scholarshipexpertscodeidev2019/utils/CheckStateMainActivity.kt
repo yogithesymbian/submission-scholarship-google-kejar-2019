@@ -38,8 +38,8 @@ const val KEY_DAILY_REMINDER_RELEASE = "key_daily_reminder_release"
 const val SUBSCRIBE_TOPIC_DAILY = "token"
 const val SUBSCRIBE_TOPIC_DAILY_RELEASE = "release"
 
-const val TIME_DAILY_TOKEN = "09:05"
-const val TIME_DAILY_RELEASE = "09:06"
+const val TIME_DAILY_TOKEN = "15:21"
+const val TIME_DAILY_RELEASE = "15:39"
 
 const val CHANNEL_DAILY_ID_TOKEN = "Channel_1"
 const val CHANNEL_DAILY_ID_RELEASE = "Channel_2"

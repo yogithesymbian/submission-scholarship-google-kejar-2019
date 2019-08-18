@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="@string/error_503_be_right_back_https_image_tmdb_org"
+            android:text="@string/error_503_be_right_back_https_image_imdb_org"
             android:textAllCaps="false"
             android:autoLink="web"
             android:visibility="gone"

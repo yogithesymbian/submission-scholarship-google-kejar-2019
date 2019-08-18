@@ -205,7 +205,7 @@
     <string name="movie_catalogue_main_activity_daily_token_movie">Daily Token Has been Enable</string>
     <string name="movie_catalogue_main_activity_json_response_movie">result data is empty, Add the data first</string>
     <string name="drawer_movies_menu_light_dark_theme">Light | Dark Theme</string>
-    <string name="error_503_be_right_back_https_image_tmdb_org">503 Be right back, https://image.tmdb.org</string>
+    <string name="error_503_be_right_back_https_image_imdb_org">503 Be right back, https://image.tmdb.org</string>
     <string name="error_503_request_api_toast">service unavailable, be right back 503</string>
     <string name="error_159120">Error code 159120 / www.scode.id/159120.asp</string>
 

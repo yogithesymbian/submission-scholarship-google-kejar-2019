@@ -124,12 +124,6 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0"
 
 
-    /**
-     * FAN ( Fast Android Networking )
-     */
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
-    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
-
 
     implementation 'androidx.preference:preference:1.1.0-rc01'
 

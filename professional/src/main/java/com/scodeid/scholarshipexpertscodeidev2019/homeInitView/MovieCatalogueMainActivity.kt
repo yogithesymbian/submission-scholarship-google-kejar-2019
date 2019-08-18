@@ -20,7 +20,6 @@ import android.app.NotificationManager
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -37,12 +36,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -51,25 +45,20 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.MainSectionsPagerAdapter
-import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
 import com.scodeid.scholarshipexpertscodeidev2019.broadcast.NotificationReceiver
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteTvActivity
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesTvWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
-import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.setting.SettingsReminderActivity
 import com.scodeid.scholarshipexpertscodeidev2019.utils.*
-import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import com.scodeid.yomoviecommon.utils.toastAllActivity
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_bar.*
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main_content.*
 import kotlinx.android.synthetic.main.nav_header_home_movies.*
-import org.json.JSONObject
-import java.text.SimpleDateFormat
 
 /**
  * Build with File->New->Activity->Setting Activity
@@ -80,12 +69,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         var stateChangeVisible = ""
         var statusActivity = ""
         private val TAG_LOG: String = MovieCatalogueMainActivity::class.java.simpleName
-        val arrayListMovRelease = ArrayList<MoviesApiData>()
-
-        val origTitle = mutableListOf<String>()
-        val imageMovie = mutableListOf<String>()
-        lateinit var bitmap: Bitmap
-        lateinit var posterToBitmap: FutureTarget<Bitmap>
     }
 
     // for once run if already subscribe the code will not repeat on process
@@ -538,11 +521,16 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                 initForSubscribe(channelId2, channelName2)
                 doSubscribe(SUBSCRIBE_TOPIC_DAILY_RELEASE)
-                val date = System.currentTimeMillis() //currentTime
-                val yMdFormat = SimpleDateFormat("yyyy-MM-dd") // format to
-                val dateNow = yMdFormat.format(date) //2019-08-14
 
-                reqApiMovie(dateNow, this@MovieCatalogueMainActivity)
+
+                notificationReceiver.setRepeatingNotification(
+                    applicationContext, NotificationReceiver.TYPE_RELEASE_MOVIE,
+                    TIME_DAILY_RELEASE, String()
+                )
+                toastAllActivity(
+                    applicationContext,
+                    getString(R.string.movie_catalogue_main_activity_release_movie)
+                )
 
                 isSubscribeCh2 = true
                 debuggingMyScode(
@@ -561,121 +549,6 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
             isSubscribeCh2 = false
         }
     }
-
-    private fun reqApiMovie(
-        dateNow: String?,
-        movieCatalogueMainActivity: MovieCatalogueMainActivity
-    ) {
-        AndroidNetworking.get(ApiEndPoint.RELEASE_MOVIE)
-            .addPathParameter("API_KEY", ApiEndPoint.API_KEY_V3_AUTH)
-            .addPathParameter("LANGUAGE", applicationContext.resources.getString(R.string.app_language))
-            .addPathParameter("TODAY_DATE_GTE", dateNow)
-            .addPathParameter("TODAY_DATE_LTE", dateNow)
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject) {
-                    arrayListMovRelease.clear()
-
-                    val jsonArray = response.optJSONArray("results")
-
-                    if (jsonArray?.length() == 0) {
-                        toastAllActivity(
-                            applicationContext,
-                            getString(R.string.movie_catalogue_main_activity_json_response_movie)
-                        )
-                    }
-
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObject = jsonArray.optJSONObject(i)
-
-                        arrayListMovRelease.add(
-                            MoviesApiData(
-                                jsonObject.getInt("vote_count"),
-                                jsonObject.getInt("id"),
-                                jsonObject.getBoolean("video"),
-                                jsonObject.getInt("vote_average"),
-                                jsonObject.getString("title"),
-                                jsonObject.getInt("popularity"),
-                                jsonObject.optString("poster_path"),
-                                jsonObject.getString("original_language"),
-                                jsonObject.getString("original_title"),
-                                arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.optString("backdrop_path"),
-                                jsonObject.getBoolean("adult"),
-                                jsonObject.getString("overview"),
-                                jsonObject.getString("release_date")
-                            )
-                        )
-                        origTitle.add(arrayListMovRelease[i].title)
-                        imageMovie.add(arrayListMovRelease[i].posterPath)
-
-                        if (jsonArray.length() - 1 == i) {
-
-                            debuggingMyScode(
-                                TAG_LOG, """
-                                
-                                message req $origTitle
-                                \n
-                                message image : $imageMovie
-                                
-                                ${POSTER_IMAGE}w185${imageMovie[1]}
-                            """.trimIndent()
-                            )
-                            val myImageGlide = Thread {
-                                Thread.sleep(100)
-
-                                posterToBitmap = Glide.with(this@MovieCatalogueMainActivity)
-                                    .asBitmap()
-                                    .load("${POSTER_IMAGE}w185${imageMovie[1]}")
-                                    .submit()
-
-                                bitmap = posterToBitmap.get()
-                            }
-                            myImageGlide.start()
-
-                            notificationReceiver.setRepeatingNotification(
-                                movieCatalogueMainActivity, NotificationReceiver.TYPE_RELEASE_MOVIE,
-                                TIME_DAILY_RELEASE, origTitle.toString()
-                            )
-                            toastAllActivity(
-                                movieCatalogueMainActivity,
-                                getString(R.string.movie_catalogue_main_activity_release_movie)
-                            )
-                        }
-                    }
-                }
-
-                override fun onError(anError: ANError?) {
-
-                    debuggingMyScode("ON_ERROR", anError?.errorDetail.toString())
-
-                    if (anError?.errorCode != 0) {
-
-                        debuggingMyScode(
-                            TAG_LOG,
-                            "onError errorCode : ${anError?.errorCode}"
-                        ) // error.getErrorCode() - the error code from server
-                        debuggingMyScode(
-                            TAG_LOG,
-                            "onError errorBody : ${anError?.errorBody}"
-                        ) // error.getErrorBody() - the error body from server
-                        debuggingMyScode(
-                            TAG_LOG,
-                            "onError errorDetail : ${anError?.errorDetail}"
-                        ) // error.getErrorDetail() - just an error detail
-
-                    } else {
-                        // error.getErrorDetail() : connectionError, parseError, requestCancelledError
-                        debuggingMyScode(
-                            TAG_LOG,
-                            "onError errorDetail : " + anError.errorDetail
-                        )
-                    }
-                }
-            })
-    }
-
 
     private fun runSetConfigDailyToken(
         preferenceManager: PreferenceManager,
