@@ -15,7 +15,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.RingtoneManager
 import android.os.Build
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.androidnetworking.AndroidNetworking
@@ -82,6 +81,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val origTitleForBodyMsg = mutableListOf<String>()
         val imageMovie = mutableListOf<String>()
+        var imageMovieFilter = mutableListOf<String>()
         private var bitmap: Bitmap? = null // i use in other class since , at this time is not @maintenance
         private var posterToBitmap: FutureTarget<Bitmap>? = null // @maintenance
     }
@@ -228,6 +228,7 @@ class NotificationReceiver : BroadcastReceiver() {
                                 jsonObject.getString("release_date")
                             )
                         )
+
                         origTitleForBodyMsg.add(arrayListMovRelease[i].title)
                         imageMovie.add(arrayListMovRelease[i].posterPath)
 
@@ -240,28 +241,35 @@ class NotificationReceiver : BroadcastReceiver() {
                                 \n
                                 message image : $imageMovie
 
-                                ${POSTER_IMAGE}w185${imageMovie[0]}
                             """.trimIndent()
                             )
 
 
                             val myImageGlide = Thread {
                                 Thread.sleep(100)
+                                // predicate <T> just for filtering avoid no value | null
+                                // https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not-null.html
+                                // filter, filterNot, filterNotNull, retainAll, removeAll didn't work, dunno why
+                                // spending 8 hour's didn't solved until right now
 
-                                posterToBitmap = if (imageMovie[0].isNotEmpty()) {
-                                    Glide.with(context)
-                                        .asBitmap()
-                                        .load("${POSTER_IMAGE}w185${imageMovie[0]}")
-                                        .error(R.color.error_color_material_light)
-                                        .format(DecodeFormat.PREFER_ARGB_8888)
-                                        .submit()
+                                if (imageMovie[0] == "null") {
+                                    posterToBitmap =
+                                        Glide.with(context)
+                                            .asBitmap()
+                                            .load(R.drawable.ic_image_null_or_error)
+                                            .override(40, 40)
+                                            .timeout(30)
+                                            .error(R.color.error_color_material_light)
+                                            .format(DecodeFormat.PREFER_ARGB_8888)
+                                            .submit()
                                 } else {
-                                    Glide.with(context)
-                                        .asBitmap()
-                                        .load("${POSTER_IMAGE}w185${imageMovie[2]}")
-                                        .error(R.color.error_color_material_light)
-                                        .format(DecodeFormat.PREFER_ARGB_8888)
-                                        .submit()
+                                    posterToBitmap =
+                                        Glide.with(context)
+                                            .asBitmap()
+                                            .load("${POSTER_IMAGE}w185${imageMovie[0]}")
+                                            .error(R.color.error_color_material_light)
+                                            .format(DecodeFormat.PREFER_ARGB_8888)
+                                            .submit()
                                 }
                                 bitmap = posterToBitmap?.get()
 
@@ -345,6 +353,7 @@ class NotificationReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .setContentIntent(pendingIntent)
 
+
         builder.setLargeIcon(bitmap)
         Glide.with(context).clear(posterToBitmap)
 
@@ -409,7 +418,10 @@ class NotificationReceiver : BroadcastReceiver() {
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
         pendingIntent.cancel()
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Repeating alarm has cancel", Toast.LENGTH_SHORT).show()
+        if (requestCode == ID_RELEASE_MOVIE)
+            debuggingMyScode(TAG_LOG, "release movie off")
+        else
+            debuggingMyScode(TAG_LOG, "daily token movie off")
 
     }
 }

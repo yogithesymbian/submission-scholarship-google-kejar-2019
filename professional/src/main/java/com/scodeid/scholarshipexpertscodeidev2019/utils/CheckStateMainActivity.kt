@@ -41,6 +41,7 @@ const val SUBSCRIBE_TOPIC_DAILY_RELEASE = "release"
 const val TIME_DAILY_TOKEN = "07:00"
 const val TIME_DAILY_RELEASE = "08:00"
 
+// firebase cloud message
 const val CHANNEL_DAILY_ID_TOKEN = "Channel_1"
 const val CHANNEL_DAILY_ID_RELEASE = "Channel_2"
 const val CHANNEL_DAILY_NAME_TOKEN = "Token channel1"
