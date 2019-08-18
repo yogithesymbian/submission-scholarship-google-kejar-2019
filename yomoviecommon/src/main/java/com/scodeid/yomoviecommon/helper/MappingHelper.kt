@@ -2,15 +2,15 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.helper
+package com.scodeid.yomoviecommon.helper
 
 import android.database.Cursor
 import android.os.Build
 import android.provider.BaseColumns._ID
 import androidx.annotation.RequiresApi
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
 import com.scodeid.yomoviecommon.database.ContractDatabase
+import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
+import com.scodeid.yomoviecommon.model.favorite.TvProvModel
 import java.util.*
 
 /**
@@ -52,7 +52,15 @@ object MappingHelper {
             val posterImage =
                 movieCursor.getString(movieCursor.getColumnIndexOrThrow(ContractDatabase.MovieColumns.POSTER))
 
-            favMovieList.add(MovieProvModel(id, title, release, description, posterImage))
+            favMovieList.add(
+                MovieProvModel(
+                    id,
+                    title,
+                    release,
+                    description,
+                    posterImage
+                )
+            )
         }
         return favMovieList
     }

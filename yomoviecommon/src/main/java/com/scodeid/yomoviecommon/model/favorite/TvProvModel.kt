@@ -2,21 +2,19 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.model.favorite
+package com.scodeid.yomoviecommon.model.favorite
 
 import android.database.Cursor
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
-import android.provider.BaseColumns._ID
+import android.provider.BaseColumns
 import androidx.annotation.RequiresApi
 import com.scodeid.yomoviecommon.database.ContractDatabase
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.getColumnInt
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.getColumnString
 
 /**
  * @author
- * Created by scode on 10,August,2019
+ * Created by scode on 11,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -36,12 +34,11 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
 |___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |____/
 
  */
-class MovieProvModel : Parcelable {
+class TvProvModel : Parcelable {
 
     var id: Int = 0
     var title: String? = null
-    var release: String? = null
-    var description: String? = null
+    var voteAverage: Int = 0
     var posterImage: String? = null
 
 
@@ -52,8 +49,7 @@ class MovieProvModel : Parcelable {
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeInt(id)
         dest.writeString(title)
-        dest.writeString(release)
-        dest.writeString(description)
+        dest.writeInt(voteAverage)
         dest.writeString(posterImage)
     }
 
@@ -61,18 +57,18 @@ class MovieProvModel : Parcelable {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     constructor(cursor: Cursor) {
-        this.id = getColumnInt(cursor, _ID)
-        this.title = getColumnString(cursor, ContractDatabase.MovieColumns.TITLE)
-        this.release = getColumnString(cursor, ContractDatabase.MovieColumns.TITLE)
-        this.description = getColumnString(cursor, ContractDatabase.MovieColumns.DESCRIPTION)
-        this.posterImage = getColumnString(cursor, ContractDatabase.MovieColumns.DESCRIPTION)
+        this.id = ContractDatabase.MovieColumns.getColumnInt(cursor, BaseColumns._ID)
+        this.title = ContractDatabase.MovieColumns.getColumnString(cursor, ContractDatabase.MovieColumns.TITLE)
+        this.voteAverage =
+            ContractDatabase.MovieColumns.getColumnInt(cursor, ContractDatabase.MovieColumns.VOTE_AVERAGE)
+        this.posterImage =
+            ContractDatabase.MovieColumns.getColumnString(cursor, ContractDatabase.MovieColumns.POSTER)
     }
 
-    constructor(id: Int, title: String, release: String, description: String, posterImage: String) {
+    constructor(id: Int, title: String, voteAverage: Int, posterImage: String) {
         this.id = id
         this.title = title
-        this.release = release
-        this.description = description
+        this.voteAverage = voteAverage
         this.posterImage = posterImage
     }
 
@@ -80,20 +76,20 @@ class MovieProvModel : Parcelable {
     private constructor(`in`: Parcel) {
         id = `in`.readInt()
         title = `in`.readString()
-        release = `in`.readString()
-        description = `in`.readString()
+        voteAverage = `in`.readInt()
         posterImage = `in`.readString()
     }
 
     companion object {
+
         @Suppress("Unused")
         @JvmField
-        val CREATOR: Parcelable.Creator<MovieProvModel> = object : Parcelable.Creator<MovieProvModel> {
-            override fun createFromParcel(source: Parcel): MovieProvModel {
-                return MovieProvModel(source)
+        val CREATOR: Parcelable.Creator<TvProvModel> = object : Parcelable.Creator<TvProvModel> {
+            override fun createFromParcel(source: Parcel): TvProvModel {
+                return TvProvModel(source)
             }
 
-            override fun newArray(size: Int): Array<MovieProvModel?> {
+            override fun newArray(size: Int): Array<TvProvModel?> {
                 return arrayOfNulls(size)
             }
         }

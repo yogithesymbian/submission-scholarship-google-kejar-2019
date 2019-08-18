@@ -13,9 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
 import com.scodeid.scholarshipexpertscodeidev2019personal.R
+import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
 import kotlinx.android.synthetic.main.activity_movie_catalogue_detail_head.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")

@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.adapter
+package com.scodeid.scholarshipexpertscodeidev2019personal.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -19,18 +19,20 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
-import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.homeFavorite.MainFavoriteMovieDetailActivity
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
-import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
+import com.scodeid.scholarshipexpertscodeidev2019personal.R
+import com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite.MainFavoriteTvDetailActivity
+import com.scodeid.yomoviecommon.database.ContractDatabase
+import com.scodeid.yomoviecommon.model.favorite.TvProvModel
+import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
-import kotlinx.android.synthetic.main.item_movies_favorite.view.*
+import kotlinx.android.synthetic.main.item_movies_tv_shows_favorite.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author
- * Created by scode on 30,July,2019
+ * Created by scode on 18,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -43,20 +45,18 @@ import java.util.*
  * JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o
  * Linux 4.19.0-kali5-amd64
  * ==============================================================
-_               _         _               _  _
-___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | || |
-/ __| | | | '_ \| '_ ` _ \| / __/ __| |/ _ \| '_ \  | || |_
-\__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | | |__   _|
-|___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_|    |_|
-
+_               _         _               ____
+___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
+/ __| | | | '_ \| '_ ` _ \| / __/ __| |/ _ \| '_ \  |___ \
+\__ \ |_| | |_) | | | | | | \__ \__ \ | (_) | | | |  ___) |
+|___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |____/
 
  */
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
+class ConsFavTvAdapter(var activity: Activity) : RecyclerView.Adapter<ConsFavTvAdapter.FavoriteTvViewHolder>() {
 
     companion object {
-        val TAG_LOG: String = FavoriteAdapter::class.java.simpleName
+        val TAG_LOG: String = ConsFavTvAdapter::class.java.simpleName
     }
 
     init {
@@ -64,16 +64,17 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     }
 
     // will save all data
-    var listMovieModel = ArrayList<MovieProvModel>()
-        set(listMovies) {
-            if (listMovies.size > 0) this.listMovieModel.clear()
-            this.listMovieModel.addAll(listMovies)
+    var listTvModel = ArrayList<TvProvModel>()
+        set(listTv) {
+            if (listTv.size > 0) this.listTvModel.clear()
+            this.listTvModel.addAll(listTv)
             notifyDataSetChanged()
         }
 
-    fun setListMovie(listMovies: ArrayList<MovieProvModel>) {
-        if (listMovies.size > 0) this.listMovieModel.clear()
-        this.listMovieModel.addAll(listMovies)
+
+    fun setListTv(listTv: ArrayList<TvProvModel>) {
+        if (listTv.size > 0) this.listTvModel.clear()
+        this.listTvModel.addAll(listTv)
         notifyDataSetChanged()
     }
 
@@ -82,19 +83,19 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
      * remove/delete
      */
 
-    private fun removeItemMovies(position: Int) {
-        this.listMovieModel.removeAt(position)
+    private fun removeItemTv(position: Int) {
+        this.listTvModel.removeAt(position)
         notifyItemRemoved(position)
-        notifyItemRangeChanged(position, this.listMovieModel.size)
+        notifyItemRangeChanged(position, this.listTvModel.size)
     }
 
     /**
      * implement of recycler
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteTvViewHolder {
+        return FavoriteTvViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_movies_favorite,
+                R.layout.item_movies_tv_shows_favorite,
                 parent,
                 false
             )
@@ -102,56 +103,58 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     }
 
     @SuppressLint("PrivateResource")
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteTvViewHolder, position: Int) {
         val context = holder.itemView.context
+        val uri = Uri.parse("${ContractDatabase.MovieColumns.CONTENT_URI_TV}/${listTvModel[position].id}")
+        holder.textTitle.text = this.listTvModel[position].title
+        holder.textDesc.text = this.listTvModel[position].voteAverage.toString()
+
         val animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale)
 
-        val uri = Uri.parse("$CONTENT_URI_MOVIE/${listMovieModel[position].id}")
-
-        holder.release.text = this.listMovieModel[position].release
-        holder.textTitle.text = this.listMovieModel[position].title
-        holder.textDesc.text = this.listMovieModel[position].description
         context.let {
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieModel[position].posterImage)
+                .load("${POSTER_IMAGE}w185${listTvModel[position].posterImage}")
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .into(holder.itemView.image_movie)
+                .into(holder.itemView.image_tv_movie)
         }
-        holder.itemView.card_item_favorite.setOnClickListener(
+        holder.itemView.setOnClickListener(
             CustomOnItemClickListener(
                 position,
                 object :
                     CustomOnItemClickListener.OnItemClickCallback {
                     override fun onItemClicked(view: View, position: Int) {
-                        val intent = Intent(activity, MainFavoriteMovieDetailActivity::class.java)
+                        val intent = Intent(activity, MainFavoriteTvDetailActivity::class.java)
                         intent.data = uri
 
-                        intent.putExtra(MainFavoriteMovieDetailActivity.EXTRA_POSITION, position)
-                        intent.putExtra(MainFavoriteMovieDetailActivity.EXTRA_MOVIE, listMovieModel[position])
+                        intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_POSITION, position)
+                        intent.putExtra(MainFavoriteTvDetailActivity.EXTRA_TV, listTvModel[position])
 
-                        activity.startActivityForResult(intent, MainFavoriteMovieDetailActivity.REQUEST_UPDATE)
+                        activity.startActivityForResult(intent, MainFavoriteTvDetailActivity.REQUEST_UPDATE)
+
                     }
                 })
         )
-        val unFavorite = holder.itemView.checkbox_fav_movie_favorite
+
+        val unFavorite = holder.itemView.checkbox_fav_tv
         unFavorite.setOnCheckedChangeListener { buttonView, isChecked ->
+
             buttonView.startAnimation(animation)
             if (isChecked) {
                 context.contentResolver.delete(Objects.requireNonNull<Uri>(uri), null, null)
-                removeItemMovies(position)
+                removeItemTv(position)
                 unFavorite.isChecked = false
             }
         }
 
         val movieDialog = Dialog(context)
         holder
-            .itemView.image_movie.setOnClickListener {
+            .itemView.image_tv_movie.setOnClickListener {
             debuggingMyScode(
                 TAG_LOG + "Bind",
-                "image ${holder.itemView.image_movie} got clicked and Try opening dialog view"
+                "image ${holder.itemView.image_tv_movie} got clicked and Try opening dialog view"
             )
 
             /**
@@ -166,7 +169,7 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
             }
             Glide.with(it)
                 .asBitmap()
-                .load(listMovieModel[position].posterImage)
+                .load("${POSTER_IMAGE}w185${listTvModel[position].posterImage}")
                 .error(R.color.error_color_material_light)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .into(movieDialog.image_dialog_home)
@@ -179,16 +182,15 @@ class FavoriteAdapter(var activity: Activity) : RecyclerView.Adapter<FavoriteAda
     }
 
     override fun getItemCount(): Int {
-        return this.listMovieModel.size
+        return this.listTvModel.size
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val textTitle: TextView = itemView.findViewById(R.id.text_movie_name)
-        internal val textDesc: TextView = itemView.findViewById(R.id.text_overview)
-        internal val release: TextView = itemView.findViewById(R.id.text_movies_release)
+    inner class FavoriteTvViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal val textTitle: TextView = itemView.findViewById(R.id.text_tv_movie_name)
+        internal val textDesc: TextView = itemView.findViewById(R.id.text_tv_rate)
     }
 }

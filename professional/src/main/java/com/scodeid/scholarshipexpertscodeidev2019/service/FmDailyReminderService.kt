@@ -23,10 +23,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint
-import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueMainActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
+import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import org.json.JSONObject
 import java.text.SimpleDateFormat

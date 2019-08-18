@@ -13,6 +13,18 @@
         tools:context=".homeInitView.MovieCatalogueMainActivity"
         >
     <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_video_unavailable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/error_503_be_right_back_https_image_tmdb_org"
+            android:textAllCaps="false"
+            android:autoLink="web"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+    <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_no_videos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

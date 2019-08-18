@@ -36,11 +36,6 @@ class ApiEndPoint {
         const val SERVER_MOVIES = "https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language={LANGUAGE}"
         const val SERVER_TV_SHOW = "https://api.themoviedb.org/3/discover/tv?api_key={API_KEY}&language={LANGUAGE}"
 
-        /**
-         * SIZE IMAGE
-         * w92, w154, w185, w342, w500, w780, dan original.
-         */
-        const val POSTER_IMAGE = "https://image.tmdb.org/t/p/"
 
         const val SEARCH_MOVIES =
             "https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&language={LANGUAGE}&query={QUERY_MOVIE_NAME}"

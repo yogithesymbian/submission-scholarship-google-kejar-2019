@@ -14,13 +14,12 @@ import android.os.HandlerThread
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteTvAdapter
-import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
-import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.tvMapCursorToArrayList
-import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadTvProvCallBack
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.TvProvModel
 import com.scodeid.scholarshipexpertscodeidev2019personal.R
+import com.scodeid.scholarshipexpertscodeidev2019personal.adapter.ConsFavTvAdapter
+import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_TV
+import com.scodeid.yomoviecommon.helper.MappingHelper.tvMapCursorToArrayList
+import com.scodeid.yomoviecommon.interfaceFavorite.LoadTvProvCallBack
+import com.scodeid.yomoviecommon.model.favorite.TvProvModel
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite_tv.*
 import java.lang.ref.WeakReference
@@ -33,7 +32,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         val TAG_LOG: String = MainFavoriteTvActivity::class.java.simpleName
     }
 
-    private lateinit var favoriteAdapter: FavoriteTvAdapter
+    private lateinit var favoriteAdapter: ConsFavTvAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +48,7 @@ class MainFavoriteTvActivity : AppCompatActivity(),
         val myObserver = DataObserverTv(handler, this)
         contentResolver.registerContentObserver(CONTENT_URI_TV, true, myObserver)
 
-        favoriteAdapter = FavoriteTvAdapter(this)
+        favoriteAdapter = ConsFavTvAdapter(this)
         recycler_favorite_tv.adapter = favoriteAdapter
 
         if (savedInstanceState == null) {

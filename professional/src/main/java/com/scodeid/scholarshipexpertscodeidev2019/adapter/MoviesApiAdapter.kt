@@ -21,11 +21,11 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.ItemClickRecyclerSupport
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment
 import com.scodeid.scholarshipexpertscodeidev2019.homeFirstView.MoviesWapiHomeFragment.Companion.insertFavoriteMovie
 import com.scodeid.scholarshipexpertscodeidev2019.homeInitView.MovieCatalogueDetailActivity
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
+import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.fragment_movies_home_recycler.view.*

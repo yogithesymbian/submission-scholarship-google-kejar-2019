@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.scodeid.scholarshipexpertscodeidev2019.R
-import com.scodeid.scholarshipexpertscodeidev2019.api.ApiEndPoint.Companion.POSTER_IMAGE
 import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesTvShowApiData
+import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_blue.*
 import kotlinx.android.synthetic.main.fragment_movies_tv_show_detail_head.*

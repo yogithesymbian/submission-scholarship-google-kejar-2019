@@ -81,18 +81,18 @@ class MovieTvShowViewModel : ViewModel() {
 
                             arrayListMovieTvShow.add(
                                 MoviesTvShowApiData(
-                                    jsonObject.getString("original_name"),
+                                    jsonObject.optString("original_name"),
                                     jsonObject.getInt("id"),
-                                    jsonObject.getString("name"),
+                                    jsonObject.optString("name"),
                                     jsonObject.getDouble("popularity"),
                                     jsonObject.getInt("vote_count"),
                                     jsonObject.getDouble("vote_average"),
                                     jsonObject.optString("first_air_date"),
-                                    jsonObject.getString("poster_path"),
+                                    jsonObject.optString("poster_path"),
                                     arrayListOf(jsonObject.getString("genre_ids")),
-                                    jsonObject.getString("original_language"),
-                                    jsonObject.getString("backdrop_path"),
-                                    jsonObject.getString("overview"),
+                                    jsonObject.optString("original_language"),
+                                    jsonObject.optString("backdrop_path"),
+                                    jsonObject.optString("overview"),
                                     arrayListOf(jsonObject.getString("origin_country"))
                                 )
                             )
@@ -177,19 +177,19 @@ class MovieTvShowViewModel : ViewModel() {
 
                         arrayListMovieTvShow.add(
                             MoviesTvShowApiData(
-                                jsonObject.getString("original_name"),
+                                jsonObject.optString("original_name"),
                                 jsonObject.getInt("id"),
-                                jsonObject.getString("name"),
+                                jsonObject.optString("name"),
                                 jsonObject.getDouble("popularity"),
                                 jsonObject.getInt("vote_count"),
                                 jsonObject.getDouble("vote_average"),
                                 jsonObject.optString("first_air_date"),
-                                jsonObject.getString("poster_path"),
+                                jsonObject.optString("poster_path"),
                                 arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.getString("original_language"),
-                                jsonObject.getString("backdrop_path"),
-                                jsonObject.getString("overview"),
-                                arrayListOf(jsonObject.getString("origin_country"))
+                                jsonObject.optString("original_language"),
+                                jsonObject.optString("backdrop_path"),
+                                jsonObject.optString("overview"),
+                                arrayListOf(jsonObject.optString("origin_country"))
                             )
                         )
 

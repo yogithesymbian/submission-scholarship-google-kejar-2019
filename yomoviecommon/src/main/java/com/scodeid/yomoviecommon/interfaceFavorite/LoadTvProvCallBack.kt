@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite
+package com.scodeid.yomoviecommon.interfaceFavorite
 
 import android.database.Cursor
 

@@ -2,13 +2,11 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite
-
-import android.database.Cursor
+package com.scodeid.yomoviecommon.utils
 
 /**
  * @author
- * Created by scode on 11,August,2019
+ * Created by scode on 18,August,2019
  * Yogi Arif Widodo
  * www.dicoding.com/users/297307
  * www.github.com/yogithesymbian
@@ -28,7 +26,9 @@ ___ _   _| |__  _ __ ___ (_)___ ___(_) ___  _ __   | ___|
 |___/\__,_|_.__/|_| |_| |_|_|___/___/_|\___/|_| |_| |____/
 
  */
-interface LoadMovieProvCallBack {
-    fun preExecute()
-    fun postExecute(cursor: Cursor)
-}
+
+/**
+ * SIZE IMAGE
+ * w92, w154, w185, w342, w500, w780, dan original.
+ */
+const val POSTER_IMAGE = "https://image.tmdb.org/t/p/"

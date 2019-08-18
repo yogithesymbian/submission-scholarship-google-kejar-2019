@@ -61,6 +61,7 @@ import com.scodeid.scholarshipexpertscodeidev2019.model.MoviesApiData
 import com.scodeid.scholarshipexpertscodeidev2019.notification.ComingSoonActivity
 import com.scodeid.scholarshipexpertscodeidev2019.setting.SettingsReminderActivity
 import com.scodeid.scholarshipexpertscodeidev2019.utils.*
+import com.scodeid.yomoviecommon.utils.POSTER_IMAGE
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import com.scodeid.yomoviecommon.utils.toastAllActivity
 import kotlinx.android.synthetic.main.activity_movie_catalogue_main.*
@@ -615,7 +616,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                                 \n
                                 message image : $imageMovie
                                 
-                                ${ApiEndPoint.POSTER_IMAGE}w185${imageMovie[1]}
+                                ${POSTER_IMAGE}w185${imageMovie[1]}
                             """.trimIndent()
                             )
                             val myImageGlide = Thread {
@@ -623,7 +624,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
 
                                 posterToBitmap = Glide.with(this@MovieCatalogueMainActivity)
                                     .asBitmap()
-                                    .load("${ApiEndPoint.POSTER_IMAGE}w185${imageMovie[1]}")
+                                    .load("${POSTER_IMAGE}w185${imageMovie[1]}")
                                     .submit()
 
                                 bitmap = posterToBitmap.get()
@@ -696,7 +697,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                 )
                 toastAllActivity(
                     this,
-                    getString(R.string.movie_catalogue_main_activity_release_movie)
+                    getString(R.string.movie_catalogue_main_activity_daily_token_movie)
                 )
 
                 isSubscribeCh1 = true

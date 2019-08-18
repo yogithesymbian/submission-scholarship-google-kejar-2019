@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.scodeid.scholarshipexpertscodeidev2019.R
 import com.scodeid.scholarshipexpertscodeidev2019.adapter.FavoriteAdapter
 import com.scodeid.yomoviecommon.database.ContractDatabase.MovieColumns.CONTENT_URI_MOVIE
-import com.scodeid.scholarshipexpertscodeidev2019.helper.MappingHelper.movieMapCursorToArrayList
-import com.scodeid.scholarshipexpertscodeidev2019.interfaceFavorite.LoadMovieProvCallBack
-import com.scodeid.scholarshipexpertscodeidev2019.model.favorite.MovieProvModel
+import com.scodeid.yomoviecommon.helper.MappingHelper.movieMapCursorToArrayList
+import com.scodeid.yomoviecommon.interfaceFavorite.LoadMovieProvCallBack
+import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
 import kotlinx.android.synthetic.main.activity_main_favorite.*
 import java.lang.ref.WeakReference

@@ -9,17 +9,22 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite.MainFavoriteMovieDetailActivity
 import com.scodeid.yomoviecommon.database.ContractDatabase
+import com.scodeid.yomoviecommon.model.favorite.MovieProvModel
 import com.scodeid.yomoviecommon.utils.debuggingMyScode
+import kotlinx.android.synthetic.main.fragment_movie_dialog.*
 import kotlinx.android.synthetic.main.item_movies_favorite.view.*
 import java.util.*
 

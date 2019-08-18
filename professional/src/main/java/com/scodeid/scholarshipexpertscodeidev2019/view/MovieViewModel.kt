@@ -87,16 +87,16 @@ class MovieViewModel : ViewModel() {
                                     jsonObject.getInt("id"),
                                     jsonObject.getBoolean("video"),
                                     jsonObject.getInt("vote_average"),
-                                    jsonObject.getString("title"),
+                                    jsonObject.optString("title"),
                                     jsonObject.getInt("popularity"),
-                                    jsonObject.getString("poster_path"),
-                                    jsonObject.getString("original_language"),
-                                    jsonObject.getString("original_title"),
+                                    jsonObject.optString("poster_path"),
+                                    jsonObject.optString("original_language"),
+                                    jsonObject.optString("original_title"),
                                     arrayListOf(jsonObject.getString("genre_ids")),
-                                    jsonObject.getString("backdrop_path"),
+                                    jsonObject.optString("backdrop_path"),
                                     jsonObject.getBoolean("adult"),
-                                    jsonObject.getString("overview"),
-                                    jsonObject.getString("release_date")
+                                    jsonObject.optString("overview"),
+                                    jsonObject.optString("release_date")
                                 )
                             )
 
@@ -184,16 +184,16 @@ class MovieViewModel : ViewModel() {
                                 jsonObject.getInt("id"),
                                 jsonObject.getBoolean("video"),
                                 jsonObject.getInt("vote_average"),
-                                jsonObject.getString("title"),
+                                jsonObject.optString("title"),
                                 jsonObject.getInt("popularity"),
-                                jsonObject.getString("poster_path"),
-                                jsonObject.getString("original_language"),
-                                jsonObject.getString("original_title"),
+                                jsonObject.optString("poster_path"),
+                                jsonObject.optString("original_language"),
+                                jsonObject.optString("original_title"),
                                 arrayListOf(jsonObject.getString("genre_ids")),
-                                jsonObject.getString("backdrop_path"),
+                                jsonObject.optString("backdrop_path"),
                                 jsonObject.getBoolean("adult"),
-                                jsonObject.getString("overview"),
-                                jsonObject.getString("release_date")
+                                jsonObject.optString("overview"),
+                                jsonObject.optString("release_date")
                             )
                         )
 

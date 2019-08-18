@@ -84,7 +84,8 @@
                 android:name=".setting.SettingsReminderActivity"
                 android:label="@string/title_activity_settings_reminder"
                 android:theme="@style/AppThemeSetting">
-        </activity> <!-- provider -->
+        </activity>
+        <!-- provider -->
         <provider
                 android:name=".provider.FavoriteContentProvider"
                 android:authorities="com.scodeid.scholarshipexpertscodeidev2019.homeFavorite"
