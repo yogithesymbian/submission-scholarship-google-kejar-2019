@@ -84,6 +84,9 @@
                 android:name=".setting.SettingsReminderActivity"
                 android:label="@string/title_activity_settings_reminder"
                 android:theme="@style/AppThemeSetting">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".homeInitView.MovieCatalogueMainActivity" />
         </activity>
         <!-- provider -->
         <provider
