@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.scodeid.scholarshipexpertscodeidev2019.CustomOnItemClickListener
+import com.scodeid.scholarshipexpertscodeidev2019personal.CustomOnItemClickListener
 import com.scodeid.scholarshipexpertscodeidev2019personal.R
 import com.scodeid.scholarshipexpertscodeidev2019personal.homeFavorite.MainFavoriteTvDetailActivity
 import com.scodeid.yomoviecommon.database.ContractDatabase

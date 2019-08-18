@@ -179,7 +179,7 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
         }
     }
 
-    var isThemeChecked: Boolean = false // stateTheme
+    private var isThemeChecked: Boolean = false // stateTheme
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val checkAble = menu?.findItem(R.id.nav_theme)
         checkAble?.isChecked = isThemeChecked // set default onPrepare is false checked

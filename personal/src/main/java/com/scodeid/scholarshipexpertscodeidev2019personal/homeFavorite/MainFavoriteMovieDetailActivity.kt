@@ -27,7 +27,6 @@ class MainFavoriteMovieDetailActivity : AppCompatActivity() {
         const val REQUEST_UPDATE = 200
 
 
-        val TAG_LOG: String = MainFavoriteMovieDetailActivity::class.java.simpleName
     }
 
     private var movieProvModel: MovieProvModel? = null

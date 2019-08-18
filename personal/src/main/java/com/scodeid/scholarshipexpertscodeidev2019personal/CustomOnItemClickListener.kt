@@ -2,7 +2,7 @@
  * Copyright (c) 2019. SCODEID
  */
 
-package com.scodeid.scholarshipexpertscodeidev2019
+package com.scodeid.scholarshipexpertscodeidev2019personal
 
 import android.view.View
 

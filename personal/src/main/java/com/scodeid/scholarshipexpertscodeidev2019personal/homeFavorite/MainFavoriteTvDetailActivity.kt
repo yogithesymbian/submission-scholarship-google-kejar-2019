@@ -27,7 +27,6 @@ class MainFavoriteTvDetailActivity : AppCompatActivity() {
 
         const val REQUEST_UPDATE = 200
 
-        val TAG_LOG: String = MainFavoriteTvDetailActivity::class.java.simpleName
     }
 
     private var tvProvModel: TvProvModel? = null
