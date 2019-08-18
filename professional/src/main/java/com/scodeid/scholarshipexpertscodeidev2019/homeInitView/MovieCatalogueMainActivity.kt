@@ -223,10 +223,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             R.color.darkTheme,
                             R.color.darkTheme
                         )
+                        isThemeChecked = true
                     } else
                         toastAllActivity(
                             this,
-                            "Error code 159120 / www.scode.id/159120.asp "
+                            getString(R.string.error_159120)
                         )
                 } else { // false | off checked
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -234,10 +235,11 @@ class MovieCatalogueMainActivity : AppCompatActivity(), NavigationView.OnNavigat
                             R.color.lightTheme,
                             R.color.lightTheme
                         )
+                        isThemeChecked = false
                     } else
                         toastAllActivity(
                             this,
-                            "Error code 159120 / www.scode.id/159120.asp "
+                            getString(R.string.error_159120)
                         )
                 }
 
